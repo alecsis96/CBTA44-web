@@ -11,6 +11,75 @@
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/public.css">
     <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+    <style>
+        .page-header {
+            background: var(--gradient-primary);
+            padding: calc(70px + var(--spacing-4xl)) 0 var(--spacing-4xl);
+            text-align: center;
+            color: var(--color-white);
+        }
+
+        .page-title {
+            font-size: var(--font-size-5xl);
+            color: var(--color-white);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .page-subtitle {
+            font-size: var(--font-size-xl);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .specialty-detail {
+            overflow: hidden;
+        }
+
+        .specialty-detail-image {
+            min-height: 400px;
+        }
+
+        .specialty-detail-content {
+            padding: var(--spacing-2xl) !important;
+        }
+
+        .specialty-detail-icon {
+            font-size: 4rem;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .specialty-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .specialty-list li {
+            padding: var(--spacing-sm) 0;
+            padding-left: var(--spacing-xl);
+            position: relative;
+        }
+
+        .specialty-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .specialty-detail .grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .specialty-detail-image {
+                min-height: 250px;
+            }
+
+            .specialty-detail-content {
+                padding: var(--spacing-lg) !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -41,281 +110,170 @@
         </nav>
     </header>
 
-    <!-- CTA -->
-    <!DOCTYPE html>
-    <html lang="es">
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Oferta Educativa</h1>
+            <p class="page-subtitle">Especialidades técnicas de calidad para tu futuro profesional</p>
+        </div>
+    </section>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description"
-            content="Conoce las especialidades técnicas del CBTA #44 - Ofimática, Agropecuario y Desarrollo Comunitario">
-        <title>Oferta Educativa - CBTA #44</title>
-
-        <link rel="stylesheet" href="../css/main.css">
-        <link rel="stylesheet" href="../css/public.css">
-        <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
-    </head>
-
-    <body>
-        <!-- HEADER -->
-        <header class="header" id="header">
-            <nav class="nav container">
-                <a href="../index.html" class="nav-brand">
-                    <img src="../assets/images/logo.svg" alt="CBTA #44" class="nav-logo">
-                    <span class="nav-title">CBTA #44</span>
-                </a>
-
-                <div class="nav-menu" id="navMenu">
-                    <ul class="nav-list">
-                        <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
-                        <li class="nav-item"><a href="oferta-educativa.html" class="nav-link active">Oferta
-                                Educativa</a>
-                        </li>
-                        <li class="nav-item"><a href="noticias.html" class="nav-link">Noticias</a></li>
-                        <li class="nav-item"><a href="galeria.html" class="nav-link">Galería</a></li>
-                        <li class="nav-item"><a href="admisiones.html" class="nav-link">Admisiones</a></li>
-                        <li class="nav-item"><a href="contacto.html" class="nav-link">Contacto</a></li>
-                    </ul>
-                    <a href="login.html" class="btn btn-primary nav-cta">Portal de Gestión</a>
-                </div>
-
-                <button class="nav-toggle" id="navToggle">
-                    <span class="nav-toggle-icon"></span>
-                </button>
-            </nav>
-        </header>
-
-        <!-- PAGE HEADER -->
-        <section class="page-header">
-            <div class="container">
-                <h1 class="page-title">Oferta Educativa</h1>
-                <p class="page-subtitle">Especialidades técnicas de calidad para tu futuro profesional</p>
-            </div>
-        </section>
-
-        <!-- ESPECIALIDADES -->
-        <section class="section">
-            <div class="container">
-                <!-- Ofimática -->
-                <div class="specialty-detail card mb-xl">
-                    <div class="grid grid-cols-2">
-                        <div class="specialty-detail-image"
-                            style="background: linear-gradient(135deg, rgba(42,122,226,0.9), rgba(46,160,139,0.9)), url('../assets/images/hero-2.jpg'); background-size: cover; background-position: center;">
-                        </div>
-                        <div class="specialty-detail-content card-body">
-                            <div class="specialty-detail-icon">💻</div>
-                            <h2>Técnico en Ofimática</h2>
-                            <p class="specialty-detail-desc">Desarrolla competencias en el manejo de herramientas
-                                digitales,
-                                software de oficina, procesamiento de información y tecnologías de comunicación
-                                empresarial.
-                            </p>
-
-                            <h4 class="mt-lg mb-sm">Competencias Profesionales:</h4>
-                            <ul class="specialty-list">
-                                <li>Manejo de suite ofimática (Word, Excel, PowerPoint)</li>
-                                <li>Procesamiento y gestión de información digital</li>
-                                <li>Diseño de presentaciones y documentos profesionales</li>
-                                <li>Administración de bases de datos básicas</li>
-                                <li>Comunicación digital y correo electrónico corporativo</li>
-                            </ul>
-
-                            <h4 class="mt-lg mb-sm">Campo Laboral:</h4>
-                            <p>Oficinas administrativas, empresas públicas y privadas, secretariado ejecutivo, áreas de
-                                recursos humanos, gestión documental.
-                            </p>
-                        </div>
+    <!-- ESPECIALIDADES -->
+    <section class="section">
+        <div class="container">
+            <!-- Ofimática -->
+            <div class="specialty-detail card mb-xl">
+                <div class="grid grid-cols-2">
+                    <div class="specialty-detail-image"
+                        style="background: linear-gradient(135deg, rgba(42,122,226,0.9), rgba(46,160,139,0.9)), url('../assets/images/computacion.png'); background-size: cover; background-position: center;">
                     </div>
-                </div>
+                    <div class="specialty-detail-content card-body">
+                        <div class="specialty-detail-icon">💻</div>
+                        <h2>Técnico en Ofimática</h2>
+                        <p class="specialty-detail-desc">Desarrolla competencias en el manejo de herramientas
+                            digitales,
+                            software de oficina, procesamiento de información y tecnologías de comunicación
+                            empresarial.
+                        </p>
 
-                <!-- Agropecuario -->
-                <div class="specialty-detail card mb-xl">
-                    <div class="grid grid-cols-2">
-                        <div class="specialty-detail-content card-body">
-                            <div class="specialty-detail-icon">🌾</div>
-                            <h2>Técnico Agropecuario</h2>
-                            <p class="specialty-detail-desc">Forma profesionales en producción agrícola y pecuaria
-                                sustentable, manejo de recursos naturales y desarrollo rural.</p>
+                        <h4 class="mt-lg mb-sm">Competencias Profesionales:</h4>
+                        <ul class="specialty-list">
+                            <li>Manejo de suite ofimática (Word, Excel, PowerPoint)</li>
+                            <li>Procesamiento y gestión de información digital</li>
+                            <li>Diseño de presentaciones y documentos profesionales</li>
+                            <li>Administración de bases de datos básicas</li>
+                            <li>Comunicación digital y correo electrónico corporativo</li>
+                        </ul>
 
-                            <h4 class="mt-lg mb-sm">Competencias Profesionales:</h4>
-                            <ul class="specialty-list">
-                                <li>Producción y manejo de cultivos</li>
-                                <li>Cría y manejo de ganado</li>
-                                <li>Agricultura sustentable</li>
-                                <li>Gestión de recursos naturales</li>
-                                <li>Técnicas de riego y fertilización</li>
-                            </ul>
-
-                            <h4 class="mt-lg mb-sm">Campo Laboral:</h4>
-                            <p>Ranchos y granjas, empresas agroindustriales, cooperativas agropecuarias, dependencias de
-                                desarrollo rural, emprendimiento agrícola.
-                            </p>
-                        </div>
-                        <div class="specialty-detail-image"
-                            style="background: linear-gradient(135deg, rgba(42,122,226,0.8), rgba(46,160,139,0.8)), url('../assets/images/agropecuario.jpg'); background-size: cover; background-position: center;">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Desarrollo Comunitario -->
-                <div class="specialty-detail card">
-                    <div class="grid grid-cols-2">
-                        <div class="specialty-detail-image"
-                            style="background: linear-gradient(135deg, rgba(42,122,226,0.9), rgba(46,160,139,0.9)), url('../assets/images/comunitario.jpg'); background-size: cover; background-position: center;">
-                        </div>
-                        <div class="specialty-detail-content card-body">
-                            <div class="specialty-detail-icon">🤝</div>
-                            <h2>Técnico en Desarrollo Comunitario</h2>
-                            <p class="specialty-detail-desc">Prepara agentes de cambio social capaces de identificar
-                                necesidades comunitarias, diseñar y gestionar proyectos de desarrollo social
-                                sustentable.
-                            </p>
-
-                            <h4 class="mt-lg mb-sm">Competencias Profesionales:</h4>
-                            <ul class="specialty-list">
-                                <li>Diagnóstico y análisis comunitario</li>
-                                <li>Gestión de proyectos sociales</li>
-                                <li>Organización y participación comunitaria</li>
-                                <li>Desarrollo sustentable local</li>
-                                <li>Gestión de recursos para proyectos sociales</li>
-                            </ul>
-
-                            <h4 class="mt-lg mb-sm">Campo Laboral:</h4>
-                            <p>ONGs, dependencias gubernamentales de desarrollo social, organizaciones comunitarias,
-                                cooperativas, fundaciones, gestión de programas sociales.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA -->
-        <section class="section cta-section">
-            <div class="container">
-                <div class="cta-content">
-                    <h2 class="cta-title">¿Listo para Elegir Tu Especialidad?</h2>
-                    <p class="cta-description">
-                        Inicia tu proceso de admisión y forma parte de la excelencia educativa del CBTA #44
-                    </p>
-                    <div class="cta-actions">
-                        <a href="admisiones.html" class="btn btn-primary btn-lg">Proceso de Admisión</a>
-                        <a href="contacto.html" class="btn btn-outline btn-lg">Solicitar Información</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- FOOTER -->
-        <footer class="footer">
-            <div class="container">
-                <div class="grid grid-cols-4 footer-grid">
-                    <div class="footer-section">
-                        <h4 class="footer-title">CBTA #44</h4>
-                        <p class="footer-text">
-                            Centro de Bachillerato Tecnológico comprometido con la excelencia educativa.
+                        <h4 class="mt-lg mb-sm">Campo Laboral:</h4>
+                        <p>Oficinas administrativas, empresas públicas y privadas, secretariado ejecutivo, áreas de
+                            recursos humanos, gestión documental.
                         </p>
                     </div>
-
-                    <div class="footer-section">
-                        <h4 class="footer-title">Enlaces Rápidos</h4>
-                        <ul class="footer-links">
-                            <li><a href="oferta-educativa.html">Oferta Educativa</a></li>
-                            <li><a href="admisiones.html">Admisiones</a></li>
-                            <li><a href="noticias.html">Noticias</a></li>
-                            <li><a href="galeria.html">Galería</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-section">
-                        <h4 class="footer-title">Contacto</h4>
-                        <ul class="footer-contacts">
-                            <li>📍 Calzada Linda Vista S/N, Yajalón, Mexico</li>
-                            <li>📞 919 674 0194</li>
-                            <li>✉️ chis.cbta044.direccion@dgetaycm.sems.gob.mx</li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-section">
-                        <h4 class="footer-title">Horarios</h4>
-                        <p class="footer-text">Lun - Vie: 7:00 AM - 2:00 PM</p>
-                    </div>
-                </div>
-
-                <div class="footer-bottom">
-                    <p>&copy; 2025 CBTA #44. Todos los derechos reservados.</p>
                 </div>
             </div>
-        </footer>
 
-        <script src="../js/main.js"></script>
-        <script src="../js/public.js"></script>
+            <!-- Agropecuario -->
+            <div class="specialty-detail card mb-xl">
+                <div class="grid grid-cols-2">
+                    <div class="specialty-detail-content card-body">
+                        <div class="specialty-detail-icon">🌾</div>
+                        <h2>Técnico Agropecuario</h2>
+                        <p class="specialty-detail-desc">Forma profesionales en producción agrícola y pecuaria
+                            sustentable, manejo de recursos naturales y desarrollo rural.</p>
 
-        <style>
-            .page-header {
-                background: var(--gradient-primary);
-                padding: calc(70px + var(--spacing-4xl)) 0 var(--spacing-4xl);
-                text-align: center;
-                color: var(--color-white);
-            }
+                        <h4 class="mt-lg mb-sm">Competencias Profesionales:</h4>
+                        <ul class="specialty-list">
+                            <li>Producción y manejo de cultivos</li>
+                            <li>Cría y manejo de ganado</li>
+                            <li>Agricultura sustentable</li>
+                            <li>Gestión de recursos naturales</li>
+                            <li>Técnicas de riego y fertilización</li>
+                        </ul>
 
-            .page-title {
-                font-size: var(--font-size-5xl);
-                color: var(--color-white);
-                margin-bottom: var(--spacing-md);
-            }
+                        <h4 class="mt-lg mb-sm">Campo Laboral:</h4>
+                        <p>Ranchos y granjas, empresas agroindustriales, cooperativas agropecuarias, dependencias de
+                            desarrollo rural, emprendimiento agrícola.
+                        </p>
+                    </div>
+                    <div class="specialty-detail-image"
+                        style="background: linear-gradient(135deg, rgba(42,122,226,0.8), rgba(46,160,139,0.8)), url('../assets/images/agropecuario.jpg'); background-size: cover; background-position: center;">
+                    </div>
+                </div>
+            </div>
 
-            .page-subtitle {
-                font-size: var(--font-size-xl);
-                color: rgba(255, 255, 255, 0.9);
-            }
+            <!-- Desarrollo Comunitario -->
+            <div class="specialty-detail card">
+                <div class="grid grid-cols-2">
+                    <div class="specialty-detail-image"
+                        style="background: linear-gradient(135deg, rgba(42,122,226,0.9), rgba(46,160,139,0.9)), url('../assets/images/comunitario.jpg'); background-size: cover; background-position: center;">
+                    </div>
+                    <div class="specialty-detail-content card-body">
+                        <div class="specialty-detail-icon">🤝</div>
+                        <h2>Técnico en Desarrollo Comunitario</h2>
+                        <p class="specialty-detail-desc">Prepara agentes de cambio social capaces de identificar
+                            necesidades comunitarias, diseñar y gestionar proyectos de desarrollo social
+                            sustentable.
+                        </p>
 
-            .specialty-detail {
-                overflow: hidden;
-            }
+                        <h4 class="mt-lg mb-sm">Competencias Profesionales:</h4>
+                        <ul class="specialty-list">
+                            <li>Diagnóstico y análisis comunitario</li>
+                            <li>Gestión de proyectos sociales</li>
+                            <li>Organización y participación comunitaria</li>
+                            <li>Desarrollo sustentable local</li>
+                            <li>Gestión de recursos para proyectos sociales</li>
+                        </ul>
 
-            .specialty-detail-image {
-                min-height: 400px;
-            }
+                        <h4 class="mt-lg mb-sm">Campo Laboral:</h4>
+                        <p>ONGs, dependencias gubernamentales de desarrollo social, organizaciones comunitarias,
+                            cooperativas, fundaciones, gestión de programas sociales.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            .specialty-detail-content {
-                padding: var(--spacing-2xl) !important;
-            }
+    <!-- CTA -->
+    <section class="section cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">¿Listo para Elegir Tu Especialidad?</h2>
+                <p class="cta-description">
+                    Inicia tu proceso de admisión y forma parte de la excelencia educativa del CBTA #44
+                </p>
+                <div class="cta-actions">
+                    <a href="admisiones.html" class="btn btn-primary btn-lg">Proceso de Admisión</a>
+                    <a href="contacto.html" class="btn btn-outline btn-lg">Solicitar Información</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            .specialty-detail-icon {
-                font-size: 4rem;
-                margin-bottom: var(--spacing-lg);
-            }
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="grid grid-cols-4 footer-grid">
+                <div class="footer-section">
+                    <h4 class="footer-title">CBTA #44</h4>
+                    <p class="footer-text">
+                        Centro de Bachillerato Tecnológico comprometido con la excelencia educativa.
+                    </p>
+                </div>
 
-            .specialty-list {
-                list-style: none;
-                padding-left: 0;
-            }
+                <div class="footer-section">
+                    <h4 class="footer-title">Enlaces Rápidos</h4>
+                    <ul class="footer-links">
+                        <li><a href="oferta-educativa.html">Oferta Educativa</a></li>
+                        <li><a href="admisiones.html">Admisiones</a></li>
+                        <li><a href="noticias.html">Noticias</a></li>
+                        <li><a href="galeria.html">Galería</a></li>
+                    </ul>
+                </div>
 
-            .specialty-list li {
-                padding: var(--spacing-sm) 0;
-                padding-left: var(--spacing-xl);
-                position: relative;
-            }
+                <div class="footer-section">
+                    <h4 class="footer-title">Contacto</h4>
+                    <ul class="footer-contacts">
+                        <li>📍 Calzada Linda Vista S/N, Yajalón, Mexico</li>
+                        <li>📞 919 674 0194</li>
+                        <li>✉️ chis.cbta044.direccion@dgetaycm.sems.gob.mx</li>
+                    </ul>
+                </div>
 
-            .specialty-list li::before {
-                content: '✓';
-                position: absolute;
-                left: 0;
-                color: var(--color-primary);
-                font-weight: bold;
-            }
+                <div class="footer-section">
+                    <h4 class="footer-title">Horarios</h4>
+                    <p class="footer-text">Lun - Vie: 7:00 AM - 2:00 PM</p>
+                </div>
+            </div>
 
-            @media (max-width: 768px) {
-                .specialty-detail .grid {
-                    grid-template-columns: 1fr !important;
-                }
+            <div class="footer-bottom">
+                <p>&copy; 2025 CBTA #44. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
 
-                .specialty-detail-image {
-                    min-height: 250px;
-                }
-            }
-        </style>
-    </body>
+    <script src="../js/main.js"></script>
+    <script src="../js/public.js"></script>
+</body>
 
-    </html>
+</html>

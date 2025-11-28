@@ -8,10 +8,10 @@
  * Formatea una fecha a formato legible en español
  */
 function formatDate(date) {
-  const options = { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
   };
   return new Date(date).toLocaleDateString('es-MX', options);
 }
@@ -20,10 +20,10 @@ function formatDate(date) {
  * Formatea una fecha a formato corto
  */
 function formatDateShort(date) {
-  const options = { 
-    year: 'numeric', 
-    month: '2-digit', 
-    day: '2-digit' 
+  const options = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
   };
   return new Date(date).toLocaleDateString('es-MX', options);
 }
@@ -51,7 +51,7 @@ function showNotification(message, type = 'info') {
   const notification = document.createElement('div');
   notification.className = `notification notification-${type}`;
   notification.textContent = message;
-  
+
   notification.style.cssText = `
     position: fixed;
     top: 90px;
@@ -64,9 +64,9 @@ function showNotification(message, type = 'info') {
     z-index: 10000;
     animation: slideInRight 0.3s ease-out;
   `;
-  
+
   document.body.appendChild(notification);
-  
+
   setTimeout(() => {
     notification.style.animation = 'fadeOut 0.3s ease-out';
     setTimeout(() => notification.remove(), 300);
@@ -137,7 +137,7 @@ function smoothScrollTo(element) {
   if (typeof element === 'string') {
     element = document.querySelector(element);
   }
-  
+
   if (element) {
     element.scrollIntoView({
       behavior: 'smooth',
@@ -166,7 +166,7 @@ function animateCounter(element, target, duration = 2000) {
   const start = 0;
   const increment = target / (duration / 16);
   let current = start;
-  
+
   const timer = setInterval(() => {
     current += increment;
     if (current >= target) {
@@ -183,7 +183,7 @@ function animateCounter(element, target, duration = 2000) {
  */
 function lazyLoadImages() {
   const images = document.querySelectorAll('img[data-src]');
-  
+
   const imageObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -194,7 +194,7 @@ function lazyLoadImages() {
       }
     });
   });
-  
+
   images.forEach(img => imageObserver.observe(img));
 }
 
@@ -204,15 +204,33 @@ document.addEventListener('DOMContentLoaded', () => {
   if ('IntersectionObserver' in window) {
     lazyLoadImages();
   }
-  
+
   // Smooth scroll para enlaces internos
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+    anchor.addEventListener('click', function (e) {
       const href = this.getAttribute('href');
       if (href && href !== '#') {
         e.preventDefault();
         smoothScrollTo(href);
       }
+    });
+  });
+
+  // Mobile Menu Toggle
+  const navToggle = document.getElementById('navToggle');
+  const navMenu = document.getElementById('navMenu');
+
+  if (navToggle && navMenu) {
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('show-menu');
+    });
+  }
+
+  // Close menu when clicking a link
+  const navLinks = document.querySelectorAll('.nav-link');
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (navMenu) navMenu.classList.remove('show-menu');
     });
   });
 });
