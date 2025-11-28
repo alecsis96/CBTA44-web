@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Noticias y eventos del CBTA #44 - Mantente informado de las últimas actividades">
+    <title>Noticias y Eventos - CBTA #44</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/public.css">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="../index.html" class="nav-brand">
+                <img src="../assets/images/logo.svg" alt="CBTA #44" class="nav-logo">
+                <span class="nav-title">CBTA #44</span>
+            </a>
+
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
+                    <li class="nav-item"><a href="oferta-educativa.html" class="nav-link">Oferta Educativa</a></li>
+                    <li class="nav-item"><a href="noticias.html" class="nav-link active">Noticias</a></li>
+                    <li class="nav-item"><a href="galeria.html" class="nav-link">Galería</a></li>
+                    <li class="nav-item"><a href="admisiones.html" class="nav-link">Admisiones</a></li>
+                    <li class="nav-item"><a href="contacto.html" class="nav-link">Contacto</a></li>
+                </ul>
+                <a href="login.html" class="btn btn-primary nav-cta">Portal de Gestión</a>
+            </div>
+
+            <button class="nav-toggle" id="navToggle">
+                <span class="nav-toggle-icon"></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Noticias y Eventos</h1>
+            <p class="page-subtitle">Mantente informado de lo que sucede en nuestra comunidad</p>
+        </div>
+    </section>
+
+    <!-- CONTENT -->
+    <section class="section">
+        <div class="container">
+            <div class="grid grid-cols-3 gap-xl">
+                <!-- NOTICIAS -->
+                <div class="noticias-column">
+                    <h2 class="mb-xl">Últimas Noticias</h2>
+
+                    <div id="newsContainer">
+                        <!-- Carga dinámica -->
+                        <div style="text-align: center; padding: 2rem;">
+                            <p>Cargando noticias...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CALENDARIO DE EVENTOS -->
+                <div class="eventos-column">
+                    <h2 class="mb-xl">Próximos Eventos</h2>
+
+                    <div class="calendar-card card mb-lg">
+                        <div class="card-header">
+                            <h3 style="margin: 0;">Enero 2024</h3>
+                        </div>
+                        <div class="card-body" id="eventCalendar">
+                            <!-- El contenido se cargará dinámicamente con JS -->
+                        </div>
+                    </div>
+
+                    <!-- Categorías -->
+                    <div class="card mb-lg">
+                        <div class="card-header">
+                            <h3 style="margin: 0;">Categorías</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="categories-list">
+                                <a href="#" class="category-item">
+                                    <span>Académico</span>
+                                    <span class="badge badge-primary">12</span>
+                                </a>
+                                <a href="#" class="category-item">
+                                    <span>Logros</span>
+                                    <span class="badge badge-success">8</span>
+                                </a>
+                                <a href="#" class="category-item">
+                                    <span>Anuncios</span>
+                                    <span class="badge badge-warning">15</span>
+                                </a>
+                                <a href="#" class="category-item">
+                                    <span>Eventos</span>
+                                    <span class="badge badge-info">6</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Búsqueda -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="mb-md">Buscar Noticias</h4>
+                            <div class="search-box">
+                                <input type="text" class="form-input" placeholder="Buscar...">
+                                <button class="btn btn-primary" style="margin-top: var(--spacing-sm);">Buscar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="grid grid-cols-4 footer-grid">
+                <div class="footer-section">
+                    <h4 class="footer-title">CBTA #44</h4>
+                    <p class="footer-text">
+                        Centro de Bachillerato Tecnológico comprometido con la excelencia educativa.
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Enlaces Rápidos</h4>
+                    <ul class="footer-links">
+                        <li><a href="oferta-educativa.html">Oferta Educativa</a></li>
+                        <li><a href="admisiones.html">Admisiones</a></li>
+                        <li><a href="noticias.html">Noticias</a></li>
+                        <li><a href="galeria.html">Galería</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Contacto</h4>
+                    <ul class="footer-contacts">
+                        <li>📍 Calzada Linda Vista S/N, Yajalón, Mexico</li>
+                        <li>📞 919 674 0194</li>
+                        <li>✉️ chis.cbta044.direccion@dgetaycm.sems.gob.mx</li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Horarios</h4>
+                    <p class="footer-text">Lun - Vie: 7:00 AM - 2:00 PM</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 CBTA #44. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+
+    <script>
+        async function loadPublicNews() {
+            const container = document.getElementById('newsContainer');
+
+            try {
+                const { data: noticias, error } = await window.supabaseClient
+                    .from('noticias')
+                    .select('*')
+                    .order('fecha_publicacion', { ascending: false });
+
+                if (error) throw error;
+
+                if (!noticias || noticias.length === 0) {
+                    container.innerHTML = '<p>No hay noticias recientes.</p>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                noticias.forEach(news => {
+                    const date = new Date(news.fecha_publicacion).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+                    const badgeClass = {
+                        'Académico': 'badge-primary',
+                        'Logros': 'badge-success',
+                        'Anuncio': 'badge-warning',
+                        'Tecnología': 'badge-info',
+                        'Eventos': 'badge-info',
+                        'Otro': 'badge-secondary'
+                    }[news.categoria] || 'badge-primary';
+
+                    const article = document.createElement('article');
+                    article.className = 'news-card card mb-lg';
+                    article.innerHTML = `
+                        <div class="news-image"
+                            style="background: var(--gradient-primary); height: 200px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                            ${news.imagen_url ? `<img src="${news.imagen_url}" style="width: 100%; height: 100%; object-fit: cover;" alt="${news.titulo}">` : '<span style="font-size: 4rem;">📰</span>'}
+                        </div>
+                        <div class="card-body">
+                            <div class="news-meta">
+                                <span class="badge ${badgeClass}">${news.categoria}</span>
+                                <span class="news-date">${date}</span>
+                            </div>
+                            <h3 class="news-title mb-md">${news.titulo}</h3>
+                            <p class="news-excerpt">
+                                ${news.resumen || ''}
+                            </p>
+                            <button class="btn btn-ghost btn-sm" onclick="alert('Funcionalidad de detalle pendiente')">Leer más →</button>
+                        </div>
+                    `;
+                    container.appendChild(article);
+                });
+
+            } catch (error) {
+                console.error('Error cargando noticias:', error);
+                container.innerHTML = '<p>Error al cargar las noticias.</p>';
+            }
+        }
+
+        // Cargar al iniciar
+        document.addEventListener('DOMContentLoaded', loadPublicNews);
+    </script>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/public.js"></script>
+
+    <style>
+        .page-header {
+            background: var(--gradient-primary);
+            padding: calc(70px + var(--spacing-4xl)) 0 var(--spacing-4xl);
+            text-align: center;
+            color: var(--color-white);
+        }
+
+        .page-title {
+            font-size: var(--font-size-5xl);
+            color: var(--color-white);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .page-subtitle {
+            font-size: var(--font-size-xl);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .noticias-column {
+            grid-column: span 2;
+        }
+
+        .news-card {
+            overflow: hidden;
+        }
+
+        .news-image {
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .news-date {
+            color: var(--color-gray-500);
+            font-size: var(--font-size-sm);
+        }
+
+        .news-title {
+            font-size: var(--font-size-xl);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .news-excerpt {
+            color: var(--color-gray-600);
+            line-height: var(--line-height-relaxed);
+        }
+
+        .categories-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .category-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-md);
+            background: var(--color-gray-50);
+            border-radius: var(--radius-md);
+            color: var(--color-gray-800);
+            transition: all var(--transition-base);
+        }
+
+        .category-item:hover {
+            background: var(--color-gray-200);
+            transform: translateX(4px);
+        }
+
+        .event-date {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--gradient-primary);
+            color: white;
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            min-width: 70px;
+            text-align: center;
+        }
+
+        .event-month {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            text-transform: uppercase;
+        }
+
+        .event-day {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            line-height: 1;
+            margin-top: 4px;
+        }
+
+        .event-info {
+            flex: 1;
+        }
+
+        .event-title {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        @media (max-width: 1024px) {
+            .noticias-column {
+                grid-column: span 1;
+            }
+
+            .grid-cols-3 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid-cols-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+
+</html>

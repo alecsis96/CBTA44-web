@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Acceso al Portal de Gestión - CBTA #44">
+    <title>Portal de Gestión - CBTA #44</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+
+    <style>
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #2A7AE2 0%, #2EA08B 100%);
+            padding: var(--spacing-lg);
+        }
+
+        .login-container {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .quick-access {
+            margin-bottom: var(--spacing-2xl);
+            background: rgba(255, 255, 255, 0.95);
+            padding: var(--spacing-2xl);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-2xl);
+        }
+
+        .quick-access h2 {
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-gray-900);
+        }
+
+        .quick-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-md);
+        }
+
+        .quick-btn {
+            padding: var(--spacing-xl);
+            color: white;
+            border: none;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quick-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Colores específicos por rol */
+        .btn-admin {
+            background: linear-gradient(135deg, #4F46E5 0%, #3B82F6 100%);
+        }
+
+        .btn-docente {
+            background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+        }
+
+        .btn-alumno {
+            background: linear-gradient(135deg, #EA580C 0%, #F97316 100%);
+        }
+
+        .quick-btn strong {
+            display: block;
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .quick-btn small {
+            display: block;
+            opacity: 0.9;
+            font-size: var(--font-size-sm);
+        }
+
+        @media (max-width: 768px) {
+            .quick-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-page">
+        <div class="login-container">
+            <!-- ACCESO RÁPIDO -->
+            <div class="quick-access">
+                <h2>🔐 Acceso Rápido al Portal</h2>
+                <p style="text-align: center; margin-bottom: var(--spacing-xl); color: var(--color-gray-600);">
+                    Haz clic en tu rol para ingresar automáticamente
+                </p>
+
+                <div class="quick-buttons">
+                    <button class="quick-btn btn-admin" onclick="quickLogin('admin')">
+                        <strong>👨‍💼 Administrador</strong>
+                        <small>Vista completa del sistema</small>
+                    </button>
+
+                    <button class="quick-btn btn-docente" onclick="quickLogin('docente')">
+                        <strong>👨‍🏫 Docente</strong>
+                        <small>Gestión de grupos y calificaciones</small>
+                    </button>
+
+                    <button class="quick-btn btn-alumno" onclick="quickLogin('alumno')">
+                        <strong>🎓 Alumno</strong>
+                        <small>Consulta calificaciones y materiales</small>
+                    </button>
+                </div>
+
+                <div
+                    style="text-align: center; margin-top: var(--spacing-xl); padding-top: var(--spacing-xl); border-top: 1px solid var(--color-gray-200);">
+                    <a href="../index.html" class="btn btn-ghost">← Volver al Sitio Público</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+
+    <!-- Scripts de la aplicación -->
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+
+    <script>
+        async function quickLogin(role) {
+            console.log('📝 QuickLogin iniciado para rol:', role);
+            const credentials = {
+                'admin': { email: 'admin@cbta44.edu.mx', password: 'Admin123!', type: 'admin' },
+                'docente': { email: 'docente@cbta44.edu.mx', password: 'Docente123!', type: 'docente' },
+                'alumno': { email: 'alumno@cbta44.edu.mx', password: 'Alumno123!', type: 'alumno' },
+            };
+
+            const cred = credentials[role];
+
+            try {
+                console.log('🔐 Intentando login con:', cred.email);
+                const user = await authManager.login(cred.email, cred.password, cred.type);
+
+                console.log('✅ Login exitoso, usuario:', user);
+
+                if (window.CBTA44Utils && window.CBTA44Utils.showNotification) {
+                    window.CBTA44Utils.showNotification(`¡Bienvenido, ${user.name}!`, 'success');
+                }
+
+                // Redirigir inmediatamente
+                console.log('🚀 Redirigiendo AHORA...');
+                authManager.redirectToDashboard();
+
+            } catch (error) {
+                console.error('❌ Error en quickLogin:', error);
+                alert('Error al iniciar sesión: ' + error.message);
+            }
+        }
+    </script>
+</body>
+
+</html>

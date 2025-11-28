@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Padre de Familia | CBTA #44</title>
+
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/portal.css">
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon.svg">
+</head>
+
+<body>
+    <div class="portal-layout">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="../../assets/images/logo.svg" alt="CBTA #44" class="sidebar-logo">
+                <div>
+                    <div class="sidebar-title">CBTA #44</div>
+                    <div class="sidebar-subtitle">Portal Padres</div>
+                </div>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="user-info">
+                    <div class="user-avatar">RG</div>
+                    <div class="user-details">
+                        <h4 id="userName">Roberto González</h4>
+                        <p>Padre de Familia</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Principal</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="dashboard.html" class="nav-link-item active">
+                                <span class="nav-icon">📊</span>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Mi Hijo/a</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">📝</span>
+                                <span>Calificaciones</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">📋</span>
+                                <span>Asistencia</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">📅</span>
+                                <span>Horario</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Servicios</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">💳</span>
+                                <span>Pagos</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">💬</span>
+                                <span>Mensajes</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn btn-outline" id="logoutBtn"
+                    style="width: 100%; color: white; border-color: rgba(255,255,255,0.3);">
+                    Cerrar Sesión
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <header class="portal-header">
+                <h1 class="portal-title">Dashboard</h1>
+                <div class="portal-actions">
+                    <button class="btn btn-ghost">
+                        <span style="position: relative;">
+                            🔔
+                            <span class="notification-badge">1</span>
+                        </span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="portal-content">
+                <!-- INFORMACIÓN DEL HIJO/A -->
+                <div class="card mb-xl" style="background: var(--gradient-primary); color: white;">
+                    <div class="card-body">
+                        <h3 style="color: white; margin-bottom: var(--spacing-md);">Información del Estudiante</h3>
+                        <div class="grid grid-cols-2" style="gap: var(--spacing-lg);">
+                            <div>
+                                <p
+                                    style="margin: 0 0 var(--spacing-xs) 0; color: rgba(255,255,255,0.8); font-size: var(--font-size-sm);">
+                                    Nombre</p>
+                                <p style="margin: 0 0 var(--spacing-md) 0; font-size: var(--font-size-lg); font-weight: bold;"
+                                    id="studentName">María Fernanda González López</p>
+
+                                <p
+                                    style="margin: 0 0 var(--spacing-xs) 0; color: rgba(255,255,255,0.8); font-size: var(--font-size-sm);">
+                                    Matrícula</p>
+                                <p style="margin: 0; font-size: var(--font-size-lg);" id="studentMatricula">202301001
+                                </p>
+                            </div>
+                            <div>
+                                <p
+                                    style="margin: 0 0 var(--spacing-xs) 0; color: rgba(255,255,255,0.8); font-size: var(--font-size-sm);">
+                                    Grado y Grupo</p>
+                                <p style="margin: 0 0 var(--spacing-md) 0; font-size: var(--font-size-lg);">5° Semestre
+                                    - Grupo A</p>
+
+                                <p
+                                    style="margin: 0 0 var(--spacing-xs) 0; color: rgba(255,255,255,0.8); font-size: var(--font-size-sm);">
+                                    Especialidad</p>
+                                <p style="margin: 0; font-size: var(--font-size-lg);">Programación</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MÉTRICAS DE RENDIMIENTO -->
+                <h2 class="mb-lg">Rendimiento Académico</h2>
+                <div class="dashboard-grid mb-2xl">
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <h3>9.5</h3>
+                            <p>Promedio General</p>
+                        </div>
+                        <div class="metric-icon success">📊</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <h3>98%</h3>
+                            <p>Asistencia</p>
+                        </div>
+                        <div class="metric-icon primary">✓</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <h3>8</h3>
+                            <p>Materias Cursando</p>
+                        </div>
+                        <div class="metric-icon warning">📚</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <h3>0</h3>
+                            <p>Materias Reprobadas</p>
+                        </div>
+                        <div class="metric-icon success">✓</div>
+                    </div>
+                </div>
+
+                <!-- ALERTAS -->
+                <div class="card mb-2xl" style="border-left: 4px solid var(--color-success);">
+                    <div class="card-body">
+                        <h4 class="mb-md">✓ Estado: Excelente</h4>
+                        <p style="margin: 0; color: var(--color-gray-700);">Su hijo/a está teniendo un desempeño
+                            excelente. Mantiene un promedio sobresaliente y asistencia regular.</p>
+                    </div>
+                </div>
+
+                <!-- CALIFICACIONES DEL HIJO/A -->
+                <div class="portal-table">
+                    <div class="table-header">
+                        <h3>Calificaciones del Periodo Actual</h3>
+                        <button class="btn btn-ghost btn-sm">Descargar Reporte</button>
+                    </div>
+                    <div id="gradesTable"></div>
+                </div>
+
+                <!-- PRÓXIMOS EVENTOS -->
+                <h2 class="mt-2xl mb-lg">Próximos Eventos</h2>
+                <div class="grid grid-cols-3 gap-lg">
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="font-size: 2rem; margin-bottom: var(--spacing-md);">📝</div>
+                            <h4 style="margin-bottom: var(--spacing-sm);">Examen Parcial 3</h4>
+                            <p style="margin: 0; color: var(--color-gray-600); font-size: var(--font-size-sm);">26 de
+                                Febrero, 2024</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="font-size: 2rem; margin-bottom: var(--spacing-md);">👥</div>
+                            <h4 style="margin-bottom: var(--spacing-sm);">Junta de Padres</h4>
+                            <p style="margin: 0; color: var(--color-gray-600); font-size: var(--font-size-sm);">28 de
+                                Febrero, 2024</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="font-size: 2rem; margin-bottom: var(--spacing-md);">💳</div>
+                            <h4 style="margin-bottom: var(--spacing-sm);">Pago de Colegiatura</h4>
+                            <p style="margin: 0; color: var(--color-danger); font-size: var(--font-size-sm);">Vence: 5
+                                de Marzo, 2024</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../../js/supabase-config.js"></script>
+
+    <!-- Scripts de la aplicación -->
+    <script src="../../js/main.js"></script>
+    <script src="../../js/auth.js?v=2"></script>
+    <script src="../../js/portal.js"></script>
+
+    <script>
+        // Esperar a que authManager esté listo
+        async function initDashboard() {
+            console.log('🔄 Esperando inicialización de authManager...');
+
+            // Esperar para que authManager.init() termine
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
+            console.log('✅ Verificando autenticación...');
+            if (!authManager.requireAuth(['padre'])) {
+                console.log('❌ No autenticado, redirigiendo...');
+                // Redirigir si no está autenticado
+            } else {
+                const user = authManager.getCurrentUser();
+                console.log('✅ Usuario autenticado:', user);
+                document.getElementById('userName').textContent = user.name;
+                document.getElementById('studentName').textContent = user.hijo.nombre;
+                document.getElementById('studentMatricula').textContent = user.hijo.matricula;
+
+                // Renderizar calificaciones del hijo/a
+                window.PortalUtils.renderGradesTable(user.hijo.matricula, 'gradesTable');
+            }
+        }
+
+        // Ejecutar cuando se carga la página
+        initDashboard();
+
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+                authManager.logout();
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Galería - Administrador | CBTA #44</title>
+
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/portal.css">
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon.svg">
+</head>
+
+<body>
+    <div class="portal-layout">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="../../assets/images/logo.svg" alt="CBTA #44" class="sidebar-logo">
+                <div>
+                    <div class="sidebar-title">CBTA #44</div>
+                    <div class="sidebar-subtitle">Panel Administrador</div>
+                </div>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="user-info">
+                    <div class="user-avatar">AG</div>
+                    <div class="user-details">
+                        <h4 id="userName">Administrador General</h4>
+                        <p>Administrador</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Principal</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="dashboard.html" class="nav-link-item">
+                                <span class="nav-icon">📊</span>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Comunicación</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="noticias.html" class="nav-link-item">
+                                <span class="nav-icon">📰</span>
+                                <span>Noticias</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="galeria.html" class="nav-link-item active">
+                                <span class="nav-icon">🖼️</span>
+                                <span>Galería</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn btn-outline" id="logoutBtn"
+                    style="width: 100%; color: white; border-color: rgba(255,255,255,0.3);">
+                    Cerrar Sesión
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- HEADER -->
+            <header class="portal-header">
+                <h1 class="portal-title">Gestión de Galería</h1>
+                <div class="portal-actions">
+                    <button class="btn btn-primary" onclick="openModal()">
+                        ➕ Nueva Imagen
+                    </button>
+                </div>
+            </header>
+
+            <!-- CONTENT -->
+            <div class="portal-content">
+                <div class="portal-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Título</th>
+                                <th>Categoría</th>
+                                <th>Fecha</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="galleryTableBody">
+                            <!-- Dynamic content -->
+                            <tr>
+                                <td colspan="5" style="text-align: center;">Cargando galería...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="galleryModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Nueva Imagen</h3>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="galleryForm">
+                    <input type="hidden" id="galleryId">
+
+                    <div class="form-group">
+                        <label class="form-label">Título</label>
+                        <input type="text" class="form-input" id="galleryTitle" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Categoría</label>
+                        <select class="form-input" id="galleryCategory" required>
+                            <option value="instalaciones">Instalaciones</option>
+                            <option value="eventos">Eventos</option>
+                            <option value="laboratorios">Laboratorios</option>
+                            <option value="deportes">Deportes</option>
+                            <option value="graduaciones">Graduaciones</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Imágenes</label>
+                        <input type="file" class="form-input" id="galleryImageFile" accept="image/*" multiple>
+                        <input type="hidden" id="galleryImageUrl">
+                        <div id="imagePreview"
+                            style="margin-top: 10px; display: none; display: flex; flex-wrap: wrap; gap: 10px;">
+                            <!-- Previews will be inserted here -->
+                        </div>
+                        <small style="color: var(--color-gray-500);">Formatos: JPG, PNG, WEBP. Máx 2MB por archivo.
+                            Puedes seleccionar múltiples imágenes.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Descripción (Opcional)</label>
+                        <textarea class="form-input" id="galleryDescription" rows="3"></textarea>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="saveBtn">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../../js/supabase-config.js"></script>
+
+    <!-- Scripts -->
+    <script src="../../js/main.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/admin-gallery.js"></script>
+
+    <script>
+        // Modal logic
+        const modal = document.getElementById('galleryModal');
+        const imageInput = document.getElementById('galleryImageFile');
+        const imagePreview = document.getElementById('imagePreview');
+
+        // Preview image
+        imageInput.addEventListener('change', function (e) {
+            imagePreview.innerHTML = ''; // Clear previous previews
+            const files = e.target.files;
+
+            if (files.length > 0) {
+                imagePreview.style.display = 'flex';
+
+                Array.from(files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.style.width = '100px';
+                        img.style.height = '100px';
+                        img.style.objectFit = 'cover';
+                        img.style.borderRadius = '8px';
+                        imagePreview.appendChild(img);
+                    }
+                    reader.readAsDataURL(file);
+                });
+            } else {
+                imagePreview.style.display = 'none';
+            }
+        });
+
+        window.openModal = function (id = null) {
+            const title = document.getElementById('modalTitle');
+            const form = document.getElementById('galleryForm');
+            const imageInput = document.getElementById('galleryImageFile');
+
+            if (id) {
+                title.textContent = 'Editar Imagen';
+                imageInput.removeAttribute('multiple'); // Edit mode: single file
+            } else {
+                title.textContent = 'Nueva Imagen';
+                imageInput.setAttribute('multiple', ''); // New mode: multiple files
+                form.reset();
+                document.getElementById('galleryId').value = '';
+                document.getElementById('galleryImageUrl').value = '';
+                imagePreview.innerHTML = '';
+                imagePreview.style.display = 'none';
+            }
+            modal.classList.add('active');
+        };
+
+        window.closeModal = function () {
+            modal.classList.remove('active');
+        };
+
+        // Auth check and load data
+        async function init() {
+            if (authManager.requireAuth(['admin'])) {
+                const user = authManager.getCurrentUser();
+                if (user) {
+                    document.getElementById('userName').textContent = user.name;
+                    if (window.loadGallery) {
+                        window.loadGallery();
+                    }
+                }
+            }
+        }
+
+        // Wait for auth to initialize
+        setTimeout(init, 1000);
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            if (confirm('¿Cerrar sesión?')) authManager.logout();
+        });
+    </script>
+</body>
+
+</html>

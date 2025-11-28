@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Galería de fotos y videos del CBTA #44 - Conoce nuestras instalaciones y actividades">
+    <title>Galería - CBTA #44</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/public.css">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="../index.html" class="nav-brand">
+                <img src="../assets/images/logo.svg" alt="CBTA #44" class="nav-logo">
+                <span class="nav-title">CBTA #44</span>
+            </a>
+
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
+                    <li class="nav-item"><a href="oferta-educativa.html" class="nav-link">Oferta Educativa</a></li>
+                    <li class="nav-item"><a href="noticias.html" class="nav-link">Noticias</a></li>
+                    <li class="nav-item"><a href="galeria.html" class="nav-link active">Galería</a></li>
+                    <li class="nav-item"><a href="admisiones.html" class="nav-link">Admisiones</a></li>
+                    <li class="nav-item"><a href="contacto.html" class="nav-link">Contacto</a></li>
+                </ul>
+                <a href="login.html" class="btn btn-primary nav-cta">Portal de Gestión</a>
+            </div>
+
+            <button class="nav-toggle" id="navToggle">
+                <span class="nav-toggle-icon"></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Galería Multimedia</h1>
+            <p class="page-subtitle">Descubre la vida en el CBTA #44</p>
+        </div>
+    </section>
+
+    <!-- FILTROS -->
+    <section class="section" style="padding-bottom: var(--spacing-xl);">
+        <div class="container">
+            <div class="gallery-filters">
+                <button class="filter-btn active" data-filter="all">Todas</button>
+                <button class="filter-btn" data-filter="instalaciones">Instalaciones</button>
+                <button class="filter-btn" data-filter="eventos">Eventos</button>
+                <button class="filter-btn" data-filter="laboratorios">Laboratorios</button>
+                <button class="filter-btn" data-filter="deportes">Deportes</button>
+                <button class="filter-btn" data-filter="graduaciones">Graduaciones</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="gallery-grid">
+                <!-- Contenido dinámico -->
+                <p style="grid-column: 1/-1; text-align: center;">Cargando galería...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="grid grid-cols-4 footer-grid">
+                <div class="footer-section">
+                    <h4 class="footer-title">CBTA #44</h4>
+                    <p class="footer-text">
+                        Centro de Bachillerato Tecnológico comprometido con la excelencia educativa.
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Enlaces Rápidos</h4>
+                    <ul class="footer-links">
+                        <li><a href="oferta-educativa.html">Oferta Educativa</a></li>
+                        <li><a href="admisiones.html">Admisiones</a></li>
+                        <li><a href="noticias.html">Noticias</a></li>
+                        <li><a href="galeria.html">Galería</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Contacto</h4>
+                    <ul class="footer-contacts">
+                        <li>📍 Calzada Linda Vista S/N, Yajalón, Mexico</li>
+                        <li>📞 919 674 0194</li>
+                        <li>✉️ chis.cbta044.direccion@dgetaycm.sems.gob.mx</li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Horarios</h4>
+                    <p class="footer-text">Lun - Vie: 7:00 AM - 2:00 PM</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 CBTA #44. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/public.js"></script>
+
+    <script>
+        // Cargar galería dinámica
+        async function loadGallery() {
+            const galleryGrid = document.querySelector('.gallery-grid');
+
+            try {
+                const { data: items, error } = await window.supabaseClient
+                    .from('galeria')
+                    .select('*')
+                    .order('fecha_publicacion', { ascending: false });
+
+                if (error) throw error;
+
+                if (!items || items.length === 0) {
+                    galleryGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">No hay imágenes en la galería.</p>';
+                    return;
+                }
+
+                galleryGrid.innerHTML = '';
+                items.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'gallery-item';
+                    div.setAttribute('data-category', item.categoria);
+
+                    div.innerHTML = `
+                        <img src="${item.imagen_url}" alt="${item.titulo}" class="gallery-image" onerror="this.src='../assets/images/placeholder.jpg'">
+                        <div class="gallery-overlay">
+                            <h4>${item.titulo}</h4>
+                            <p>${item.descripcion || item.categoria}</p>
+                        </div>
+                    `;
+                    galleryGrid.appendChild(div);
+                });
+
+                // Reinicializar filtros
+                initFilters();
+
+            } catch (error) {
+                console.error('Error cargando galería:', error);
+                galleryGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">Error al cargar la galería.</p>';
+            }
+        }
+
+        // Filtros de galería
+        function initFilters() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
+            filterButtons.forEach(button => {
+                // Remover listeners anteriores para evitar duplicados
+                const newButton = button.cloneNode(true);
+                button.parentNode.replaceChild(newButton, button);
+
+                newButton.addEventListener('click', () => {
+                    // Actualizar botón activo
+                    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                    newButton.classList.add('active');
+
+                    // Filtrar elementos
+                    const filter = newButton.getAttribute('data-filter');
+                    const currentItems = document.querySelectorAll('.gallery-item');
+
+                    currentItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.style.display = 'block';
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'scale(1)';
+                            }, 10);
+                        } else {
+                            item.style.opacity = '0';
+                            item.style.transform = 'scale(0.8)';
+                            setTimeout(() => {
+                                item.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+        }
+
+        // Cargar al inicio
+        document.addEventListener('DOMContentLoaded', loadGallery);
+    </script>
+
+    <style>
+        .page-header {
+            background: var(--gradient-primary);
+            padding: calc(70px + var(--spacing-4xl)) 0 var(--spacing-4xl);
+            text-align: center;
+            color: var(--color-white);
+        }
+
+        .page-title {
+            font-size: var(--font-size-5xl);
+            color: var(--color-white);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .page-subtitle {
+            font-size: var(--font-size-xl);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+
+        .filter-btn {
+            padding: var(--spacing-md) var(--spacing-xl);
+            background: var(--color-gray-200);
+            color: var(--color-gray-700);
+            border: none;
+            border-radius: var(--radius-lg);
+            font-weight: var(--font-weight-semibold);
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .filter-btn:hover {
+            background: var(--color-gray-300);
+        }
+
+        .filter-btn.active {
+            background: var(--gradient-primary);
+            color: var(--color-white);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-xl);
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .gallery-item img,
+        .gallery-placeholder {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+
+        .gallery-item:hover img,
+        .gallery-item:hover .gallery-placeholder {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+            color: white;
+            padding: var(--spacing-xl);
+            transform: translateY(100%);
+            transition: transform var(--transition-base);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-overlay h4 {
+            margin: 0 0 var(--spacing-xs) 0;
+            color: white;
+            font-size: var(--font-size-lg);
+        }
+
+        .gallery-overlay p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: var(--font-size-sm);
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+    </style>
+</body>
+
+</html>

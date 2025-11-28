@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Reparar Docente</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f0f2f5;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #status {
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h2>🛠️ Reparar Usuario Docente</h2>
+        <p>Este script corregirá el ID del docente en la base de datos para que coincida con el sistema de login.</p>
+        <button onclick="fixDocente()">Ejecutar Reparación</button>
+        <div id="status"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script>
+        // IDs
+        const WRONG_ID = 'd04fcd31-8d82-4f31-a71b-acb318e0b1f2'; // El que está en la DB
+        const RIGHT_ID = 'd04fcd31-8d82-4f31-a71b-acb318e0b112'; // El que está en Auth
+
+        async function fixDocente() {
+            const status = document.getElementById('status');
+            status.textContent = 'Procesando...';
+            status.className = '';
+
+            try {
+                // 1. Actualizar grupos_materias (si existe referencia)
+                const { error: err1 } = await supabaseClient
+                    .from('grupos_materias')
+                    .update({ docente_id: RIGHT_ID })
+                    .eq('docente_id', WRONG_ID);
+
+                if (err1) console.warn('Paso 1 (grupos_materias):', err1);
+
+                // 2. Actualizar docentes
+                const { error: err2 } = await supabaseClient
+                    .from('docentes')
+                    .update({ id: RIGHT_ID })
+                    .eq('id', WRONG_ID);
+
+                if (err2) throw new Error('Error actualizando tabla docentes: ' + err2.message);
+
+                // 3. Actualizar perfiles
+                const { error: err3 } = await supabaseClient
+                    .from('perfiles')
+                    .update({ id: RIGHT_ID })
+                    .eq('id', WRONG_ID);
+
+                if (err3) throw new Error('Error actualizando tabla perfiles: ' + err3.message);
+
+                status.textContent = '✅ ¡Reparación exitosa! Ya puedes entrar como Docente.';
+                status.className = 'success';
+
+            } catch (error) {
+                console.error(error);
+                status.textContent = '❌ Error: ' + error.message;
+                status.className = 'error';
+            }
+        }
+    </script>
+</body>
+
+</html>

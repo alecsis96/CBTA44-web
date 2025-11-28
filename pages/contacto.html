@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contacta con el CBTA #44 - Ubicación, teléfonos, correo y formulario de contacto">
+    <title>Contacto - CBTA #44</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/public.css">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="../index.html" class="nav-brand">
+                <img src="../assets/images/logo.svg" alt="CBTA #44" class="nav-logo">
+                <span class="nav-title">CBTA #44</span>
+            </a>
+
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
+                    <li class="nav-item"><a href="oferta-educativa.html" class="nav-link">Oferta Educativa</a></li>
+                    <li class="nav-item"><a href="noticias.html" class="nav-link">Noticias</a></li>
+                    <li class="nav-item"><a href="galeria.html" class="nav-link">Galería</a></li>
+                    <li class="nav-item"><a href="admisiones.html" class="nav-link">Admisiones</a></li>
+                    <li class="nav-item"><a href="contacto.html" class="nav-link active">Contacto</a></li>
+                </ul>
+                <a href="login.html" class="btn btn-primary nav-cta">Portal de Gestión</a>
+            </div>
+
+            <button class="nav-toggle" id="navToggle">
+                <span class="nav-toggle-icon"></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Contáctanos</h1>
+            <p class="page-subtitle">Estamos aquí para ayudarte</p>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="section">
+        <div class="container">
+            <div class="grid grid-cols-2 gap-xl">
+                <!-- INFORMACIÓN DE CONTACTO -->
+                <div>
+                    <h2 class="mb-lg">Información de Contacto</h2>
+
+                    <div class="contact-info-card card mb-lg">
+                        <div class="card-body">
+                            <div class="contact-info-item">
+                                <div class="contact-info-icon">📍</div>
+                                <div>
+                                    <h4>Ubicación</h4>
+                                    <p>Calzada Linda Vista S/N<br>Yajalón, Mexico</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card card mb-lg">
+                        <div class="card-body">
+                            <div class="contact-info-item">
+                                <div class="contact-info-icon">📞</div>
+                                <div>
+                                    <h4>Teléfono</h4>
+                                    <p>
+                                        Teléfono: 919 674 0194
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card card mb-lg">
+                        <div class="card-body">
+                            <div class="contact-info-item">
+                                <div class="contact-info-icon">✉️</div>
+                                <div>
+                                    <h4>Correo Electrónico</h4>
+                                    <p>
+                                        General: chis.cbta044.direccion@dgetaycm.sems.gob.mx<br>
+                                        Admisiones: admisiones@cbta44.edu.mx<br>
+                                        Servicios Escolares: escolares@cbta44.edu.mx
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card card">
+                        <div class="card-body">
+                            <div class="contact-info-item">
+                                <div class="contact-info-icon">🕐</div>
+                                <div>
+                                    <h4>Horario de Atención</h4>
+                                    <p>
+                                        Lunes a Viernes: 7:00 AM - 2:00 PM
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FORMULARIO DE CONTACTO -->
+                <div>
+                    <h2 class="mb-lg">Envíanos un Mensaje</h2>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="contactForm" class="contact-form">
+                                <div class="form-group">
+                                    <label for="nombre" class="form-label">Nombre Completo *</label>
+                                    <input type="text" id="nombre" name="nombre" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Correo Electrónico *</label>
+                                    <input type="email" id="email" name="email" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="telefono" class="form-label">Teléfono</label>
+                                    <input type="tel" id="telefono" name="telefono" class="form-input">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="asunto" class="form-label">Asunto *</label>
+                                    <select id="asunto" name="asunto" class="form-select" required>
+                                        <option value="">Selecciona un asunto</option>
+                                        <option value="informacion-general">Información General</option>
+                                        <option value="admisiones">Proceso de Admisión</option>
+                                        <option value="especialidades">Especialidades</option>
+                                        <option value="servicios-escolares">Servicios Escolares</option>
+                                        <option value="otro">Otro</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="mensaje" class="form-label">Mensaje *</label>
+                                    <textarea id="mensaje" name="mensaje" class="form-textarea" required></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+                                    Enviar Mensaje
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAPA -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <h2 class="text-center mb-xl">Ubicación en el Mapa</h2>
+            <div class="map-container">
+                <!-- Google Maps Embed -->
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.845926645726!2d-99.17786908509445!3d19.40394814632297!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff35f5bd1563%3A0x6c366f0e2de02ff7!2sCiudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses!2smx!4v1234567890123!5m2!1ses!2smx"
+                    width="100%" height="450" style="border:0; border-radius: var(--radius-xl);" allowfullscreen=""
+                    loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="grid grid-cols-4 footer-grid">
+                <div class="footer-section">
+                    <h4 class="footer-title">CBTA #44</h4>
+                    <p class="footer-text">
+                        Centro de Bachillerato Tecnológico comprometido con la excelencia educativa.
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Enlaces Rápidos</h4>
+                    <ul class="footer-links">
+                        <li><a href="oferta-educativa.html">Oferta Educativa</a></li>
+                        <li><a href="admisiones.html">Admisiones</a></li>
+                        <li><a href="noticias.html">Noticias</a></li>
+                        <li><a href="galeria.html">Galería</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Contacto</h4>
+                    <ul class="footer-contacts">
+                        <li>📍 Calzada Linda Vista S/N, Yajalón, Mexico</li>
+                        <li>📞 919 674 0194</li>
+                        <li>✉️ chis.cbta044.direccion@dgetaycm.sems.gob.mx</li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Horarios</h4>
+                    <p class="footer-text">Lun - Vie: 7:00 AM - 2:00 PM</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 CBTA #44. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/public.js"></script>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.textContent;
+
+            btn.textContent = 'Enviando...';
+            btn.disabled = true;
+
+            // Simular envío
+            setTimeout(() => {
+                alert('¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.');
+                this.reset();
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }, 1500);
+        });
+    </script>
+
+    <style>
+        .page-header {
+            background: var(--gradient-primary);
+            padding: calc(70px + var(--spacing-4xl)) 0 var(--spacing-4xl);
+            text-align: center;
+            color: var(--color-white);
+        }
+
+        .page-title {
+            font-size: var(--font-size-5xl);
+            color: var(--color-white);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .page-subtitle {
+            font-size: var(--font-size-xl);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .contact-info-card {
+            transition: all var(--transition-base);
+        }
+
+        .contact-info-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .contact-info-item {
+            display: flex;
+            gap: var(--spacing-lg);
+        }
+
+        .contact-info-icon {
+            font-size: 3rem;
+            flex-shrink: 0;
+        }
+
+        .map-container {
+            box-shadow: var(--shadow-xl);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .grid-cols-2 {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
+</body>
+
+</html>

@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Noticias - Administrador | CBTA #44</title>
+
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/portal.css">
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon.svg">
+    <style>
+        .news-image-preview {
+            width: 100px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-weight: 500;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: var(--spacing-sm);
+            border: 1px solid var(--color-gray-300);
+            border-radius: var(--radius-md);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="portal-layout">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="../../assets/images/logo.svg" alt="CBTA #44" class="sidebar-logo">
+                <div>
+                    <div class="sidebar-title">CBTA #44</div>
+                    <div class="sidebar-subtitle">Panel Administrador</div>
+                </div>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="user-info">
+                    <div class="user-avatar">AG</div>
+                    <div class="user-details">
+                        <h4 id="userName">Administrador General</h4>
+                        <p>Administrador</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Principal</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="dashboard.html" class="nav-link-item">
+                                <span class="nav-icon">📊</span>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Gestión</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">👥</span>
+                                <span>Usuarios</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">👨‍🏫</span>
+                                <span>Docentes</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">🎓</span>
+                                <span>Alumnos</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">📚</span>
+                                <span>Grupos y Materias</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Académico</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">📝</span>
+                                <span>Calificaciones</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">📅</span>
+                                <span>Horarios</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">📋</span>
+                                <span>Reportes</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Comunicación</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="noticias.html" class="nav-link-item active">
+                                <span class="nav-icon">📰</span>
+                                <span>Noticias</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Configuración</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">⚙️</span>
+                                <span>Configuración</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn btn-outline" id="logoutBtn"
+                    style="width: 100%; color: white; border-color: rgba(255,255,255,0.3);">
+                    Cerrar Sesión
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- HEADER -->
+            <header class="portal-header">
+                <h1 class="portal-title">Gestión de Noticias</h1>
+                <div class="portal-actions">
+                    <button class="btn btn-primary" onclick="openModal()">
+                        ➕ Nueva Noticia
+                    </button>
+                </div>
+            </header>
+
+            <!-- CONTENT -->
+            <div class="portal-content">
+                <div class="portal-table">
+                    <div class="table-header">
+                        <h3>Listado de Noticias</h3>
+                        <div class="search-box">
+                            <input type="text" placeholder="Buscar noticia..."
+                                style="padding: 5px; border-radius: 4px; border: 1px solid #ddd;">
+                        </div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Título</th>
+                                <th>Categoría</th>
+                                <th>Fecha</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="newsTableBody">
+                            <!-- Contenido dinámico -->
+                            <tr>
+                                <td colspan="5" style="text-align: center;">Cargando noticias...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal" id="newsModal">
+        <div class="modal-content">
+            <h2 class="mb-lg" id="modalTitle">Nueva Noticia</h2>
+            <form id="newsForm">
+                <input type="hidden" id="newsId">
+
+                <div class="form-group">
+                    <label class="form-label">Título</label>
+                    <input type="text" class="form-input" id="newsTitle" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Categoría</label>
+                    <select class="form-select" id="newsCategory" required>
+                        <option value="Académico">Académico</option>
+                        <option value="Logros">Logros</option>
+                        <option value="Anuncio">Anuncio</option>
+                        <option value="Tecnología">Tecnología</option>
+                        <option value="Eventos">Eventos</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Resumen</label>
+                    <textarea class="form-textarea" id="newsSummary" rows="2" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Contenido Completo</label>
+                    <textarea class="form-textarea" id="newsContent" rows="5" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">URL de Imagen</label>
+                    <input type="url" class="form-input" id="newsImage" placeholder="https://ejemplo.com/imagen.jpg">
+                    <small style="color: #666;">Por ahora usa una URL de imagen externa.</small>
+                </div>
+
+                <div class="flex justify-end gap-md mt-xl">
+                    <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- SIDEBAR TOGGLE for mobile -->
+    <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../../js/supabase-config.js"></script>
+
+    <!-- Scripts de la aplicación -->
+    <script src="../../js/main.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/portal.js"></script>
+    <script src="../../js/admin-news.js"></script>
+
+    <script>
+        // Inicialización básica
+        async function initPage() {
+            if (!authManager.requireAuth(['admin'])) return;
+
+            const user = authManager.getCurrentUser();
+            if (user) {
+                document.getElementById('userName').textContent = user.name;
+            }
+
+            // Cargar noticias
+            if (window.loadNews) {
+                window.loadNews();
+            }
+        }
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+                authManager.logout();
+            }
+        });
+
+        // Modal functions
+        window.openModal = function (id = null) {
+            const modal = document.getElementById('newsModal');
+            const form = document.getElementById('newsForm');
+            const title = document.getElementById('modalTitle');
+
+            if (id) {
+                title.textContent = 'Editar Noticia';
+                // Los datos se cargarán en admin-news.js
+            } else {
+                title.textContent = 'Nueva Noticia';
+                form.reset();
+                document.getElementById('newsId').value = '';
+            }
+
+            modal.classList.add('active');
+        };
+
+        window.closeModal = function () {
+            document.getElementById('newsModal').classList.remove('active');
+        };
+
+        // Close modal on outside click
+        document.getElementById('newsModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('newsModal')) {
+                closeModal();
+            }
+        });
+
+        // Init
+        setTimeout(initPage, 1000);
+    </script>
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Noticias - Administrador | CBTA #44</title>
+
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/portal.css">
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon.svg">
+    <style>
+        .news-image-preview {
+            width: 100px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-weight: 500;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: var(--spacing-sm);
+            border: 1px solid var(--color-gray-300);
+            border-radius: var(--radius-md);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="portal-layout">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="../../assets/images/logo.svg" alt="CBTA #44" class="sidebar-logo">
+                <div>
+                    <div class="sidebar-title">CBTA #44</div>
+                    <div class="sidebar-subtitle">Panel Administrador</div>
+                </div>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="user-info">
+                    <div class="user-avatar">AG</div>
+                    <div class="user-details">
+                        <h4 id="userName">Administrador General</h4>
+                        <p>Administrador</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Principal</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="dashboard.html" class="nav-link-item">
+                                <span class="nav-icon">📊</span>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Gestión</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">👥</span>
+                                <span>Usuarios</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">👨‍🏫</span>
+                                <span>Docentes</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">🎓</span>
+                                <span>Alumnos</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">📚</span>
+                                <span>Grupos y Materias</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Académico</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">📝</span>
+                                <span>Calificaciones</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">📅</span>
+                                <span>Horarios</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">📋</span>
+                                <span>Reportes</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Comunicación</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="noticias.html" class="nav-link-item active">
+                                <span class="nav-icon">📰</span>
+                                <span>Noticias</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Configuración</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">⚙️</span>
+                                <span>Configuración</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn btn-outline" id="logoutBtn"
+                    style="width: 100%; color: white; border-color: rgba(255,255,255,0.3);">
+                    Cerrar Sesión
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- HEADER -->
+            <header class="portal-header">
+                <h1 class="portal-title">Gestión de Noticias</h1>
+                <div class="portal-actions">
+                    <button class="btn btn-primary" onclick="openModal()">
+                        ➕ Nueva Noticia
+                    </button>
+                </div>
+            </header>
+
+            <!-- CONTENT -->
+            <div class="portal-content">
+                <div class="portal-table">
+                    <div class="table-header">
+                        <h3>Listado de Noticias</h3>
+                        <div class="search-box">
+                            <input type="text" placeholder="Buscar noticia..."
+                                style="padding: 5px; border-radius: 4px; border: 1px solid #ddd;">
+                        </div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Título</th>
+                                <th>Categoría</th>
+                                <th>Fecha</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="newsTableBody">
+                            <!-- Contenido dinámico -->
+                            <tr>
+                                <td colspan="5" style="text-align: center;">Cargando noticias...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal" id="newsModal">
+        <div class="modal-content">
+            <h2 class="mb-lg" id="modalTitle">Nueva Noticia</h2>
+            <form id="newsForm">
+                <input type="hidden" id="newsId">
+
+                <div class="form-group">
+                    <label class="form-label">Título</label>
+                    <input type="text" class="form-input" id="newsTitle" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Categoría</label>
+                    <select class="form-select" id="newsCategory" required>
+                        <option value="Académico">Académico</option>
+                        <option value="Logros">Logros</option>
+                        <option value="Anuncio">Anuncio</option>
+                        <option value="Tecnología">Tecnología</option>
+                        <option value="Eventos">Eventos</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Resumen</label>
+                    <textarea class="form-textarea" id="newsSummary" rows="2" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Contenido Completo</label>
+                    <textarea class="form-textarea" id="newsContent" rows="5" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">URL de Imagen</label>
+                    <input type="url" class="form-input" id="newsImage" placeholder="https://ejemplo.com/imagen.jpg">
+                    <small style="color: #666;">Por ahora usa una URL de imagen externa.</small>
+                </div>
+
+                <div class="flex justify-end gap-md mt-xl">
+                    <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- SIDEBAR TOGGLE for mobile -->
+    <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../../js/supabase-config.js"></script>
+
+    <!-- Scripts de la aplicación -->
+    <script src="../../js/main.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/portal.js"></script>
+    <script src="../../js/admin-news.js"></script>
+
+    <script>
+        // Inicialización básica
+        async function initPage() {
+            if (!authManager.requireAuth(['admin'])) return;
+
+            const user = authManager.getCurrentUser();
+            if (user) {
+                document.getElementById('userName').textContent = user.name;
+            }
+
+            // Cargar noticias
+            if (window.loadNews) {
+                window.loadNews();
+            }
+        }
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+                authManager.logout();
+            }
+        });
+
+        // Modal functions
+        window.openModal = function (id = null) {
+            const modal = document.getElementById('newsModal');
+            const form = document.getElementById('newsForm');
+            const title = document.getElementById('modalTitle');
+
+            if (id) {
+                title.textContent = 'Editar Noticia';
+                // Los datos se cargarán en admin-news.js
+            } else {
+                title.textContent = 'Nueva Noticia';
+                form.reset();
+                document.getElementById('newsId').value = '';
+            }
+
+            modal.classList.add('active');
+        };
+
+        window.closeModal = function () {
+            document.getElementById('newsModal').classList.remove('active');
+        };
+
+        // Close modal on outside click
+        document.getElementById('newsModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('newsModal')) {
+                closeModal();
+            }
+        });
+
+        // Init
+        setTimeout(initPage, 1000);
+    </script>
+</body>
+
+</html>

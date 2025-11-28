@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Administrador | CBTA #44</title>
+
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/portal.css">
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon.svg">
+</head>
+
+<body>
+    <div class="portal-layout">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="../../assets/images/logo.svg" alt="CBTA #44" class="sidebar-logo">
+                <div>
+                    <div class="sidebar-title">CBTA #44</div>
+                    <div class="sidebar-subtitle">Panel Administrador</div>
+                </div>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="user-info">
+                    <div class="user-avatar">AG</div>
+                    <div class="user-details">
+                        <h4 id="userName">Administrador General</h4>
+                        <p>Administrador</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Principal</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="dashboard.html" class="nav-link-item active">
+                                <span class="nav-icon">📊</span>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Gestión</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">👥</span>
+                                <span>Usuarios</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">👨‍🏫</span>
+                                <span>Docentes</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">🎓</span>
+                                <span>Alumnos</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">📚</span>
+                                <span>Grupos y Materias</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Académico</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">📝</span>
+                                <span>Calificaciones</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">📅</span>
+                                <span>Horarios</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">📋</span>
+                                <span>Reportes</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Comunicación</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="noticias.html" class="nav-link-item">
+                                <span class="nav-icon">📰</span>
+                                <span>Noticias</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Multimedia</div>
+                    <ul>
+                        <li class="nav-item">
+                            <a href="galeria.html" class="nav-link-item">
+                                <span class="nav-icon">📸</span>
+                                <span>Galería</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Configuración</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">⚙️</span>
+                                <span>Configuración</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn btn-outline" id="logoutBtn"
+                    style="width: 100%; color: white; border-color: rgba(255,255,255,0.3);">
+                    Cerrar Sesión
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- HEADER -->
+            <header class="portal-header">
+                <h1 class="portal-title">Dashboard</h1>
+                <div class="portal-actions">
+                    <button class="btn btn-ghost">
+                        <span style="position: relative;">
+                            🔔
+                            <span class="notification-badge">3</span>
+                        </span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- CONTENT -->
+            <div class="portal-content">
+                <!-- METRICS -->
+                <div class="dashboard-grid">
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <h3>1,234</h3>
+                            <p>Total Alumnos</p>
+                        </div>
+                        <div class="metric-icon primary">🎓</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <h3>85</h3>
+                            <p>Docentes</p>
+                        </div>
+                        <div class="metric-icon success">👨‍🏫</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <h3>42</h3>
+                            <p>Grupos Activos</p>
+                        </div>
+                        <div class="metric-icon warning">📚</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <h3>98%</h3>
+                            <p>Asistencia Promedio</p>
+                        </div>
+                        <div class="metric-icon danger">📊</div>
+                    </div>
+                </div>
+
+                <!-- QUICK ACTIONS -->
+                <h2 class="mb-lg">Acciones Rápidas</h2>
+                <div class="quick-actions mb-2xl">
+                    <div class="quick-action-card">
+                        <div class="quick-action-icon">➕</div>
+                        <h4>Nuevo Alumno</h4>
+                    </div>
+                    <div class="quick-action-card">
+                        <div class="quick-action-icon">👥</div>
+                        <h4>Nuevo Grupo</h4>
+                    </div>
+                    <div class="quick-action-card">
+                        <div class="quick-action-icon">📝</div>
+                        <h4>Registrar Calificaciones</h4>
+                    </div>
+                    <div class="quick-action-card">
+                        <div class="quick-action-icon">📋</div>
+                        <h4>Generar Reporte</h4>
+                    </div>
+                </div>
+
+                <!-- RECENT ACTIVITY -->
+                <div class="portal-table">
+                    <div class="table-header">
+                        <h3>Actividad Reciente</h3>
+                        <button class="btn btn-ghost btn-sm">Ver Todas</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Acción</th>
+                                <th>Usuario</th>
+                                <th>Fecha</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Nuevo registro de alumno</td>
+                                <td>Prof. García</td>
+                                <td>Hoy, 10:30 AM</td>
+                                <td><span class="badge badge-success">Completado</span></td>
+                            </tr>
+                            <tr>
+                                <td>Actualización de calificaciones</td>
+                                <td>Prof. Martínez</td>
+                                <td>Hoy, 9:15 AM</td>
+                                <td><span class="badge badge-success">Completado</span></td>
+                            </tr>
+                            <tr>
+                                <td>Modificación de grupo</td>
+                                <td>Admin Sistema</td>
+                                <td>Ayer, 4:45 PM</td>
+                                <td><span class="badge badge-warning">Pendiente</span></td>
+                            </tr>
+                            <tr>
+                                <td>Nuevo horario publicado</td>
+                                <td>Prof. López</td>
+                                <td>Ayer, 2:30 PM</td>
+                                <td><span class="badge badge-success">Completado</span></td>
+                            </tr>
+                            <tr>
+                                <td>Solicitud de inscripción</td>
+                                <td>Sistema</td>
+                                <td>Ayer, 11:20 AM</td>
+                                <td><span class="badge badge-info">En Revisión</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- SIDEBAR TOGGLE for mobile -->
+    <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../../js/supabase-config.js"></script>
+
+    <!-- Scripts de la aplicación -->
+    <script src="../../js/main.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/portal.js"></script>
+
+    <script>
+        // Esperar a que authManager esté listo
+        async function initDashboard() {
+            console.log('🔄 Esperando inicialización de authManager...');
+
+            // Esperar un poco para que authManager.init() termine
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            console.log('✅ Verificando autenticación...');
+            if (!authManager.requireAuth(['admin'])) {
+                console.log('❌ No autenticado, redirigiendo...');
+                // Redirigir si no está autenticado
+            } else {
+                const user = authManager.getCurrentUser();
+                console.log('✅ Usuario autenticado:', user);
+                document.getElementById('userName').textContent = user.name;
+            }
+        }
+
+        // Ejecutar cuando se carga la página
+        initDashboard();
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+                authManager.logout();
+            }
+        });
+    </script>
+</body>
+
+</html>

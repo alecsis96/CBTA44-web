@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Alumno | CBTA #44</title>
+
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/portal.css">
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon.svg">
+</head>
+
+<body>
+    <div class="portal-layout">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="../../assets/images/logo.svg" alt="CBTA #44" class="sidebar-logo">
+                <div>
+                    <div class="sidebar-title">CBTA #44</div>
+                    <div class="sidebar-subtitle">Portal Estudiantil</div>
+                </div>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="user-info">
+                    <div class="user-avatar">MG</div>
+                    <div class="user-details">
+                        <h4 id="userName">María F. González</h4>
+                        <p>Matrícula: <span id="userMatricula">202301001</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Principal</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="dashboard.html" class="nav-link-item active">
+                                <span class="nav-icon">📊</span>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Académico</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">📝</span>
+                                <span>Calificaciones</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">📚</span>
+                                <span>Materiales</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">📅</span>
+                                <span>Horario</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">📋</span>
+                                <span>Kardex</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Servicios</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link-item">
+                                <span class="nav-icon">💳</span>
+                                <span>Pagos</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn btn-outline" id="logoutBtn"
+                    style="width: 100%; color: white; border-color: rgba(255,255,255,0.3);">
+                    Cerrar Sesión
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <header class="portal-header">
+                <h1 class="portal-title">Mi Dashboard</h1>
+                <div class="portal-actions">
+                    <button class="btn btn-ghost">
+                        <span style="position: relative;">
+                            🔔
+                            <span class="notification-badge">2</span>
+                        </span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="portal-content">
+                <!-- INFORMACIÓN PERSONAL -->
+                <div class="card mb-xl" style="background: var(--gradient-primary); color: white;">
+                    <div class="card-body">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h2 style="color: white; margin-bottom: var(--spacing-sm);" id="studentName">María
+                                    Fernanda González López</h2>
+                                <p style="margin: 0; color: rgba(255,255,255,0.9);">5° Semestre - Grupo A</p>
+                                <p style="margin: 0; color: rgba(255,255,255,0.9);">Especialidad: Programación</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: var(--font-size-4xl); font-weight: bold;">9.5</div>
+                                <p style="margin: 0; color: rgba(255,255,255,0.9);">Promedio General</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MÉTRICAS RÁPIDAS -->
+                <div class="grid grid-cols-4 gap-lg mb-2xl">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">📝</div>
+                            <h3 style="margin-bottom: var(--spacing-xs);">8</h3>
+                            <p style="margin: 0; color: var(--color-gray-600); font-size: var(--font-size-sm);">Materias
+                                Activas</p>
+                        </div>
+                    </div>
+
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">📚</div>
+                            <h3 style="margin-bottom: var(--spacing-xs);">12</h3>
+                            <p style="margin: 0; color: var(--color-gray-600); font-size: var(--font-size-sm);">
+                                Materiales</p>
+                        </div>
+                    </div>
+
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">✓</div>
+                            <h3 style="margin-bottom: var(--spacing-xs);">98%</h3>
+                            <p style="margin: 0; color: var(--color-gray-600); font-size: var(--font-size-sm);">
+                                Asistencia</p>
+                        </div>
+                    </div>
+
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">📊</div>
+                            <h3 style="margin-bottom: var(--spacing-xs);">85%</h3>
+                            <p style="margin: 0; color: var(--color-gray-600); font-size: var(--font-size-sm);">Progreso
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CALIFICACIONES -->
+                <div class="portal-table">
+                    <div class="table-header">
+                        <h3>Mis Calificaciones - Periodo Actual</h3>
+                        <button class="btn btn-ghost btn-sm">Descargar Kardex</button>
+                    </div>
+                    <div id="gradesTable"></div>
+                </div>
+            </div>
+            document.getElementById('userName').textContent = user.name;
+            document.getElementById('userMatricula').textContent = user.matricula;
+            document.getElementById('studentName').textContent = user.name;
+
+            // Renderizar calificaciones
+            window.PortalUtils.renderGradesTable(user.matricula, 'gradesTable');
+            }
+
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+            authManager.logout();
+            }
+            });
+            </script>
+</body>
+
+</html>
