@@ -9,7 +9,11 @@ class AuthManager {
     constructor() {
         this.currentUser = null;
         this.supabase = window.supabaseClient;
-        this.init();
+        this.initPromise = this.init();
+    }
+
+    async waitForInit() {
+        return this.initPromise;
     }
 
     async init() {
@@ -108,31 +112,81 @@ class AuthManager {
         }
     }
 
-    async login(email, password, userType) {
+    async loginWithEmail(email, password) {
         try {
-            // Intentar login con Supabase Auth
             const { data, error } = await this.supabase.auth.signInWithPassword({
                 email: email,
                 password: password
             });
 
-            if (error) {
-                throw new Error(error.message);
+            if (error) throw new Error(error.message);
+
+            await this.loadUserProfile(data.user.id);
+            return this.currentUser;
+
+        } catch (error) {
+            console.error('Error en login:', error);
+            throw error;
+        }
+    }
+
+    async register(userData) {
+        try {
+            // 1. Crear usuario en Auth
+            const { data: authData, error: authError } = await this.supabase.auth.signUp({
+                email: userData.email,
+                password: userData.password,
+                options: {
+                    data: {
+                        full_name: userData.name,
+                        role: userData.role
+                    }
+                }
+            });
+
+            if (authError) throw new Error(authError.message);
+
+            // Si el registro requiere confirmación de email, el usuario no se crea inmediatamente en la sesión
+            // Pero Supabase devuelve el usuario.
+            const userId = authData.user?.id;
+
+            if (!userId) {
+                throw new Error('No se pudo obtener el ID del usuario. Verifica tu correo electrónico.');
             }
 
-            // Cargar perfil completo
-            await this.loadUserProfile(data.user.id);
+            // 2. Crear perfil en tabla 'perfiles'
+            const { error: profileError } = await this.supabase
+                .from('perfiles')
+                .insert([{
+                    id: userId,
+                    email: userData.email,
+                    nombre_completo: userData.name,
+                    rol: userData.role,
+                    fecha_registro: new Date()
+                }]);
 
-            // Verificar que el rol coincida
-            if (this.currentUser.rol !== userType) {
-                await this.logout();
-                throw new Error('El tipo de usuario seleccionado no coincide con tu cuenta');
+            if (profileError) {
+                console.error('Error creando perfil:', profileError);
+                // No lanzamos error fatal aquí para no bloquear el flujo si el usuario ya se creó en Auth
+            }
+
+            // 3. Crear registro específico según rol
+            if (userData.role === 'alumno') {
+                await this.supabase.from('alumnos').insert([{ id: userId }]);
+            } else if (userData.role === 'docente') {
+                await this.supabase.from('docentes').insert([{ id: userId }]);
+            }
+
+            // 4. Intentar cargar perfil (puede fallar si requiere confirmación de email)
+            // En desarrollo, asumimos que no hay confirmación o que el usuario ya está activo
+            if (authData.session) {
+                await this.loadUserProfile(userId);
             }
 
             return this.currentUser;
 
         } catch (error) {
-            console.error('Error en login:', error);
+            console.error('Error en registro:', error);
             throw error;
         }
     }

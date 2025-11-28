@@ -21,75 +21,178 @@
         }
 
         .login-container {
-            max-width: 900px;
+            max-width: 450px;
             width: 100%;
-        }
-
-        .quick-access {
-            margin-bottom: var(--spacing-2xl);
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             padding: var(--spacing-2xl);
             border-radius: var(--radius-xl);
             box-shadow: var(--shadow-2xl);
         }
 
-        .quick-access h2 {
+        .login-header {
             text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* TABS */
+        .auth-tabs {
+            display: flex;
+            margin-bottom: var(--spacing-xl);
+            border-bottom: 2px solid var(--color-gray-200);
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: var(--spacing-md);
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--color-gray-500);
+            transition: all var(--transition-base);
+            background: none;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .auth-tab.active {
+            color: var(--color-primary);
+            border-bottom: 2px solid var(--color-primary);
+            margin-bottom: -2px;
+        }
+
+        .auth-tab:hover:not(.active) {
+            color: var(--color-gray-700);
+            background-color: var(--color-gray-50);
+        }
+
+        /* FORMS */
+        .auth-form {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .form-group {
             margin-bottom: var(--spacing-lg);
-            color: var(--color-gray-900);
         }
 
-        .quick-buttons {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--spacing-md);
+        .form-label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-weight: 500;
+            color: var(--color-gray-700);
         }
 
-        .quick-btn {
-            padding: var(--spacing-xl);
+        .form-input {
+            width: 100%;
+            padding: var(--spacing-md);
+            border: 1px solid var(--color-gray-300);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: border-color var(--transition-base);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(42, 122, 226, 0.1);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: var(--spacing-md);
+            border: 1px solid var(--color-gray-300);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            background-color: white;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: var(--spacing-md);
+            background-color: var(--color-primary);
             color: white;
             border: none;
-            border-radius: var(--radius-lg);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: all var(--transition-base);
-            text-align: left;
-            position: relative;
-            overflow: hidden;
+            transition: background-color var(--transition-base);
+            margin-top: var(--spacing-md);
         }
 
-        .quick-btn:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
+        .btn-submit:hover {
+            background-color: var(--color-primary-dark);
         }
 
-        /* Colores específicos por rol */
-        .btn-admin {
-            background: linear-gradient(135deg, #4F46E5 0%, #3B82F6 100%);
+        .btn-submit:disabled {
+            background-color: var(--color-gray-400);
+            cursor: not-allowed;
         }
 
-        .btn-docente {
-            background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+        .dev-mode {
+            margin-top: var(--spacing-2xl);
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid var(--color-gray-200);
+            text-align: center;
         }
 
-        .btn-alumno {
-            background: linear-gradient(135deg, #EA580C 0%, #F97316 100%);
+        .dev-toggle {
+            background: none;
+            border: none;
+            color: var(--color-gray-400);
+            font-size: 0.8rem;
+            cursor: pointer;
+            text-decoration: underline;
         }
 
-        .quick-btn strong {
+        .quick-access-panel {
+            display: none;
+            margin-top: var(--spacing-lg);
+            background: var(--color-gray-50);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+        }
+
+        .quick-access-panel.visible {
             display: block;
-            font-size: var(--font-size-lg);
+        }
+
+        .quick-btn-mini {
+            display: block;
+            width: 100%;
+            padding: var(--spacing-sm);
             margin-bottom: var(--spacing-xs);
+            background: white;
+            border: 1px solid var(--color-gray-300);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            text-align: left;
+            font-size: 0.9rem;
         }
 
-        .quick-btn small {
-            display: block;
-            opacity: 0.9;
-            font-size: var(--font-size-sm);
+        .quick-btn-mini:hover {
+            background: var(--color-gray-100);
         }
 
-        @media (max-width: 768px) {
-            .quick-buttons {
-                grid-template-columns: 1fr;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
     </style>
@@ -98,33 +201,76 @@
 <body>
     <div class="login-page">
         <div class="login-container">
-            <!-- ACCESO RÁPIDO -->
-            <div class="quick-access">
-                <h2>🔐 Acceso Rápido al Portal</h2>
-                <p style="text-align: center; margin-bottom: var(--spacing-xl); color: var(--color-gray-600);">
-                    Haz clic en tu rol para ingresar automáticamente
-                </p>
+            <div class="login-header">
+                <img src="../assets/images/logo.svg" alt="CBTA #44" class="login-logo">
+                <h2>Portal CBTA #44</h2>
+                <p class="text-gray">Gestión Escolar Integral</p>
+            </div>
 
-                <div class="quick-buttons">
-                    <button class="quick-btn btn-admin" onclick="quickLogin('admin')">
-                        <strong>👨‍💼 Administrador</strong>
-                        <small>Vista completa del sistema</small>
-                    </button>
+            <!-- TABS -->
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchTab('login')">Iniciar Sesión</button>
+                <button class="auth-tab" onclick="switchTab('register')">Registrarse</button>
+            </div>
 
-                    <button class="quick-btn btn-docente" onclick="quickLogin('docente')">
-                        <strong>👨‍🏫 Docente</strong>
-                        <small>Gestión de grupos y calificaciones</small>
-                    </button>
-
-                    <button class="quick-btn btn-alumno" onclick="quickLogin('alumno')">
-                        <strong>🎓 Alumno</strong>
-                        <small>Consulta calificaciones y materiales</small>
-                    </button>
+            <!-- LOGIN FORM -->
+            <form id="loginForm" class="auth-form active" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label class="form-label">Correo Electrónico</label>
+                    <input type="email" id="loginEmail" class="form-input" placeholder="ejemplo@cbta44.edu.mx" required>
                 </div>
+                <div class="form-group">
+                    <label class="form-label">Contraseña</label>
+                    <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-submit" id="loginBtn">
+                    Ingresar
+                </button>
+            </form>
 
-                <div
-                    style="text-align: center; margin-top: var(--spacing-xl); padding-top: var(--spacing-xl); border-top: 1px solid var(--color-gray-200);">
-                    <a href="../index.html" class="btn btn-ghost">← Volver al Sitio Público</a>
+            <!-- REGISTER FORM -->
+            <form id="registerForm" class="auth-form" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label class="form-label">Nombre Completo</label>
+                    <input type="text" id="regName" class="form-input" placeholder="Juan Pérez" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Correo Electrónico</label>
+                    <input type="email" id="regEmail" class="form-input" placeholder="juan@cbta44.edu.mx" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Contraseña</label>
+                    <input type="password" id="regPassword" class="form-input" placeholder="Mínimo 6 caracteres"
+                        minlength="6" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tipo de Usuario</label>
+                    <select id="regRole" class="form-select" required>
+                        <option value="" disabled selected>Selecciona tu rol</option>
+                        <option value="alumno">Alumno</option>
+                        <option value="docente">Docente</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-submit" id="regBtn">
+                    Crear Cuenta
+                </button>
+            </form>
+
+            <div style="text-align: center; margin-top: var(--spacing-xl);">
+                <a href="../index.html" class="text-primary" style="text-decoration: none; font-size: 0.9rem;">
+                    ← Volver al Sitio Público
+                </a>
+            </div>
+
+            <!-- DEV MODE TOGGLE -->
+            <div class="dev-mode">
+                <button class="dev-toggle" onclick="toggleDevMode()">Modo Desarrollador (Acceso Rápido)</button>
+                <div id="devPanel" class="quick-access-panel">
+                    <button class="quick-btn-mini" onclick="quickLogin('admin')">🔑 Admin (admin@cbta44.edu.mx)</button>
+                    <button class="quick-btn-mini" onclick="quickLogin('docente')">👨‍🏫 Docente
+                        (docente@cbta44.edu.mx)</button>
+                    <button class="quick-btn-mini" onclick="quickLogin('alumno')">🎓 Alumno
+                        (alumno@cbta44.edu.mx)</button>
                 </div>
             </div>
         </div>
@@ -139,33 +285,98 @@
     <script src="../js/auth.js"></script>
 
     <script>
-        async function quickLogin(role) {
-            console.log('📝 QuickLogin iniciado para rol:', role);
-            const credentials = {
-                'admin': { email: 'admin@cbta44.edu.mx', password: 'Admin123!', type: 'admin' },
-                'docente': { email: 'docente@cbta44.edu.mx', password: 'Docente123!', type: 'docente' },
-                'alumno': { email: 'alumno@cbta44.edu.mx', password: 'Alumno123!', type: 'alumno' },
-            };
+        // Tab Switching
+        function switchTab(tab) {
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
 
-            const cred = credentials[role];
+            if (tab === 'login') {
+                document.querySelector('.auth-tab:first-child').classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+            } else {
+                document.querySelector('.auth-tab:last-child').classList.add('active');
+                document.getElementById('registerForm').classList.add('active');
+            }
+        }
+
+        // Login Handler
+        async function handleLogin(e) {
+            e.preventDefault();
+            const btn = document.getElementById('loginBtn');
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            setLoading(btn, true, 'Ingresando...');
 
             try {
-                console.log('🔐 Intentando login con:', cred.email);
-                const user = await authManager.login(cred.email, cred.password, cred.type);
+                // Usamos el método login genérico de authManager
+                // Nota: login ahora detectará el rol automáticamente desde el perfil
+                await authManager.loginWithEmail(email, password);
 
-                console.log('✅ Login exitoso, usuario:', user);
-
-                if (window.CBTA44Utils && window.CBTA44Utils.showNotification) {
-                    window.CBTA44Utils.showNotification(`¡Bienvenido, ${user.name}!`, 'success');
-                }
-
-                // Redirigir inmediatamente
-                console.log('🚀 Redirigiendo AHORA...');
+                // Redirección manejada por authManager
                 authManager.redirectToDashboard();
 
             } catch (error) {
-                console.error('❌ Error en quickLogin:', error);
-                alert('Error al iniciar sesión: ' + error.message);
+                console.error(error);
+                alert('Error: ' + error.message);
+                setLoading(btn, false, 'Ingresar');
+            }
+        }
+
+        // Register Handler
+        async function handleRegister(e) {
+            e.preventDefault();
+            const btn = document.getElementById('regBtn');
+
+            const userData = {
+                name: document.getElementById('regName').value,
+                email: document.getElementById('regEmail').value,
+                password: document.getElementById('regPassword').value,
+                role: document.getElementById('regRole').value
+            };
+
+            setLoading(btn, true, 'Creando cuenta...');
+
+            try {
+                await authManager.register(userData);
+
+                alert('¡Cuenta creada exitosamente! Bienvenido.');
+                authManager.redirectToDashboard();
+
+            } catch (error) {
+                console.error(error);
+                alert('Error: ' + error.message);
+                setLoading(btn, false, 'Crear Cuenta');
+            }
+        }
+
+        // Helper: Loading State
+        function setLoading(btn, isLoading, text) {
+            btn.disabled = isLoading;
+            btn.textContent = text;
+        }
+
+        // Dev Mode
+        function toggleDevMode() {
+            document.getElementById('devPanel').classList.toggle('visible');
+        }
+
+        // Quick Login (Legacy Support for Dev Mode)
+        async function quickLogin(role) {
+            const credentials = {
+                'admin': { email: 'admin@cbta44.edu.mx', password: 'Admin123!' },
+                'docente': { email: 'docente@cbta44.edu.mx', password: 'Docente123!' },
+                'alumno': { email: 'alumno@cbta44.edu.mx', password: 'Alumno123!' },
+            };
+
+            const cred = credentials[role];
+            if (!cred) return;
+
+            try {
+                await authManager.loginWithEmail(cred.email, cred.password);
+                authManager.redirectToDashboard();
+            } catch (error) {
+                alert('Error en acceso rápido: ' + error.message);
             }
         }
     </script>
