@@ -106,7 +106,7 @@
     color: rgba(255, 255, 255, 0.5);
 }
 
-.nav-menu {
+.sidebar-menu {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -257,31 +257,6 @@
     color: var(--color-warning);
 }
 
-.metric-icon.danger {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.2) 100%);
-    color: var(--color-danger);
-}
-
-/* ===== TABLES ===== */
-.portal-table {
-    width: 100%;
-    background: var(--color-white);
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
-}
-
-.table-header {
-    padding: var(--spacing-xl);
-    border-bottom: 1px solid var(--color-gray-200);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.table-header h3 {
-    margin: 0;
-    font-size: var(--font-size-xl);
 }
 
 table {

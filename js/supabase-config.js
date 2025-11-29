@@ -6,10 +6,15 @@
  */
 
 // Credenciales del proyecto Supabase
-const SUPABASE_URL = 'https://uatqudtzuvkhxdtvrjsc.supabase.co';
+// Credenciales del proyecto Supabase
+if (typeof SUPABASE_URL === 'undefined') {
+    var SUPABASE_URL = 'https://uatqudtzuvkhxdtvrjsc.supabase.co';
+}
 
 // Anon/Public Key - Segura para usar en el cliente
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhdHF1ZHR6dXZraHhkdHZyanNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQyMDI5MTAsImV4cCI6MjA3OTc3ODkxMH0.fbOCsvenOaX_uDzz1p-mLyKuS49hosWmHjHybbLaYDo';
+if (typeof SUPABASE_ANON_KEY === 'undefined') {
+    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhdHF1ZHR6dXZraHhkdHZyanNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQyMDI5MTAsImV4cCI6MjA3OTc3ODkxMH0.fbOCsvenOaX_uDzz1p-mLyKuS49hosWmHjHybbLaYDo';
+}
 
 // Verificar que Supabase SDK esté disponible
 if (typeof window !== 'undefined' && typeof window.supabase === 'undefined') {

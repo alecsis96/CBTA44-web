@@ -338,14 +338,20 @@
             setLoading(btn, true, 'Creando cuenta...');
 
             try {
-                await authManager.register(userData);
+                const result = await authManager.register(userData);
 
-                alert('¡Cuenta creada exitosamente! Bienvenido.');
-                authManager.redirectToDashboard();
+                if (result.emailConfirmationRequired) {
+                    alert('¡Cuenta creada! Por favor verifica tu correo electrónico para activar tu cuenta antes de iniciar sesión.');
+                    switchTab('login');
+                } else {
+                    alert('¡Cuenta creada exitosamente! Bienvenido.');
+                    authManager.redirectToDashboard();
+                }
 
             } catch (error) {
                 console.error(error);
                 alert('Error: ' + error.message);
+            } finally {
                 setLoading(btn, false, 'Crear Cuenta');
             }
         }
