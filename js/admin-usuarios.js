@@ -49,20 +49,33 @@ function renderUsers(users) {
             'alumno': '<span class="badge badge-info">Alumno</span>'
         }[user.rol] || `<span class="badge badge-secondary">${user.rol}</span>`;
 
+        const isActive = user.activo !== false; // Default true if null
+        const rowStyle = isActive ? '' : 'opacity: 0.6; background-color: #f9f9f9;';
+        const statusBadge = isActive
+            ? '<span class="badge badge-success" style="font-size: 0.7em;">Activo</span>'
+            : '<span class="badge badge-danger" style="font-size: 0.7em;">Inactivo</span>';
+
+        row.style = rowStyle;
         row.innerHTML = `
             <td>
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <img src="${avatar}" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
-                    <span>${user.nombre_completo}</span>
+                    <div>
+                        <div>${user.nombre_completo}</div>
+                        ${!isActive ? '<small style="color: red;">(Desactivado)</small>' : ''}
+                    </div>
                 </div>
             </td>
             <td>${roleBadge}</td>
             <td>${user.email}</td>
             <td>${user.telefono || '-'}</td>
-            <td>${date}</td>
+            <td>${statusBadge}</td>
             <td>
-                <button class="btn btn-ghost btn-sm" onclick="editUser('${user.id}')">✏️</button>
-                <button class="btn btn-ghost btn-sm" style="color: var(--color-error);" onclick="deleteUser('${user.id}')">🗑️</button>
+                <button class="btn btn-ghost btn-sm" onclick="editUser('${user.id}')" title="Editar">✏️</button>
+                ${isActive
+                ? `<button class="btn btn-ghost btn-sm" style="color: var(--color-error);" onclick="deleteUser('${user.id}')" title="Desactivar">🚫</button>`
+                : `<button class="btn btn-ghost btn-sm" style="color: var(--color-success);" onclick="reactivateUser('${user.id}')" title="Reactivar">✅</button>`
+            }
             </td>
         `;
         tableBody.appendChild(row);
@@ -175,26 +188,44 @@ window.editUser = function (id) {
 };
 
 // Eliminar usuario
+// Eliminar usuario (Soft Delete)
 window.deleteUser = async function (id) {
-    if (!confirm('¿Estás seguro de eliminar este usuario? Esta acción no se puede deshacer y eliminará su acceso.')) return;
+    if (!confirm('¿Estás seguro de desactivar este usuario? El usuario no podrá iniciar sesión, pero sus datos se conservarán.')) return;
 
     try {
-        // Nota: Eliminar de auth.users requiere Service Role Key (backend).
-        // Desde el cliente solo podemos eliminar de la tabla 'perfiles' si las políticas RLS lo permiten.
-        // Esto dejará un usuario "huérfano" en Auth, pero sin perfil no podrá iniciar sesión correctamente en nuestra app.
-
         const { error } = await window.supabaseClient
             .from('perfiles')
-            .delete()
+            .update({ activo: false })
             .eq('id', id);
 
         if (error) throw error;
 
-        alert('Usuario eliminado correctamente.');
+        alert('Usuario desactivado correctamente.');
         window.loadUsers();
 
     } catch (error) {
-        console.error('Error eliminando usuario:', error);
-        alert('Error al eliminar: ' + error.message);
+        console.error('Error desactivando usuario:', error);
+        alert('Error al desactivar: ' + error.message);
+    }
+};
+
+// Reactivar usuario (Opcional, pero útil)
+window.reactivateUser = async function (id) {
+    if (!confirm('¿Deseas reactivar este usuario?')) return;
+
+    try {
+        const { error } = await window.supabaseClient
+            .from('perfiles')
+            .update({ activo: true })
+            .eq('id', id);
+
+        if (error) throw error;
+
+        alert('Usuario reactivado correctamente.');
+        window.loadUsers();
+
+    } catch (error) {
+        console.error('Error reactivando usuario:', error);
+        alert('Error al reactivar: ' + error.message);
     }
 };

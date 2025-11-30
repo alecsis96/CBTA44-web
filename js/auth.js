@@ -128,16 +128,15 @@ class AuthManager {
                 console.error('🔴 Error o Timeout en consulta:', err);
                 // Si es timeout, asumimos que algo va mal o no existe, intentamos crear
                 if (err.message.includes('Timeout')) {
-                    console.log('⚠️ Timeout detectado. Intentando forzar creación de perfil...');
-                    const success = await this.createProfileFromAuth(userId, userObject);
-                    if (success) {
-                        return await this._setUserFromAuthData(userId, userObject);
-                    }
+                    console.log('⚠️ Timeout detectado. Esperando al trigger...');
+                    // No llamamos a createProfileFromAuth, solo esperamos un poco
+                    await new Promise(r => setTimeout(r, 2000));
+                    return await this._internalLoadUserProfile(userId, userObject); // Reintentar una vez
                 }
                 throw err;
             }
 
-            const { data: perfil, error } = result;
+            let { data: perfil, error } = result;
             console.log('📥 Respuesta recibida de Supabase:', { perfil, error });
 
             if (error && error.code !== 'PGRST116') { // PGRST116 es "Row not found"
@@ -146,13 +145,30 @@ class AuthManager {
             }
 
             if (!perfil) {
-                console.log('🟠 Perfil no encontrado. Intentando crearlo automáticamente...');
-                const success = await this.createProfileFromAuth(userId, userObject);
-                if (success) {
+                console.log('🟠 Perfil no encontrado. Esperando a que el Trigger de DB lo cree...');
+
+                // Esperar 2 segundos y reintentar (dar tiempo al trigger)
+                await new Promise(r => setTimeout(r, 2000));
+
+                const { data: retryPerfil } = await this.supabase.from('perfiles').select('*').eq('id', userId).single();
+
+                if (retryPerfil) {
+                    console.log('✅ Perfil encontrado tras espera (Trigger funcionó).');
+                    perfil = retryPerfil;
+                } else {
+                    console.error('❌ El perfil no se creó automáticamente. Verifica el Trigger en Supabase.');
+                    // Fallback visual: permitir login temporal en memoria
                     return await this._setUserFromAuthData(userId, userObject);
                 }
-                return null;
             }
+
+            // --- VERIFICACIÓN DE CUENTA ACTIVA (Soft Delete) ---
+            if (perfil.activo === false) {
+                console.warn('⛔ Acceso denegado: La cuenta está desactivada.');
+                await this.supabase.auth.signOut(); // Cerrar sesión en Supabase inmediatamente
+                throw new Error('CUENTA_DESACTIVADA');
+            }
+            // ---------------------------------------------------
 
             // Estructurar datos del usuario según su rol
             this.currentUser = {
@@ -172,6 +188,7 @@ class AuthManager {
 
         } catch (error) {
             console.error('Error en loadUserProfile:', error);
+            if (error.message === 'CUENTA_DESACTIVADA') throw error; // Re-lanzar para que login lo capture
             return null;
         }
     }
@@ -229,81 +246,10 @@ class AuthManager {
     }
 
     async createProfileFromAuth(userId, userObject = null) {
-        try {
-            console.log('🔵 Creando perfil desde datos de Auth...');
-
-            let user = userObject;
-
-            // Si no nos pasaron el usuario, intentamos obtenerlo (con riesgo de timeout)
-            if (!user) {
-                const userPromise = this.supabase.auth.getUser();
-                const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout getUser')), 5000));
-
-                try {
-                    const userResult = await Promise.race([userPromise, timeoutPromise]);
-                    user = userResult.data.user;
-                } catch (e) {
-                    console.error('🔴 Timeout obteniendo usuario de Auth');
-                    return null;
-                }
-            }
-
-            if (!user) {
-                console.error('Error: No se pudo obtener usuario de Auth para crear perfil');
-                return null;
-            }
-
-            console.log('🔵 Usuario Auth obtenido:', user.email);
-
-            const meta = user.user_metadata || {};
-            const role = meta.role || 'alumno';
-
-            // 2. Intentar insertar en perfiles (No bloqueante / Con Timeout)
-            console.log('⏳ Intentando insertar en perfiles...');
-
-            const insertProfilePromise = this.supabase
-                .from('perfiles')
-                .insert([{
-                    id: userId,
-                    email: user.email,
-                    nombre_completo: meta.full_name || user.email,
-                    rol: role
-                }]);
-
-            try {
-                // Esperamos máximo 3 segundos para la inserción
-                const { error: insertError } = await Promise.race([
-                    insertProfilePromise,
-                    new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout Insert Perfil')), 3000))
-                ]);
-
-                if (insertError) {
-                    console.error('🟠 Error creando perfil en DB (No fatal):', insertError);
-                } else {
-                    console.log('🟢 Perfil creado exitosamente en DB');
-                }
-            } catch (e) {
-                console.error('🟠 Timeout o error insertando perfil (Continuando login en memoria):', e);
-            }
-
-            // 3. Crear registro específico (Upsert para evitar conflictos)
-            if (role === 'alumno') {
-                this.supabase.from('alumnos').upsert([{ id: userId }], { onConflict: 'id', ignoreDuplicates: true }).then(({ error }) => {
-                    if (error) console.error('Error insertando alumno:', error);
-                });
-            } else if (role === 'docente') {
-                this.supabase.from('docentes').upsert([{ id: userId }], { onConflict: 'id', ignoreDuplicates: true }).then(({ error }) => {
-                    if (error) console.error('Error insertando docente:', error);
-                });
-            }
-
-            // Retornamos true para indicar que "tenemos los datos suficientes para seguir"
-            return true;
-
-        } catch (err) {
-            console.error('Error en createProfileFromAuth:', err);
-            return null;
-        }
+        // DEPRECATED: La creación de perfiles ahora es manejada por un Trigger en la Base de Datos (PostgreSQL).
+        // Mantenemos este método solo como stub por si se llama desde algún lugar legacy, pero no hace nada.
+        console.log('ℹ️ createProfileFromAuth invocado: Omitiendo creación manual (Manejado por DB Trigger).');
+        return true;
     }
 
     async loginWithEmail(email, password) {
@@ -326,6 +272,9 @@ class AuthManager {
 
         } catch (error) {
             console.error('Error en login:', error);
+            if (error.message === 'CUENTA_DESACTIVADA') {
+                throw new Error('Tu cuenta ha sido desactivada. Contacta al administrador.');
+            }
             throw error;
         }
     }

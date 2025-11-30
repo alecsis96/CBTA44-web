@@ -27,8 +27,8 @@
                 <div class="user-info">
                     <div class="user-avatar">MG</div>
                     <div class="user-details">
-                        <h4 id="userName">María F. González</h4>
-                        <p>Matrícula: <span id="userMatricula">202301001</span></p>
+                        <h4 id="userName">Cargando...</h4>
+                        <p>Matrícula: <span id="userMatricula">...</span></p>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
             <nav class="sidebar-nav">
                 <div class="nav-section">
                     <div class="nav-section-title">Principal</div>
-                    <ul class="nav-menu">
+                    <ul class="sidebar-menu">
                         <li class="nav-item">
                             <a href="dashboard.html" class="nav-link-item active">
                                 <span class="nav-icon">📊</span>
@@ -48,7 +48,7 @@
 
                 <div class="nav-section">
                     <div class="nav-section-title">Académico</div>
-                    <ul class="nav-menu">
+                    <ul class="sidebar-menu">
                         <li class="nav-item">
                             <a href="#" class="nav-link-item">
                                 <span class="nav-icon">📝</span>
@@ -78,7 +78,7 @@
 
                 <div class="nav-section">
                     <div class="nav-section-title">Servicios</div>
-                    <ul class="nav-menu">
+                    <ul class="sidebar-menu">
                         <li class="nav-item">
                             <a href="#" class="nav-link-item">
                                 <span class="nav-icon">💳</span>
@@ -115,10 +115,10 @@
                 <!-- INFORMACIÓN PERSONAL -->
                 <div class="card mb-xl" style="background: var(--gradient-primary); color: white;">
                     <div class="card-body">
-                        <div class="flex items-center justify-between">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
                             <div>
-                                <h2 style="color: white; margin-bottom: var(--spacing-sm);" id="studentName">María
-                                    Fernanda González López</h2>
+                                <h2 style="color: white; margin-bottom: var(--spacing-sm);" id="studentName">Cargando...
+                                </h2>
                                 <p style="margin: 0; color: rgba(255,255,255,0.9);">5° Semestre - Grupo A</p>
                                 <p style="margin: 0; color: rgba(255,255,255,0.9);">Especialidad: Programación</p>
                             </div>
@@ -131,41 +131,37 @@
                 </div>
 
                 <!-- MÉTRICAS RÁPIDAS -->
-                <div class="grid grid-cols-4 gap-lg mb-2xl">
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">📝</div>
-                            <h3 style="margin-bottom: var(--spacing-xs);">8</h3>
-                            <p style="margin: 0; color: var(--color-gray-600); font-size: var(--font-size-sm);">Materias
-                                Activas</p>
+                <div class="dashboard-grid">
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <h3>8</h3>
+                            <p>Materias Activas</p>
                         </div>
+                        <div class="metric-icon primary">📝</div>
                     </div>
 
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">📚</div>
-                            <h3 style="margin-bottom: var(--spacing-xs);">12</h3>
-                            <p style="margin: 0; color: var(--color-gray-600); font-size: var(--font-size-sm);">
-                                Materiales</p>
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <h3>12</h3>
+                            <p>Materiales</p>
                         </div>
+                        <div class="metric-icon success">📚</div>
                     </div>
 
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">✓</div>
-                            <h3 style="margin-bottom: var(--spacing-xs);">98%</h3>
-                            <p style="margin: 0; color: var(--color-gray-600); font-size: var(--font-size-sm);">
-                                Asistencia</p>
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <h3>98%</h3>
+                            <p>Asistencia</p>
                         </div>
+                        <div class="metric-icon warning">✓</div>
                     </div>
 
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <div style="font-size: 2.5rem; margin-bottom: var(--spacing-sm);">📊</div>
-                            <h3 style="margin-bottom: var(--spacing-xs);">85%</h3>
-                            <p style="margin: 0; color: var(--color-gray-600); font-size: var(--font-size-sm);">Progreso
-                            </p>
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <h3>85%</h3>
+                            <p>Progreso</p>
                         </div>
+                        <div class="metric-icon danger">📊</div>
                     </div>
                 </div>
 
@@ -178,20 +174,62 @@
                     <div id="gradesTable"></div>
                 </div>
             </div>
-            document.getElementById('userName').textContent = user.name;
-            document.getElementById('userMatricula').textContent = user.matricula;
-            document.getElementById('studentName').textContent = user.name;
+        </main>
+    </div>
 
-            // Renderizar calificaciones
-            window.PortalUtils.renderGradesTable(user.matricula, 'gradesTable');
+    <!-- SIDEBAR TOGGLE for mobile -->
+    <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../../js/supabase-config.js"></script>
+
+    <!-- Scripts -->
+    <script src="../../js/main.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/portal.js"></script>
+
+    <script>
+        async function initDashboard() {
+            console.log('🔄 Iniciando Dashboard de Alumno...');
+
+            // 1. Esperar a que AuthManager se inicialice
+            await authManager.waitForInit();
+
+            // 2. Verificar autenticación y rol
+            if (authManager.requireAuth(['alumno'])) {
+                const user = authManager.getCurrentUser();
+                console.log('✅ Usuario autenticado:', user);
+
+                // 3. Llenar datos en la UI
+                document.getElementById('userName').textContent = user.name;
+                document.getElementById('studentName').textContent = user.name;
+
+                // Generar matrícula ficticia basada en ID si no existe
+                const matricula = user.matricula || '2023' + user.id.substring(0, 5).toUpperCase();
+                document.getElementById('userMatricula').textContent = matricula;
+
+                // 4. Renderizar calificaciones (Simuladas por ahora)
+                if (window.PortalUtils && window.PortalUtils.renderGradesTable) {
+                    window.PortalUtils.renderGradesTable(matricula, 'gradesTable');
+                } else {
+                    console.warn('PortalUtils no encontrado o incompleto');
+                    document.getElementById('gradesTable').innerHTML = '<p style="padding: 20px;">Sistema de calificaciones no disponible.</p>';
+                }
             }
+        }
 
-            document.getElementById('logoutBtn').addEventListener('click', () => {
+        // Iniciar
+        initDashboard();
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
             if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
-            authManager.logout();
+                authManager.logout();
             }
-            });
-            </script>
+        });
+    </script>
 </body>
 
 </html>

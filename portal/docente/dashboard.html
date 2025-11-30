@@ -27,8 +27,8 @@
                 <div class="user-info">
                     <div class="user-avatar">JP</div>
                     <div class="user-details">
-                        <h4 id="userName">Prof. Juan Pérez</h4>
-                        <p>Programación</p>
+                        <h4 id="userName">Cargando...</h4>
+                        <p>Docente</p>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
             <nav class="sidebar-nav">
                 <div class="nav-section">
                     <div class="nav-section-title">Principal</div>
-                    <ul class="nav-menu">
+                    <ul class="sidebar-menu">
                         <li class="nav-item">
                             <a href="dashboard.html" class="nav-link-item active">
                                 <span class="nav-icon">📊</span>
@@ -48,7 +48,7 @@
 
                 <div class="nav-section">
                     <div class="nav-section-title">Académico</div>
-                    <ul class="nav-menu">
+                    <ul class="sidebar-menu">
                         <li class="nav-item">
                             <a href="#" class="nav-link-item">
                                 <span class="nav-icon">👥</span>
@@ -78,7 +78,7 @@
 
                 <div class="nav-section">
                     <div class="nav-section-title">Comunicación</div>
-                    <ul class="nav-menu">
+                    <ul class="sidebar-menu">
                         <li class="nav-item">
                             <a href="#" class="nav-link-item">
                                 <span class="nav-icon">💬</span>
@@ -144,40 +144,49 @@
 
                 <!-- MIS GRUPOS -->
                 <h2 class="mb-lg">Mis Grupos</h2>
-                <div class="grid grid-cols-3 gap-lg mb-2xl">
+                <div class="dashboard-grid mb-2xl">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="mb-md">5° A - Programación</h3>
-                            <p class="text-gray mb-md">28 Alumnos</p>
+                            <h3 style="margin-bottom: var(--spacing-md); font-size: var(--font-size-lg);">5° A -
+                                Programación</h3>
+                            <p style="color: var(--color-gray-600); margin-bottom: var(--spacing-md);">28 Alumnos</p>
                             <div class="progress-bar">
                                 <div class="progress-fill" style="width: 85%;"></div>
                             </div>
-                            <p class="mt-sm" style="font-size: var(--font-size-sm);">Progreso del semestre: 85%</p>
-                            <button class="btn btn-ghost btn-sm mt-md" style="width: 100%;">Ver Detalles</button>
+                            <p style="margin-top: var(--spacing-sm); font-size: var(--font-size-sm);">Progreso del
+                                semestre: 85%</p>
+                            <button class="btn btn-ghost btn-sm" style="width: 100%; margin-top: var(--spacing-md);">Ver
+                                Detalles</button>
                         </div>
                     </div>
 
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="mb-md">5° B - Programación</h3>
-                            <p class="text-gray mb-md">30 Alumnos</p>
+                            <h3 style="margin-bottom: var(--spacing-md); font-size: var(--font-size-lg);">5° B -
+                                Programación</h3>
+                            <p style="color: var(--color-gray-600); margin-bottom: var(--spacing-md);">30 Alumnos</p>
                             <div class="progress-bar">
                                 <div class="progress-fill" style="width: 82%;"></div>
                             </div>
-                            <p class="mt-sm" style="font-size: var(--font-size-sm);">Progreso del semestre: 82%</p>
-                            <button class="btn btn-ghost btn-sm mt-md" style="width: 100%;">Ver Detalles</button>
+                            <p style="margin-top: var(--spacing-sm); font-size: var(--font-size-sm);">Progreso del
+                                semestre: 82%</p>
+                            <button class="btn btn-ghost btn-sm" style="width: 100%; margin-top: var(--spacing-md);">Ver
+                                Detalles</button>
                         </div>
                     </div>
 
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="mb-md">4° A - Programación</h3>
-                            <p class="text-gray mb-md">27 Alumnos</p>
+                            <h3 style="margin-bottom: var(--spacing-md); font-size: var(--font-size-lg);">4° A -
+                                Programación</h3>
+                            <p style="color: var(--color-gray-600); margin-bottom: var(--spacing-md);">27 Alumnos</p>
                             <div class="progress-bar">
                                 <div class="progress-fill" style="width: 78%;"></div>
                             </div>
-                            <p class="mt-sm" style="font-size: var(--font-size-sm);">Progreso del semestre: 78%</p>
-                            <button class="btn btn-ghost btn-sm mt-md" style="width: 100%;">Ver Detalles</button>
+                            <p style="margin-top: var(--spacing-sm); font-size: var(--font-size-sm);">Progreso del
+                                semestre: 78%</p>
+                            <button class="btn btn-ghost btn-sm" style="width: 100%; margin-top: var(--spacing-md);">Ver
+                                Detalles</button>
                         </div>
                     </div>
                 </div>
@@ -196,6 +205,7 @@
         </main>
     </div>
 
+    <!-- SIDEBAR TOGGLE for mobile -->
     <button class="sidebar-toggle" id="sidebarToggle">☰</button>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
@@ -203,238 +213,45 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../../js/supabase-config.js"></script>
 
-    <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon.svg">
-    </head>
+    <!-- Scripts -->
+    <script src="../../js/main.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/portal.js"></script>
 
-    <body>
-        <div class="portal-layout">
-            <!-- SIDEBAR -->
-            <aside class="sidebar" id="sidebar">
-                <div class="sidebar-header">
-                    <img src="../../assets/images/logo.svg" alt="CBTA #44" class="sidebar-logo">
-                    <div>
-                        <div class="sidebar-title">CBTA #44</div>
-                        <div class="sidebar-subtitle">Panel Docente</div>
-                    </div>
-                </div>
+    <script>
+        async function initDashboard() {
+            console.log('🔄 Iniciando Dashboard de Docente...');
 
-                <div class="sidebar-user">
-                    <div class="user-info">
-                        <div class="user-avatar">JP</div>
-                        <div class="user-details">
-                            <h4 id="userName">Prof. Juan Pérez</h4>
-                            <p>Programación</p>
-                        </div>
-                    </div>
-                </div>
+            // 1. Esperar a que AuthManager se inicialice
+            await authManager.waitForInit();
 
-                <nav class="sidebar-nav">
-                    <div class="nav-section">
-                        <div class="nav-section-title">Principal</div>
-                        <ul class="nav-menu">
-                            <li class="nav-item">
-                                <a href="dashboard.html" class="nav-link-item active">
-                                    <span class="nav-icon">📊</span>
-                                    <span>Dashboard</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+            // 2. Verificar autenticación y rol
+            if (authManager.requireAuth(['docente'])) {
+                const user = authManager.getCurrentUser();
+                console.log('✅ Usuario autenticado:', user);
+                document.getElementById('userName').textContent = user.name;
 
-                    <div class="nav-section">
-                        <div class="nav-section-title">Académico</div>
-                        <ul class="nav-menu">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link-item">
-                                    <span class="nav-icon">👥</span>
-                                    <span>Mis Grupos</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link-item">
-                                    <span class="nav-icon">📝</span>
-                                    <span>Calificaciones</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link-item">
-                                    <span class="nav-icon">📋</span>
-                                    <span>Asistencia</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link-item">
-                                    <span class="nav-icon">📚</span>
-                                    <span>Materiales Didácticos</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="nav-section">
-                        <div class="nav-section-title">Comunicación</div>
-                        <ul class="nav-menu">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link-item">
-                                    <span class="nav-icon">💬</span>
-                                    <span>Mensajes</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-
-                <div class="sidebar-footer">
-                    <button class="btn btn-outline" id="logoutBtn"
-                        style="width: 100%; color: white; border-color: rgba(255,255,255,0.3);">
-                        Cerrar Sesión
-                    </button>
-                </div>
-            </aside>
-
-            <!-- MAIN CONTENT -->
-            <main class="main-content">
-                <header class="portal-header">
-                    <h1 class="portal-title">Dashboard</h1>
-                    <div class="portal-actions">
-                        <button class="btn btn-primary btn-sm">Registrar Calificaciones</button>
-                    </div>
-                </header>
-
-                <div class="portal-content">
-                    <!-- METRICS -->
-                    <div class="dashboard-grid">
-                        <div class="metric-card">
-                            <div class="metric-info">
-                                <h3>3</h3>
-                                <p>Grupos Asignados</p>
-                            </div>
-                            <div class="metric-icon primary">📚</div>
-                        </div>
-
-                        <div class="metric-card">
-                            <div class="metric-info">
-                                <h3>85</h3>
-                                <p>Total Alumnos</p>
-                            </div>
-                            <div class="metric-icon success">🎓</div>
-                        </div>
-
-                        <div class="metric-card">
-                            <div class="metric-info">
-                                <h3>96%</h3>
-                                <p>Asistencia Promedio</p>
-                            </div>
-                            <div class="metric-icon warning">📊</div>
-                        </div>
-
-                        <div class="metric-card">
-                            <div class="metric-info">
-                                <h3>8.9</h3>
-                                <p>Promedio General</p>
-                            </div>
-                            <div class="metric-icon danger">📝</div>
-                        </div>
-                    </div>
-
-                    <!-- MIS GRUPOS -->
-                    <h2 class="mb-lg">Mis Grupos</h2>
-                    <div class="grid grid-cols-3 gap-lg mb-2xl">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="mb-md">5° A - Programación</h3>
-                                <p class="text-gray mb-md">28 Alumnos</p>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 85%;"></div>
-                                </div>
-                                <p class="mt-sm" style="font-size: var(--font-size-sm);">Progreso del semestre: 85%</p>
-                                <button class="btn btn-ghost btn-sm mt-md" style="width: 100%;">Ver Detalles</button>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="mb-md">5° B - Programación</h3>
-                                <p class="text-gray mb-md">30 Alumnos</p>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 82%;"></div>
-                                </div>
-                                <p class="mt-sm" style="font-size: var(--font-size-sm);">Progreso del semestre: 82%</p>
-                                <button class="btn btn-ghost btn-sm mt-md" style="width: 100%;">Ver Detalles</button>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="mb-md">4° A - Programación</h3>
-                                <p class="text-gray mb-md">27 Alumnos</p>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 78%;"></div>
-                                </div>
-                                <p class="mt-sm" style="font-size: var(--font-size-sm);">Progreso del semestre: 78%</p>
-                                <button class="btn btn-ghost btn-sm mt-md" style="width: 100%;">Ver Detalles</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ALUMNOS POR GRUPO -->
-                    <div class="portal-table">
-                        <div class="table-header">
-                            <h3>Alumnos 5° A - Programación</h3>
-                            <div>
-                                <button class="btn btn-ghost btn-sm">Exportar</button>
-                            </div>
-                        </div>
-                        <div id="studentsTable"></div>
-                    </div>
-                </div>
-            </main>
-        </div>
-
-        <button class="sidebar-toggle" id="sidebarToggle">☰</button>
-        <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-        <!-- Supabase SDK -->
-        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-        <script src="../../js/supabase-config.js"></script>
-
-        <!-- Scripts de la aplicación -->
-        <script src="../../js/main.js"></script>
-        <script src="../../js/auth.js"></script>
-        <script src="../../js/portal.js"></script>
-
-        <script>
-            // Esperar a que authManager esté listo
-            async function initDashboard() {
-                console.log('🔄 Esperando inicialización de authManager...');
-
-                // Esperar un poco para que authManager.init() termine
-                await new Promise(resolve => setTimeout(resolve, 1000));
-
-                console.log('✅ Verificando autenticación...');
-                if (!authManager.requireAuth(['docente'])) {
-                    console.log('❌ No autenticado, redirigiendo...');
-                    // Redirigir si no está autenticado
-                } else {
-                    const user = authManager.getCurrentUser();
-                    console.log('✅ Usuario autenticado:', user);
-                    document.getElementById('userName').textContent = user.name;
-
-                    // Renderizar alumnos del curso
+                // 3. Renderizar alumnos del curso (Simulado)
+                if (window.PortalUtils && window.PortalUtils.renderStudentsTable) {
                     const students = window.PortalUtils.getStudents({ grado: '5', grupo: 'A' });
                     window.PortalUtils.renderStudentsTable(students, 'studentsTable');
+                } else {
+                    console.warn('PortalUtils no encontrado');
+                    document.getElementById('studentsTable').innerHTML = '<p style="padding: 20px;">Lista de alumnos no disponible.</p>';
                 }
             }
+        }
 
-            // Ejecutar cuando se carga la página
-            initDashboard();
+        // Iniciar
+        initDashboard();
 
-            document.getElementById('logoutBtn').addEventListener('click', () => {
-                if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
-                    authManager.logout();
-                }
-            });
-        </script>
-    </body>
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+                authManager.logout();
+            }
+        });
+    </script>
+</body>
 
 </html>
