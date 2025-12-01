@@ -198,51 +198,242 @@
             </div>
         </main>
     </div>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admisiones - Administrador | CBTA #44</title>
 
-    <!-- SIDEBAR TOGGLE for mobile -->
-    <button class="sidebar-toggle" id="sidebarToggle">☰</button>
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/portal.css">
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon.svg">
+    </head>
 
-    <!-- Supabase SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../../js/supabase-config.js"></script>
+    <body>
+        <div class="portal-layout">
+            <!-- SIDEBAR -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <img src="../../assets/images/logo.svg" alt="CBTA #44" class="sidebar-logo">
+                    <div>
+                        <div class="sidebar-title">CBTA #44</div>
+                        <div class="sidebar-subtitle">Panel Administrador</div>
+                    </div>
+                </div>
 
-    <!-- Scripts de la aplicación -->
-    <script src="../../js/main.js"></script>
-    <script src="../../js/auth.js"></script>
-    <script src="../../js/portal.js"></script>
-    <script src="../../js/admin-admisiones.js"></script>
+                <div class="sidebar-user">
+                    <div class="user-info">
+                        <div class="user-avatar">AG</div>
+                        <div class="user-details">
+                            <h4 id="userName">Administrador General</h4>
+                            <p>Administrador</p>
+                        </div>
+                    </div>
+                </div>
 
-    <script>
-        // Esperar a que authManager esté listo
-        async function initPage() {
-            // Esperar a que authManager termine de inicializar
-            await authManager.waitForInit();
+                <nav class="sidebar-nav">
+                    <div class="nav-section">
+                        <div class="nav-section-title">Principal</div>
+                        <ul class="sidebar-menu">
+                            <li class="nav-item">
+                                <a href="dashboard.html" class="nav-link-item">
+                                    <span class="nav-icon">📊</span>
+                                    <span>Dashboard</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
 
-            if (!authManager.requireAuth(['admin'])) {
-                return;
-            }
+                    <div class="nav-section">
+                        <div class="nav-section-title">Gestión</div>
+                        <ul class="sidebar-menu">
+                            <li class="nav-item">
+                                <a href="admisiones.html" class="nav-link-item active">
+                                    <span class="nav-icon">📝</span>
+                                    <span>Admisiones</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="usuarios.html" class="nav-link-item">
+                                    <span class="nav-icon">👥</span>
+                                    <span>Usuarios</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link-item">
+                                    <span class="nav-icon">👨‍🏫</span>
+                                    <span>Docentes</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link-item">
+                                    <span class="nav-icon">🎓</span>
+                                    <span>Alumnos</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link-item">
+                                    <span class="nav-icon">📚</span>
+                                    <span>Grupos y Materias</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
 
-            const user = authManager.getCurrentUser();
-            if (user) {
-                document.getElementById('userName').textContent = user.name;
+                    <div class="nav-section">
+                        <div class="nav-section-title">Académico</div>
+                        <ul class="sidebar-menu">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link-item">
+                                    <span class="nav-icon">📝</span>
+                                    <span>Calificaciones</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link-item">
+                                    <span class="nav-icon">📅</span>
+                                    <span>Horarios</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link-item">
+                                    <span class="nav-icon">📋</span>
+                                    <span>Reportes</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
 
-                // Cargar datos una vez autenticado
-                if (window.loadAdmisiones) {
-                    window.loadAdmisiones();
+                    <div class="nav-section">
+                        <div class="nav-section-title">Comunicación</div>
+                        <ul class="sidebar-menu">
+                            <li class="nav-item">
+                                <a href="noticias.html" class="nav-link-item">
+                                    <span class="nav-icon">📰</span>
+                                    <span>Noticias</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="nav-section">
+                        <div class="nav-section-title">Multimedia</div>
+                        <ul>
+                            <li class="nav-item">
+                                <a href="galeria.html" class="nav-link-item">
+                                    <span class="nav-icon">📸</span>
+                                    <span>Galería</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="nav-section">
+                        <div class="nav-section-title">Configuración</div>
+                        <ul class="sidebar-menu">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link-item">
+                                    <span class="nav-icon">⚙️</span>
+                                    <span>Configuración</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <button class="btn btn-outline" id="logoutBtn"
+                        style="width: 100%; color: white; border-color: rgba(255,255,255,0.3);">
+                        Cerrar Sesión
+                    </button>
+                </div>
+            </aside>
+
+            <!-- MAIN CONTENT -->
+            <main class="main-content">
+                <!-- HEADER -->
+                <header class="portal-header">
+                    <h1 class="portal-title">Solicitudes de Admisión</h1>
+                    <div class="portal-actions">
+                        <button class="btn btn-primary" onclick="loadAdmisiones()">
+                            🔄 Actualizar
+                        </button>
+                        <button class="btn btn-ghost">
+                            <span style="position: relative;">
+                                🔔
+                                <span class="notification-badge">0</span>
+                            </span>
+                        </button>
+                    </div>
+                </header>
+
+                <!-- CONTENT -->
+                <div class="portal-content">
+                    <div class="portal-table">
+                        <div class="table-header">
+                            <h3>Listado de Aspirantes</h3>
+                            <div class="flex gap-sm">
+                                <input type="text" placeholder="Buscar..." class="form-input" style="padding: 0.5rem;">
+                            </div>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Aspirante</th>
+                                    <th>Contacto</th>
+                                    <th>Académico</th>
+                                    <th>Carrera Interés</th>
+                                    <th>Fecha</th>
+                                    <th>Estatus</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admisionesTableBody">
+                                <!-- Datos cargados dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- SIDEBAR TOGGLE for mobile -->
+        <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Supabase SDK -->
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+        <!-- Scripts de la aplicación -->
+        <script type="module">
+            import { authManager } from '../../js/auth.js';
+            import '../../js/portal.js';
+            import { loadAdmisiones } from '../../js/admin-admisiones.js';
+
+            // Esperar a que authManager esté listo
+            async function initPage() {
+                // Esperar a que authManager termine de inicializar
+                await authManager.waitForInit();
+
+                if (!authManager.requireAuth(['admin'])) {
+                    return;
+                }
+
+                const user = authManager.getCurrentUser();
+                if (user) {
+                    document.getElementById('userName').textContent = user.name;
+
+                    // Cargar datos una vez autenticado
+                    loadAdmisiones();
                 }
             }
-        }
 
-        initPage();
+            initPage();
 
-        // Logout
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
-                authManager.logout();
-            }
-        });
-    </script>
-</body>
+            // Logout
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+                if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+                    authManager.logout();
+                }
+            });
+        </script>
+    </body>
 
 </html>

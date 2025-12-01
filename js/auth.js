@@ -1,14 +1,14 @@
 /**
- * CBTA #44 - Sistema de Autenticación con Supabase
- * 
- * Este archivo reemplaza el sistema de demo con autenticación real usando Supabase.
+ * CBTA #44 - Sistema de Autenticación con Supabase (ES Module)
  */
 
+import { supabaseClient, SUPABASE_URL, SUPABASE_ANON_KEY } from './supabase-config.js';
+
 // ===== CLASE AUTHMANAGER CON SUPABASE =====
-class AuthManager {
+export class AuthManager {
     constructor() {
         this.currentUser = null;
-        this.supabase = window.supabaseClient;
+        this.supabase = supabaseClient;
         this.initPromise = this.init();
         this.loadingProfilePromise = null;
         this.loadingProfileId = null;
@@ -19,6 +19,11 @@ class AuthManager {
     }
 
     async init() {
+        if (!this.supabase) {
+            console.error('Supabase client not initialized');
+            return;
+        }
+
         try {
             // Verificar si hay una sesión activa
             const { data: { session }, error } = await this.supabase.auth.getSession();
@@ -245,13 +250,6 @@ class AuthManager {
         }
     }
 
-    async createProfileFromAuth(userId, userObject = null) {
-        // DEPRECATED: La creación de perfiles ahora es manejada por un Trigger en la Base de Datos (PostgreSQL).
-        // Mantenemos este método solo como stub por si se llama desde algún lugar legacy, pero no hace nada.
-        console.log('ℹ️ createProfileFromAuth invocado: Omitiendo creación manual (Manejado por DB Trigger).');
-        return true;
-    }
-
     async loginWithEmail(email, password) {
         try {
             const { data, error } = await this.supabase.auth.signInWithPassword({
@@ -280,48 +278,58 @@ class AuthManager {
     }
 
     async register(userData) {
-        console.log('🔵 AuthManager.register called for:', userData.email);
-        try {
-            // 1. Crear usuario en Auth
-            const { data: authData, error: authError } = await this.supabase.auth.signUp({
-                email: userData.email,
-                password: userData.password,
-                options: {
-                    data: {
-                        full_name: userData.name,
-                        role: userData.role
-                    }
-                }
-            });
+        console.log('🔵 AuthManager.register called (DISABLED)');
+        throw new Error('El registro público está deshabilitado por razones de seguridad. Contacte a la administración.');
+    }
 
-            if (authError) throw new Error(authError.message);
-            console.log('🟢 Supabase signUp success');
+    /**
+     * Crear usuario (Solo Admin) - Usa un cliente temporal para no cerrar sesión
+     */
+    async adminCreateUser(email, password, userData) {
+        console.log('🔵 AuthManager.adminCreateUser called');
 
-            // Si no hay sesión (requiere confirmación), terminamos aquí
-            if (!authData.session) {
-                console.log('🟠 Requiere confirmación de email. Saltando creación de perfil en DB.');
-                return {
-                    user: authData.user,
-                    session: null,
-                    emailConfirmationRequired: true
-                };
+        // Crear cliente temporal sin persistencia
+        const tempSupabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+            auth: {
+                persistSession: false,
+                autoRefreshToken: false,
+                detectSessionInUrl: false
             }
+        });
 
-            // Si hay sesión, intentamos cargar el perfil (lo creará si no existe)
-            // Pasamos el usuario directamente
-            await this.loadUserProfile(authData.user.id, authData.user);
+        // 1. Crear usuario en Auth
+        const { data: authData, error: authError } = await tempSupabase.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+                data: {
+                    full_name: userData.name,
+                    rol: userData.role
+                }
+            }
+        });
 
-            return {
-                user: authData.user,
-                session: authData.session,
-                userProfile: this.currentUser,
-                emailConfirmationRequired: false
-            };
+        if (authError) throw authError;
+        if (!authData.user) throw new Error('No se pudo crear el usuario en Auth.');
 
-        } catch (error) {
-            console.error('🔴 Error en registro:', error);
-            throw error;
+        console.log('✅ Usuario creado en Auth:', authData.user.id);
+
+        // 2. Insertar en tabla perfiles (si el trigger no lo hace o para asegurar datos extra)
+        const { error: profileError } = await this.supabase
+            .from('perfiles')
+            .update({
+                nombre_completo: userData.name,
+                rol: userData.role,
+                telefono: userData.phone,
+                activo: true
+            })
+            .eq('id', authData.user.id);
+
+        if (profileError) {
+            console.warn('⚠️ Error actualizando perfil (puede que el trigger ya lo haya creado):', profileError);
         }
+
+        return authData.user;
     }
 
     async logout() {
@@ -336,7 +344,7 @@ class AuthManager {
             localStorage.removeItem('cbta_user_profile');
 
             this.currentUser = null;
-            window.location.href = '../pages/login.html';
+            window.location.href = '/pages/login.html';
 
         } catch (error) {
             console.error('Error en logout:', error);
@@ -367,7 +375,7 @@ class AuthManager {
         if (window.location.pathname.includes('/pages/login.html')) {
             return;
         }
-        window.location.href = '../../pages/login.html';
+        window.location.href = '/pages/login.html';
     }
 
     redirectToDashboard() {
@@ -377,9 +385,9 @@ class AuthManager {
         }
 
         const dashboards = {
-            'admin': '../portal/admin/dashboard.html',
-            'docente': '../portal/docente/dashboard.html',
-            'alumno': '../portal/alumno/dashboard.html'
+            'admin': '/portal/admin/dashboard.html',
+            'docente': '/portal/docente/dashboard.html',
+            'alumno': '/portal/alumno/dashboard.html'
         };
 
         const url = dashboards[this.currentUser.rol];
@@ -427,7 +435,5 @@ class AuthManager {
 }
 
 // ===== INSTANCIA GLOBAL =====
-const authManager = new AuthManager();
-window.authManager = authManager;
-
-console.log('✅ Auth.js cargado - Sistema de autenticación con Supabase activo');
+export const authManager = new AuthManager();
+console.log('✅ Auth.js cargado (ES Module)');

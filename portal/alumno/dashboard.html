@@ -117,7 +117,8 @@
                     <div class="card-body">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <div>
-                                <h2 style="color: white; margin-bottom: var(--spacing-sm);" id="studentName">Cargando...
+                                <h2 style="color: white; margin-bottom: var(--spacing-sm);" id="studentName">
+                                    Cargando...
                                 </h2>
                                 <p style="margin: 0; color: rgba(255,255,255,0.9);">5° Semestre - Grupo A</p>
                                 <p style="margin: 0; color: rgba(255,255,255,0.9);">Especialidad: Programación</p>
@@ -183,14 +184,16 @@
 
     <!-- Supabase SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../../js/supabase-config.js"></script>
 
     <!-- Scripts -->
-    <script src="../../js/main.js"></script>
-    <script src="../../js/auth.js"></script>
-    <script src="../../js/portal.js"></script>
+    <script type="module" src="../../js/main.js"></script>
+    <script type="module" src="../../js/auth.js"></script>
+    <script type="module" src="../../js/portal.js"></script>
 
-    <script>
+    <script type="module">
+        import { authManager } from '../../js/auth.js';
+        import { renderGradesTable } from '../../js/portal.js';
+
         async function initDashboard() {
             console.log('🔄 Iniciando Dashboard de Alumno...');
 
@@ -210,13 +213,8 @@
                 const matricula = user.matricula || '2023' + user.id.substring(0, 5).toUpperCase();
                 document.getElementById('userMatricula').textContent = matricula;
 
-                // 4. Renderizar calificaciones (Simuladas por ahora)
-                if (window.PortalUtils && window.PortalUtils.renderGradesTable) {
-                    window.PortalUtils.renderGradesTable(matricula, 'gradesTable');
-                } else {
-                    console.warn('PortalUtils no encontrado o incompleto');
-                    document.getElementById('gradesTable').innerHTML = '<p style="padding: 20px;">Sistema de calificaciones no disponible.</p>';
-                }
+                // 4. Renderizar calificaciones
+                renderGradesTable(matricula, 'gradesTable');
             }
         }
 

@@ -2,20 +2,20 @@
  * CBTA #44 - Gestión de Admisiones (Admin)
  */
 
-// Event listener removed to avoid race conditions. 
-// loadAdmisiones() will be called from admisiones.html after auth init.
+import { supabaseClient } from './supabase-config.js';
+import { showNotification, formatDateShort } from './utils.js';
 
 /**
  * Cargar lista de admisiones desde Supabase
  */
-async function loadAdmisiones() {
+export async function loadAdmisiones() {
     const tableBody = document.getElementById('admisionesTableBody');
     if (!tableBody) return;
 
     try {
         tableBody.innerHTML = '<tr><td colspan="7" class="text-center">Cargando datos...</td></tr>';
 
-        const { data, error } = await window.supabaseClient
+        const { data, error } = await supabaseClient
             .from('admisiones')
             .select('*')
             .order('fecha_registro', { ascending: false });
@@ -27,7 +27,7 @@ async function loadAdmisiones() {
     } catch (error) {
         console.error('Error al cargar admisiones:', error);
         tableBody.innerHTML = '<tr><td colspan="7" class="text-center text-danger">Error al cargar los datos</td></tr>';
-        window.CBTA44Utils.showNotification('Error al cargar las solicitudes', 'error');
+        showNotification('Error al cargar las solicitudes', 'error');
     }
 }
 
@@ -52,7 +52,7 @@ function renderAdmisionesTable(admisiones) {
             <td>${solicitud.email}<br>${solicitud.telefono}</td>
             <td>${solicitud.escuela_procedencia}<br>Promedio: <strong>${solicitud.promedio}</strong></td>
             <td>${solicitud.carrera_interes}</td>
-            <td>${window.CBTA44Utils.formatDateShort(solicitud.fecha_registro)}</td>
+            <td>${formatDateShort(solicitud.fecha_registro)}</td>
             <td>
                 <span class="badge badge-${getStatusBadge(solicitud.estatus)}">
                     ${solicitud.estatus.toUpperCase()}
@@ -61,10 +61,10 @@ function renderAdmisionesTable(admisiones) {
             <td>
                 <div class="flex gap-sm">
                     ${solicitud.estatus === 'pendiente' ? `
-                        <button class="btn btn-success btn-sm" onclick="updateStatus('${solicitud.id}', 'aceptado')">✓</button>
-                        <button class="btn btn-danger btn-sm" onclick="updateStatus('${solicitud.id}', 'rechazado')">✕</button>
+                        <button class="btn btn-success btn-sm" onclick="window.updateStatus('${solicitud.id}', 'aceptado')">✓</button>
+                        <button class="btn btn-danger btn-sm" onclick="window.updateStatus('${solicitud.id}', 'rechazado')">✕</button>
                     ` : ''}
-                    <button class="btn btn-ghost btn-sm" onclick="viewDetails('${solicitud.id}')">👁️</button>
+                    <button class="btn btn-ghost btn-sm" onclick="window.viewDetails('${solicitud.id}')">👁️</button>
                 </div>
             </td>
         </tr>
@@ -86,32 +86,32 @@ function getStatusBadge(status) {
 /**
  * Actualizar estatus de una solicitud
  */
-window.updateStatus = async (id, newStatus) => {
+async function updateStatus(id, newStatus) {
     if (!confirm(`¿Estás seguro de cambiar el estatus a ${newStatus.toUpperCase()}?`)) return;
 
     try {
-        const { error } = await window.supabaseClient
+        const { error } = await supabaseClient
             .from('admisiones')
             .update({ estatus: newStatus })
             .eq('id', id);
 
         if (error) throw error;
 
-        window.CBTA44Utils.showNotification(`Solicitud ${newStatus} correctamente`, 'success');
+        showNotification(`Solicitud ${newStatus} correctamente`, 'success');
         loadAdmisiones(); // Recargar tabla
 
     } catch (error) {
         console.error('Error al actualizar estatus:', error);
-        window.CBTA44Utils.showNotification('Error al actualizar la solicitud', 'error');
+        showNotification('Error al actualizar la solicitud', 'error');
     }
-};
+}
 
 /**
  * Ver detalles de la solicitud (simple alert por ahora)
  */
-window.viewDetails = async (id) => {
+async function viewDetails(id) {
     try {
-        const { data, error } = await window.supabaseClient
+        const { data, error } = await supabaseClient
             .from('admisiones')
             .select('*')
             .eq('id', id)
@@ -136,4 +136,9 @@ window.viewDetails = async (id) => {
     } catch (error) {
         console.error('Error al obtener detalles:', error);
     }
-};
+}
+
+// Expose functions to window for HTML event handlers
+window.updateStatus = updateStatus;
+window.viewDetails = viewDetails;
+window.loadAdmisiones = loadAdmisiones;

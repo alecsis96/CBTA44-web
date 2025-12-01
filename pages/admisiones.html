@@ -24,7 +24,8 @@
             <div class="nav-menu" id="navMenu">
                 <ul class="nav-list">
                     <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
-                    <li class="nav-item"><a href="oferta-educativa.html" class="nav-link">Oferta Educativa</a></li>
+                    <li class="nav-item"><a href="oferta-educativa.html" class="nav-link">Oferta Educativa</a>
+                    </li>
                     <li class="nav-item"><a href="noticias.html" class="nav-link">Noticias</a></li>
                     <li class="nav-item"><a href="galeria.html" class="nav-link">Galería</a></li>
                     <li class="nav-item"><a href="admisiones.html" class="nav-link active">Admisiones</a></li>
@@ -62,7 +63,8 @@
                     <div class="timeline-content card">
                         <div class="card-body">
                             <h3>Pre-registro en Línea</h3>
-                            <p>Completa el formulario de pre-registro con tus datos personales y académicos. Recibirás
+                            <p>Completa el formulario de pre-registro con tus datos personales y académicos.
+                                Recibirás
                                 un número de folio.</p>
                             <ul class="mt-md">
                                 <li>Accede al sistema de pre-registro</li>
@@ -203,486 +205,127 @@
 
     <!-- CTA -->
     <section class="section cta-section">
-        <link rel="stylesheet" href="../css/public.css">
-        <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
-        </head>
-
-        <body>
-            <!-- HEADER -->
-            <header class="header" id="header">
-                <nav class="nav container">
-                    <a href="../index.html" class="nav-brand">
-                        <img src="../assets/images/logo.svg" alt="CBTA #44" class="nav-logo">
-                        <span class="nav-title">CBTA #44</span>
-                    </a>
-
-                    <div class="nav-menu" id="navMenu">
-                        <ul class="nav-list">
-                            <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
-                            <li class="nav-item"><a href="oferta-educativa.html" class="nav-link">Oferta Educativa</a>
-                            </li>
-                            <li class="nav-item"><a href="noticias.html" class="nav-link">Noticias</a></li>
-                            <li class="nav-item"><a href="galeria.html" class="nav-link">Galería</a></li>
-                            <li class="nav-item"><a href="admisiones.html" class="nav-link active">Admisiones</a></li>
-                            <li class="nav-item"><a href="contacto.html" class="nav-link">Contacto</a></li>
-                        </ul>
-                        <a href="login.html" class="btn btn-primary nav-cta">Portal de Gestión</a>
-                    </div>
-
-                    <button class="nav-toggle" id="navToggle">
-                        <span class="nav-toggle-icon"></span>
-                    </button>
-                </nav>
-            </header>
-
-            <!-- PAGE HEADER -->
-            <section class="page-header">
-                <div class="container">
-                    <h1 class="page-title">Proceso de Admisión</h1>
-                    <p class="page-subtitle">Tu futuro comienza aquí</p>
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">¿Listo para Comenzar?</h2>
+                <p class="cta-description">
+                    No pierdas la oportunidad de estudiar en el CBTA #44. Inicia tu pre-registro hoy mismo.
+                </p>
+                <div class="cta-actions">
+                    <button onclick="openRegistroModal()" class="btn btn-primary btn-lg">Iniciar
+                        Pre-registro</button>
+                    <a href="contacto.html" class="btn btn-outline btn-lg">¿Tienes Dudas?</a>
                 </div>
-            </section>
+            </div>
+        </div>
+    </section>
 
-            <!-- PROCESO -->
-            <section class="section">
-                <div class="container">
-                    <div class="section-header text-center mb-xl">
-                        <h2>Pasos para Tu Ingreso</h2>
-                        <p class="section-subtitle">Sigue estos pasos para formar parte del CBTA #44</p>
-                    </div>
-
-                    <div class="timeline">
-                        <!-- Paso 1 -->
-                        <div class="timeline-item">
-                            <div class="timeline-marker">1</div>
-                            <div class="timeline-content card">
-                                <div class="card-body">
-                                    <h3>Pre-registro en Línea</h3>
-                                    <p>Completa el formulario de pre-registro con tus datos personales y académicos.
-                                        Recibirás
-                                        un número de folio.</p>
-                                    <ul class="mt-md">
-                                        <li>Accede al sistema de pre-registro</li>
-                                        <li>Llena el formulario con tus datos</li>
-                                        <li>Guarda tu número de folio</li>
-                                    </ul>
-                                    <button class="btn btn-primary mt-lg" onclick="openRegistroModal()">Iniciar
-                                        Pre-registro</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Paso 2 -->
-                        <div class="timeline-item">
-                            <div class="timeline-marker">2</div>
-                            <div class="timeline-content card">
-                                <div class="card-body">
-                                    <h3>Entrega de Documentos</h3>
-                                    <p>Presenta en ventanilla los siguientes documentos:</p>
-                                    <ul class="mt-md">
-                                        <li>Certificado de secundaria (original y copia)</li>
-                                        <li>Acta de nacimiento (original y copia)</li>
-                                        <li>CURP (copia)</li>
-                                        <li>6 fotografías tamaño infantil</li>
-                                        <li>Comprobante de domicilio</li>
-                                        <li>Certificado médico</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Paso 3 -->
-                        <div class="timeline-item">
-                            <div class="timeline-marker">3</div>
-                            <div class="timeline-content card">
-                                <div class="card-body">
-                                    <h3>Examen de Admisión</h3>
-                                    <p>Presenta el examen diagnóstico en la fecha asignada. El examen evalúa:</p>
-                                    <ul class="mt-md">
-                                        <li>Razonamiento matemático</li>
-                                        <li>Razonamiento verbal</li>
-                                        <li>Conocimientos generales</li>
-                                        <li>Habilidades técnicas básicas</li>
-                                    </ul>
-                                    <p class="mt-md"><strong>Fecha:</strong> 15 de Febrero, 2025</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Paso 4 -->
-                        <div class="timeline-item">
-                            <div class="timeline-marker">4</div>
-                            <div class="timeline-content card">
-                                <div class="card-body">
-                                    <h3>Publicación de Resultados</h3>
-                                    <p>Consulta los resultados en línea o en las instalaciones del plantel.</p>
-                                    <ul class="mt-md">
-                                        <li>Revisa la lista de aceptados</li>
-                                        <li>Consulta tu especialidad asignada</li>
-                                        <li>Obtén tu grupo y horario</li>
-                                    </ul>
-                                    <p class="mt-md"><strong>Fecha:</strong> 20 de Febrero, 2025</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Paso 5 -->
-                        <div class="timeline-item">
-                            <div class="timeline-marker">5</div>
-                            <div class="timeline-content card">
-                                <div class="card-body">
-                                    <h3>Inscripción Oficial</h3>
-                                    <p>Realiza el pago de inscripción y recibe tu credencial de estudiante.</p>
-                                    <ul class="mt-md">
-                                        <li>Pago de inscripción</li>
-                                        <li>Fotografía para credencial</li>
-                                        <li>Firma de documentos</li>
-                                        <li>Recibe tu credencial y horario</li>
-                                    </ul>
-                                    <p class="mt-md"><strong>Fecha:</strong> 22-24 de Febrero, 2025</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Paso 6 -->
-                        <div class="timeline-item">
-                            <div class="timeline-marker">6</div>
-                            <div class="timeline-content card">
-                                <div class="card-body">
-                                    <h3>¡Bienvenido a CBTA #44!</h3>
-                                    <p>Asiste a la ceremonia de bienvenida e inicia tu camino hacia el éxito.</p>
-                                    <ul class="mt-md">
-                                        <li>Ceremonia de bienvenida</li>
-                                        <li>Recorrido por las instalaciones</li>
-                                        <li>Conoce a tus compañeros y maestros</li>
-                                        <li>Inicio de clases</li>
-                                    </ul>
-                                    <p class="mt-md"><strong>Fecha:</strong> 26 de Febrero, 2025</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="grid grid-cols-4 footer-grid">
+                <div class="footer-section">
+                    <h4 class="footer-title">CBTA #44</h4>
+                    <p class="footer-text">
+                        Centro de Bachillerato Tecnológico comprometido con la excelencia educativa.
+                    </p>
                 </div>
-            </section>
 
-            <!-- FECHAS IMPORTANTES -->
-            <section class="section" style="background: var(--color-gray-100);">
-                <div class="container">
-                    <h2 class="text-center mb-xl">Fechas Importantes</h2>
-
-                    <div class="grid grid-cols-3">
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <div style="font-size: 3rem; margin-bottom: var(--spacing-md);">📝</div>
-                                <h4>Pre-registro</h4>
-                                <p class="mt-sm">1 al 10 de Febrero</p>
-                            </div>
-                        </div>
-
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <div style="font-size: 3rem; margin-bottom: var(--spacing-md);">📋</div>
-                                <h4>Examen de Admisión</h4>
-                                <p class="mt-sm">15 de Febrero</p>
-                            </div>
-                        </div>
-
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <div style="font-size: 3rem; margin-bottom: var(--spacing-md);">🎓</div>
-                                <h4>Inicio de Clases</h4>
-                                <p class="mt-sm">26 de Febrero</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Enlaces Rápidos</h4>
+                    <ul class="footer-links">
+                        <li><a href="oferta-educativa.html">Oferta Educativa</a></li>
+                        <li><a href="admisiones.html">Admisiones</a></li>
+                        <li><a href="noticias.html">Noticias</a></li>
+                        <li><a href="galeria.html">Galería</a></li>
+                    </ul>
                 </div>
-            </section>
 
-            <!-- CTA -->
-            <section class="section cta-section">
-                <div class="container">
-                    <div class="cta-content">
-                        <h2 class="cta-title">¿Listo para Comenzar?</h2>
-                        <p class="cta-description">
-                            No pierdas la oportunidad de estudiar en el CBTA #44. Inicia tu pre-registro hoy mismo.
-                        </p>
-                        <div class="cta-actions">
-                            <button onclick="openRegistroModal()" class="btn btn-primary btn-lg">Iniciar
-                                Pre-registro</button>
-                            <a href="contacto.html" class="btn btn-outline btn-lg">¿Tienes Dudas?</a>
-                        </div>
-                    </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Contacto</h4>
+                    <ul class="footer-contacts">
+                        <li>📍 Calzada Linda Vista S/N, Yajalón, Mexico</li>
+                        <li>📞 919 674 0194</li>
+                        <li>✉️ chis.cbta044.direccion@dgetaycm.sems.gob.mx</li>
+                    </ul>
                 </div>
-            </section>
 
-            <!-- FOOTER -->
-            <footer class="footer">
-                <div class="container">
-                    <div class="grid grid-cols-4 footer-grid">
-                        <div class="footer-section">
-                            <h4 class="footer-title">CBTA #44</h4>
-                            <p class="footer-text">
-                                Centro de Bachillerato Tecnológico comprometido con la excelencia educativa.
-                            </p>
-                        </div>
-
-                        <div class="footer-section">
-                            <h4 class="footer-title">Enlaces Rápidos</h4>
-                            <ul class="footer-links">
-                                <li><a href="oferta-educativa.html">Oferta Educativa</a></li>
-                                <li><a href="admisiones.html">Admisiones</a></li>
-                                <li><a href="noticias.html">Noticias</a></li>
-                                <li><a href="galeria.html">Galería</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="footer-section">
-                            <h4 class="footer-title">Contacto</h4>
-                            <ul class="footer-contacts">
-                                <li>📍 Calzada Linda Vista S/N, Yajalón, Mexico</li>
-                                <li>📞 919 674 0194</li>
-                                <li>✉️ chis.cbta044.direccion@dgetaycm.sems.gob.mx</li>
-                            </ul>
-                        </div>
-
-                        <div class="footer-section">
-                            <h4 class="footer-title">Horarios</h4>
-                            <p class="footer-text">Lun - Vie: 7:00 AM - 2:00 PM</p>
-                        </div>
-                    </div>
-
-                    <div class="footer-bottom">
-                        <p>&copy; 2025 CBTA #44. Todos los derechos reservados.</p>
-                    </div>
-                </div>
-            </footer>
-
-            <!-- MODAL PRE-REGISTRO -->
-            <div id="registroModal" class="modal">
-                <div class="modal-content">
-                    <span class="modal-close">&times;</span>
-                    <h2 class="text-center mb-lg">Pre-registro de Admisión</h2>
-                    <form id="registroForm" class="contact-form">
-                        <div class="form-group">
-                            <label for="nombre" class="form-label">Nombre Completo *</label>
-                            <input type="text" id="nombre" class="form-input" required
-                                placeholder="Apellido Paterno Materno Nombres">
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-md">
-                            <div class="form-group">
-                                <label for="curp" class="form-label">CURP *</label>
-                                <input type="text" id="curp" class="form-input" required minlength="18" maxlength="18"
-                                    style="text-transform: uppercase;">
-                            </div>
-                            <div class="form-group">
-                                <label for="promedio" class="form-label">Promedio Secundaria *</label>
-                                <input type="number" id="promedio" class="form-input" required min="6" max="10"
-                                    step="0.1">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-md">
-                            <div class="form-group">
-                                <label for="email" class="form-label">Correo Electrónico *</label>
-                                <input type="email" id="email" class="form-input" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="telefono" class="form-label">Teléfono *</label>
-                                <input type="tel" id="telefono" class="form-input" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="escuela" class="form-label">Escuela de Procedencia *</label>
-                            <input type="text" id="escuela" class="form-input" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="carrera" class="form-label">Carrera de Interés *</label>
-                            <select id="carrera" class="form-select" required>
-                                <option value="">Selecciona una opción</option>
-                                <option value="Tecnico en Ofimatica">Técnico en Ofimática</option>
-                                <option value="Tecnico Agropecuario">Técnico Agropecuario</option>
-                                <option value="Tecnico en Desarrollo Comunitario">Técnico en Desarrollo Comunitario
-                                </option>
-                            </select>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary btn-lg w-full" style="width: 100%;">Enviar
-                            Solicitud</button>
-                    </form>
+                <div class="footer-section">
+                    <h4 class="footer-title">Horarios</h4>
+                    <p class="footer-text">Lun - Vie: 7:00 AM - 2:00 PM</p>
                 </div>
             </div>
 
-            <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-            <script src="../js/main.js"></script>
-            <script src="../js/supabase-config.js"></script>
-            <script src="../js/public.js"></script>
-            <script src="../js/admisiones.js"></script>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CBTA #44. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
 
-            <style>
-                .modal {
-                    display: none;
-                    position: fixed;
-                    z-index: 1000;
-                    left: 0;
-                    top: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(0, 0, 0, 0.5);
-                    align-items: center;
-                    justify-content: center;
-                    opacity: 0;
-                    transition: opacity 0.3s;
-                }
+    <!-- MODAL PRE-REGISTRO -->
+    <div id="registroModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2 class="text-center mb-lg">Pre-registro de Admisión</h2>
+            <form id="registroForm" class="contact-form">
+                <div class="form-group">
+                    <label for="nombre" class="form-label">Nombre Completo *</label>
+                    <input type="text" id="nombre" class="form-input" required
+                        placeholder="Apellido Paterno Materno Nombres">
+                </div>
 
-                .modal.active {
-                    display: flex;
-                    opacity: 1;
-                }
+                <div class="grid grid-cols-2 gap-md">
+                    <div class="form-group">
+                        <label for="curp" class="form-label">CURP *</label>
+                        <input type="text" id="curp" class="form-input" required minlength="18" maxlength="18"
+                            style="text-transform: uppercase;">
+                    </div>
+                    <div class="form-group">
+                        <label for="promedio" class="form-label">Promedio Secundaria *</label>
+                        <input type="number" id="promedio" class="form-input" required min="6" max="10" step="0.1">
+                    </div>
+                </div>
 
-                .modal-content {
-                    background-color: white;
-                    padding: 2rem;
-                    border-radius: var(--radius-lg);
-                    width: 90%;
-                    max-width: 600px;
-                    position: relative;
-                    max-height: 90vh;
-                    overflow-y: auto;
-                    animation: slideUp 0.3s ease-out;
-                }
+                <div class="grid grid-cols-2 gap-md">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Correo Electrónico *</label>
+                        <input type="email" id="email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono" class="form-label">Teléfono *</label>
+                        <input type="tel" id="telefono" class="form-input" required>
+                    </div>
+                </div>
 
-                .modal-close {
-                    position: absolute;
-                    top: 1rem;
-                    right: 1.5rem;
-                    font-size: 2rem;
-                    cursor: pointer;
-                    color: var(--color-gray-500);
-                }
+                <div class="form-group">
+                    <label for="escuela" class="form-label">Escuela de Procedencia *</label>
+                    <input type="text" id="escuela" class="form-input" required>
+                </div>
 
-                @keyframes slideUp {
-                    from {
-                        transform: translateY(20px);
-                        opacity: 0;
-                    }
+                <div class="form-group">
+                    <label for="carrera" class="form-label">Carrera de Interés *</label>
+                    <select id="carrera" class="form-select" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="Tecnico en Ofimatica">Técnico en Ofimática</option>
+                        <option value="Tecnico Agropecuario">Técnico Agropecuario</option>
+                        <option value="Tecnico en Desarrollo Comunitario">Técnico en Desarrollo Comunitario
+                        </option>
+                    </select>
+                </div>
 
-                    to {
-                        transform: translateY(0);
-                        opacity: 1;
-                    }
-                }
+                <button type="submit" class="btn btn-primary btn-lg w-full" style="width: 100%;">Enviar
+                    Pre-registro</button>
+            </form>
+        </div>
+    </div>
 
-                .page-header {
-                    background: var(--gradient-primary);
-                    padding: calc(70px + var(--spacing-4xl)) 0 var(--spacing-4xl);
-                    text-align: center;
-                    color: var(--color-white);
-                }
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-                .page-title {
-                    font-size: var(--font-size-5xl);
-                    color: var(--color-white);
-                    margin-bottom: var(--spacing-md);
-                }
-
-                .page-subtitle {
-                    font-size: var(--font-size-xl);
-                    color: rgba(255, 255, 255, 0.9);
-                }
-
-                .timeline {
-                    position: relative;
-                    max-width: 800px;
-                    margin: 0 auto;
-                }
-
-                .timeline::before {
-                    content: '';
-                    position: absolute;
-                    left: 30px;
-                    top: 0;
-                    bottom: 0;
-                    width: 3px;
-                    background: var(--gradient-primary);
-                }
-
-                .timeline-item {
-                    position: relative;
-                    margin-bottom: var(--spacing-3xl);
-                    padding-left: 80px;
-                }
-
-                .timeline-marker {
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    width: 60px;
-                    height: 60px;
-                    background: var(--gradient-primary);
-                    color: white;
-                    border-radius: var(--radius-full);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: var(--font-size-2xl);
-                    font-weight: var(--font-weight-bold);
-                    box-shadow: var(--shadow-lg);
-                }
-
-                .timeline-content {
-                    position: relative;
-                }
-
-                .timeline-content::before {
-                    content: '';
-                    position: absolute;
-                    left: -20px;
-                    top: 20px;
-                    width: 0;
-                    height: 0;
-                    border-top: 10px solid transparent;
-                    border-bottom: 10px solid transparent;
-                    border-right: 10px solid white;
-                }
-
-                .timeline-content ul {
-                    list-style: none;
-                    padding-left: 0;
-                }
-
-                .timeline-content li {
-                    padding: var(--spacing-xs) 0;
-                    padding-left: var(--spacing-xl);
-                    position: relative;
-                }
-
-                .timeline-content li::before {
-                    content: '→';
-                    position: absolute;
-                    left: 0;
-                    color: var(--color-primary);
-                    font-weight: bold;
-                }
-
-                @media (max-width: 768px) {
-                    .timeline::before {
-                        left: 20px;
-                    }
-
-                    .timeline-item {
-                        padding-left: 60px;
-                    }
-
-                    .timeline-marker {
-                        width: 40px;
-                        height: 40px;
-                        font-size: var(--font-size-lg);
-                    }
-                }
-            </style>
-        </body>
+    <!-- Scripts -->
+    <script type="module" src="../js/main.js"></script>
+    <script type="module" src="../js/public.js"></script>
+    <script type="module" src="../js/admisiones.js"></script>
+</body>
 
 </html>

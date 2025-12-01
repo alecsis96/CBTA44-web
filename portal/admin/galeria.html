@@ -240,6 +240,200 @@
             </div>
         </div>
     </div>
+    <div class="nav-section">
+        <div class="nav-section-title">Gestión</div>
+        <ul class="sidebar-menu">
+            <li class="nav-item">
+                <a href="admisiones.html" class="nav-link-item">
+                    <span class="nav-icon">📝</span>
+                    <span>Admisiones</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="usuarios.html" class="nav-link-item">
+                    <span class="nav-icon">👥</span>
+                    <span>Usuarios</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link-item">
+                    <span class="nav-icon">👨‍🏫</span>
+                    <span>Docentes</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link-item">
+                    <span class="nav-icon">🎓</span>
+                    <span>Alumnos</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link-item">
+                    <span class="nav-icon">📚</span>
+                    <span>Grupos y Materias</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Académico</div>
+        <ul class="sidebar-menu">
+            <li class="nav-item">
+                <a href="#" class="nav-link-item">
+                    <span class="nav-icon">📝</span>
+                    <span>Calificaciones</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link-item">
+                    <span class="nav-icon">📅</span>
+                    <span>Horarios</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link-item">
+                    <span class="nav-icon">📋</span>
+                    <span>Reportes</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Comunicación</div>
+        <ul class="sidebar-menu">
+            <li class="nav-item">
+                <a href="noticias.html" class="nav-link-item">
+                    <span class="nav-icon">📰</span>
+                    <span>Noticias</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Multimedia</div>
+        <ul>
+            <li class="nav-item">
+                <a href="galeria.html" class="nav-link-item active">
+                    <span class="nav-icon">📸</span>
+                    <span>Galería</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Configuración</div>
+        <ul class="sidebar-menu">
+            <li class="nav-item">
+                <a href="#" class="nav-link-item">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Configuración</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    </nav>
+
+    <div class="sidebar-footer">
+        <button class="btn btn-outline" id="logoutBtn"
+            style="width: 100%; color: white; border-color: rgba(255,255,255,0.3);">
+            Cerrar Sesión
+        </button>
+    </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- HEADER -->
+        <header class="portal-header">
+            <h1 class="portal-title">Gestión de Galería</h1>
+            <div class="portal-actions">
+                <button class="btn btn-primary" onclick="openModal()">
+                    ➕ Nueva Imagen
+                </button>
+            </div>
+        </header>
+
+        <!-- CONTENT -->
+        <div class="portal-content">
+            <div class="portal-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Título</th>
+                            <th>Categoría</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="galleryTableBody">
+                        <!-- Dynamic content -->
+                        <tr>
+                            <td colspan="5" style="text-align: center;">Cargando galería...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="galleryModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Nueva Imagen</h3>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="galleryForm">
+                    <input type="hidden" id="galleryId">
+
+                    <div class="form-group">
+                        <label class="form-label">Título</label>
+                        <input type="text" class="form-input" id="galleryTitle" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Categoría</label>
+                        <select class="form-input" id="galleryCategory" required>
+                            <option value="instalaciones">Instalaciones</option>
+                            <option value="eventos">Eventos</option>
+                            <option value="laboratorios">Laboratorios</option>
+                            <option value="deportes">Deportes</option>
+                            <option value="graduaciones">Graduaciones</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Imágenes</label>
+                        <input type="file" class="form-input" id="galleryImageFile" accept="image/*" multiple>
+                        <input type="hidden" id="galleryImageUrl">
+                        <div id="imagePreview"
+                            style="margin-top: 10px; display: none; display: flex; flex-wrap: wrap; gap: 10px;">
+                            <!-- Previews will be inserted here -->
+                        </div>
+                        <small style="color: var(--color-gray-500);">Formatos: JPG, PNG, WEBP. Máx 2MB por archivo.
+                            Puedes seleccionar múltiples imágenes.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Descripción (Opcional)</label>
+                        <textarea class="form-input" id="galleryDescription" rows="3"></textarea>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="saveBtn">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- SIDEBAR TOGGLE for mobile -->
     <button class="sidebar-toggle" id="sidebarToggle">☰</button>
@@ -247,15 +441,13 @@
 
     <!-- Supabase SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../../js/supabase-config.js"></script>
 
     <!-- Scripts -->
-    <script src="../../js/main.js"></script>
-    <script src="../../js/auth.js"></script>
-    <script src="../../js/portal.js"></script>
-    <script src="../../js/admin-gallery.js"></script>
+    <script type="module">
+        import { authManager } from '../../js/auth.js';
+        import '../../js/portal.js';
+        import { loadGallery } from '../../js/admin-gallery.js';
 
-    <script>
         // Modal logic
         const modal = document.getElementById('galleryModal');
         const imageInput = document.getElementById('galleryImageFile');
@@ -313,19 +505,19 @@
 
         // Auth check and load data
         async function init() {
+            await authManager.waitForInit();
+
             if (authManager.requireAuth(['admin'])) {
                 const user = authManager.getCurrentUser();
                 if (user) {
                     document.getElementById('userName').textContent = user.name;
-                    if (window.loadGallery) {
-                        window.loadGallery();
-                    }
+                    loadGallery();
                 }
             }
         }
 
         // Wait for auth to initialize
-        setTimeout(init, 1000);
+        init();
 
         // Logout
         document.getElementById('logoutBtn').addEventListener('click', () => {

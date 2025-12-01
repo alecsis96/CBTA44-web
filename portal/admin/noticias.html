@@ -301,6 +301,201 @@
             </form>
         </div>
     </div>
+    <div class="nav-section-title">Gestión</div>
+    <ul class="sidebar-menu">
+        <li class="nav-item">
+            <a href="admisiones.html" class="nav-link-item">
+                <span class="nav-icon">📝</span>
+                <span>Admisiones</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="usuarios.html" class="nav-link-item">
+                <span class="nav-icon">👥</span>
+                <span>Usuarios</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link-item">
+                <span class="nav-icon">👨‍🏫</span>
+                <span>Docentes</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link-item">
+                <span class="nav-icon">🎓</span>
+                <span>Alumnos</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link-item">
+                <span class="nav-icon">📚</span>
+                <span>Grupos y Materias</span>
+            </a>
+        </li>
+    </ul>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Académico</div>
+        <ul class="sidebar-menu">
+            <li class="nav-item">
+                <a href="#" class="nav-link-item">
+                    <span class="nav-icon">📝</span>
+                    <span>Calificaciones</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link-item">
+                    <span class="nav-icon">📅</span>
+                    <span>Horarios</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link-item">
+                    <span class="nav-icon">📋</span>
+                    <span>Reportes</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Comunicación</div>
+        <ul class="sidebar-menu">
+            <li class="nav-item">
+                <a href="noticias.html" class="nav-link-item active">
+                    <span class="nav-icon">📰</span>
+                    <span>Noticias</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Multimedia</div>
+        <ul>
+            <li class="nav-item">
+                <a href="galeria.html" class="nav-link-item">
+                    <span class="nav-icon">📸</span>
+                    <span>Galería</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="nav-section">
+        <div class="nav-section-title">Configuración</div>
+        <ul class="sidebar-menu">
+            <li class="nav-item">
+                <a href="#" class="nav-link-item">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Configuración</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    </nav>
+
+    <div class="sidebar-footer">
+        <button class="btn btn-outline" id="logoutBtn"
+            style="width: 100%; color: white; border-color: rgba(255,255,255,0.3);">
+            Cerrar Sesión
+        </button>
+    </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- HEADER -->
+        <header class="portal-header">
+            <h1 class="portal-title">Gestión de Noticias</h1>
+            <div class="portal-actions">
+                <button class="btn btn-primary" onclick="openModal()">
+                    ➕ Nueva Noticia
+                </button>
+            </div>
+        </header>
+
+        <!-- CONTENT -->
+        <div class="portal-content">
+            <div class="portal-table">
+                <div class="table-header">
+                    <h3>Listado de Noticias</h3>
+                    <div class="search-box">
+                        <input type="text" placeholder="Buscar noticia..."
+                            style="padding: 5px; border-radius: 4px; border: 1px solid #ddd;">
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Título</th>
+                            <th>Categoría</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="newsTableBody">
+                        <!-- Contenido dinámico -->
+                        <tr>
+                            <td colspan="5" style="text-align: center;">Cargando noticias...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal" id="newsModal">
+        <div class="modal-content">
+            <h2 class="mb-lg" id="modalTitle">Nueva Noticia</h2>
+            <form id="newsForm">
+                <input type="hidden" id="newsId">
+
+                <div class="form-group">
+                    <label class="form-label">Título</label>
+                    <input type="text" class="form-input" id="newsTitle" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Categoría</label>
+                    <select class="form-select" id="newsCategory" required>
+                        <option value="Académico">Académico</option>
+                        <option value="Logros">Logros</option>
+                        <option value="Anuncio">Anuncio</option>
+                        <option value="Tecnología">Tecnología</option>
+                        <option value="Eventos">Eventos</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Resumen</label>
+                    <textarea class="form-textarea" id="newsSummary" rows="2" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Contenido Completo</label>
+                    <textarea class="form-textarea" id="newsContent" rows="5" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">URL de Imagen</label>
+                    <input type="url" class="form-input" id="newsImage" placeholder="https://ejemplo.com/imagen.jpg">
+                    <small style="color: #666;">Por ahora usa una URL de imagen externa.</small>
+                </div>
+
+                <div class="flex justify-end gap-md mt-xl">
+                    <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- SIDEBAR TOGGLE for mobile -->
     <button class="sidebar-toggle" id="sidebarToggle">☰</button>
@@ -311,12 +506,11 @@
     <script src="../../js/supabase-config.js"></script>
 
     <!-- Scripts de la aplicación -->
-    <script src="../../js/main.js"></script>
-    <script src="../../js/auth.js"></script>
-    <script src="../../js/portal.js"></script>
-    <script src="../../js/admin-news.js"></script>
+    <script type="module">
+        import { authManager } from '../../js/auth.js';
+        import '../../js/portal.js';
+        import { loadNews } from '../../js/admin-news.js';
 
-    <script>
         // Inicialización básica
         async function initPage() {
             // Esperar a que authManager termine de inicializar
@@ -332,9 +526,7 @@
             }
 
             // Cargar noticias
-            if (window.loadNews) {
-                window.loadNews();
-            }
+            loadNews();
         }
 
         initPage();

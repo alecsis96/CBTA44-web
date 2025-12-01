@@ -217,76 +217,11 @@
         </div>
     </footer>
 
-    <script src="../js/main.js"></script>
-    <script src="../js/public.js"></script>
-    <script>
-        document.getElementById('contactForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const btn = this.querySelector('button[type="submit"]');
-            const originalText = btn.textContent;
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-            btn.textContent = 'Enviando...';
-            btn.disabled = true;
-
-            // Simular envío
-            setTimeout(() => {
-                alert('¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.');
-                this.reset();
-                btn.textContent = originalText;
-                btn.disabled = false;
-            }, 1500);
-        });
-    </script>
-
-    <style>
-        .page-header {
-            background: var(--gradient-primary);
-            padding: calc(70px + var(--spacing-4xl)) 0 var(--spacing-4xl);
-            text-align: center;
-            color: var(--color-white);
-        }
-
-        .page-title {
-            font-size: var(--font-size-5xl);
-            color: var(--color-white);
-            margin-bottom: var(--spacing-md);
-        }
-
-        .page-subtitle {
-            font-size: var(--font-size-xl);
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .contact-info-card {
-            transition: all var(--transition-base);
-        }
-
-        .contact-info-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .contact-info-item {
-            display: flex;
-            gap: var(--spacing-lg);
-        }
-
-        .contact-info-icon {
-            font-size: 3rem;
-            flex-shrink: 0;
-        }
-
-        .map-container {
-            box-shadow: var(--shadow-xl);
-            border-radius: var(--radius-xl);
-            overflow: hidden;
-        }
-
-        @media (max-width: 768px) {
-            .grid-cols-2 {
-                grid-template-columns: 1fr !important;
-            }
-        }
-    </style>
+    <script type="module" src="../js/main.js"></script>
+    <script type="module" src="../js/public.js"></script>
 </body>
 
 </html>

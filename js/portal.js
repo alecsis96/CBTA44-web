@@ -1,6 +1,9 @@
 /**
- * CBTA #44 - Funcionalidad Portal de Gestión
+ * CBTA #44 - Funcionalidad Portal de Gestión (ES Module)
  */
+
+import { supabaseClient } from './supabase-config.js';
+import { authManager } from './auth.js';
 
 // ===== SIDEBAR TOGGLE (MOBILE) =====
 const sidebarToggle = document.getElementById('sidebarToggle');
@@ -8,208 +11,241 @@ const sidebar = document.getElementById('sidebar');
 const sidebarOverlay = document.getElementById('sidebarOverlay');
 
 if (sidebarToggle && sidebar && sidebarOverlay) {
-    sidebarToggle.addEventListener('click', () => {
-        sidebar.classList.toggle('active');
-        sidebarOverlay.classList.toggle('active');
-    });
+  sidebarToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+    sidebarOverlay.classList.toggle('active');
+  });
 
-    sidebarOverlay.addEventListener('click', () => {
-        sidebar.classList.remove('active');
-        sidebarOverlay.classList.remove('active');
-    });
+  sidebarOverlay.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+    sidebarOverlay.classList.remove('active');
+  });
 }
 
-// ===== DATOS DE DEMOSTRACIÓN =====
-
-// Alumnos de ejemplo
-const DEMO_STUDENTS = [
-    { id: 1, matricula: '202301001', nombre: 'María Fernanda', apellidos: 'González López', grado: '5', grupo: 'A', especialidad: 'Programación', promedio: 9.5 },
-    { id: 2, matricula: '202301002', nombre: 'Juan Carlos', apellidos: 'Martínez Pérez', grado: '5', grupo: 'A', especialidad: 'Programación', promedio: 8.7 },
-    { id: 3, matricula: '202301003', nombre: 'Ana Sofía', apellidos: 'Rodríguez García', grado: '5', grupo: 'B', especialidad: 'Administración', promedio: 9.2 },
-    { id: 4, matricula: '202301004', nombre: 'Luis Alberto', apellidos: 'Hernández Cruz', grado: '4', grupo: 'A', especialidad: 'Electrónica', promedio: 8.9 },
-    { id: 5, matricula: '202301005', nombre: 'Carmen Elena', apellidos: 'López Sánchez', grado: '4', grupo: 'B', especialidad: 'Contabilidad', promedio: 9.0 }
-];
-
-// Materias de ejemplo
-const DEMO_SUBJECTS = [
-    { id: 1, nombre: 'Programación Orientada a Objetos', grado: '5', especialidad: 'Programación' },
-    { id: 2, nombre: 'Bases de Datos', grado: '5', especialidad: 'Programación' },
-    { id: 3, nombre: 'Desarrollo Web', grado: '5', especialidad: 'Programación' },
-    { id: 4, nombre: 'Matemáticas Aplicadas', grado: '5', especialidad: 'Todas' },
-    { id: 5, nombre: 'Administración de Empresas', grado: '5', especialidad: 'Administración' }
-];
-
-// Calificaciones de ejemplo
-const DEMO_GRADES = {
-    '202301001': {
-        'Programación Orientada a Objetos': { parcial1: 9.5, parcial2: 9.8, parcial3: 9.3 },
-        'Bases de Datos': { parcial1: 9.0, parcial2: 9.5, parcial3: 9.7 },
-        'Desarrollo Web': { parcial1: 10.0, parcial2: 9.5, parcial3: 9.8 },
-        'Matemáticas Aplicadas': { parcial1: 9.2, parcial2: 9.0, parcial3: 9.5 }
-    },
-    '202301002': {
-        'Programación Orientada a Objetos': { parcial1: 8.5, parcial2: 8.8, parcial3: 8.9 },
-        'Bases de Datos': { parcial1: 8.0, parcial2: 9.0, parcial3: 8.7 },
-        'Desarrollo Web': { parcial1: 9.0, parcial2: 8.5, parcial3: 8.8 },
-        'Matemáticas Aplicadas': { parcial1: 8.2, parcial2: 8.5, parcial3: 9.0 }
-    }
-};
-
-// ===== FUNCIONES DE UTILIDAD =====
+// ===== LÓGICA DOCENTE (REAL) =====
 
 /**
- * Obtiene alumnos por filtros
+ * Carga los grupos asignados al docente
+ * @param {string} docenteId - ID del docente (UUID)
  */
-function getStudents(filters = {}) {
-    let students = [...DEMO_STUDENTS];
+export async function loadTeacherGroups(docenteId) {
+  console.log('📚 Cargando grupos para docente:', docenteId);
+  const container = document.getElementById('groupsContainer');
 
-    if (filters.grado) {
-        students = students.filter(s => s.grado === filters.grado);
+  if (container) {
+    container.innerHTML = '<p class="text-center">Cargando grupos...</p>';
+  }
+
+  try {
+    const { data: groups, error } = await supabaseClient
+      .from('grupos_materias')
+      .select('*')
+      .eq('docente_id', docenteId);
+
+    if (error) throw error;
+
+    console.log('✅ Grupos cargados:', groups);
+    renderGroupsCards(groups);
+
+    // Si hay grupos, cargar alumnos del primero por defecto
+    if (groups.length > 0) {
+      loadGroupStudents(groups[0]);
+    } else {
+      if (container) container.innerHTML = '<p class="text-center">No tienes grupos asignados.</p>';
+      renderStudentsTable([], 'studentsTable');
     }
 
-    if (filters.grupo) {
-        students = students.filter(s => s.grupo === filters.grupo);
-    }
+    return groups;
 
-    if (filters.especialidad) {
-        students = students.filter(s => s.especialidad === filters.especialidad);
-    }
-
-    return students;
+  } catch (error) {
+    console.error('🔴 Error cargando grupos:', error);
+    if (container) container.innerHTML = '<p class="text-center text-error">Error al cargar grupos.</p>';
+    return [];
+  }
 }
 
 /**
- * Obtiene calificaciones de un alumno
+ * Carga los alumnos de un grupo específico
+ * @param {Object} groupData - Objeto con { grado, grupo, materia }
  */
-function getGrades(matricula) {
-    return DEMO_GRADES[matricula] || {};
+export async function loadGroupStudents(groupData) {
+  console.log('👥 Cargando alumnos para:', groupData.grado, groupData.grupo);
+  const containerId = 'studentsTable';
+  const container = document.getElementById(containerId);
+
+  if (container) {
+    container.innerHTML = '<p class="text-center">Cargando alumnos...</p>';
+    // Actualizar título de la tabla si existe
+    const tableTitle = document.getElementById('tableTitle');
+    if (tableTitle) tableTitle.textContent = `Alumnos ${groupData.grado}° ${groupData.grupo} - ${groupData.materia}`;
+  }
+
+  try {
+    // Nota: Ajustar la consulta según la relación real en Supabase
+    const { data: students, error } = await supabaseClient
+      .from('alumnos')
+      .select(`
+                *,
+                perfiles:id (nombre_completo, email, avatar_url)
+            `)
+      .eq('grado', groupData.grado)
+      .eq('grupo', groupData.grupo);
+
+    if (error) throw error;
+
+    console.log('✅ Alumnos cargados:', students);
+
+    // Mapear datos para facilitar el renderizado
+    const formattedStudents = students.map(s => ({
+      id: s.id,
+      matricula: s.matricula || 'S/N',
+      nombre_completo: s.perfiles?.nombre_completo || 'Desconocido',
+      grado: s.grado,
+      grupo: s.grupo,
+      promedio: s.promedio_general || 0,
+      email: s.perfiles?.email
+    }));
+
+    renderStudentsTable(formattedStudents, containerId);
+
+  } catch (error) {
+    console.error('🔴 Error cargando alumnos:', error);
+    if (container) container.innerHTML = '<p class="text-center text-error">Error al cargar alumnos.</p>';
+  }
 }
 
 /**
- * Calcula el promedio de calificaciones
+ * Renderiza las tarjetas de grupos
  */
-function calculateAverage(grades) {
-    if (!grades || Object.keys(grades).length === 0) return 0;
+function renderGroupsCards(groups) {
+  const container = document.getElementById('groupsContainer');
+  if (!container) return;
 
-    const allGrades = [];
-    Object.values(grades).forEach(subject => {
-        Object.values(subject).forEach(grade => {
-            allGrades.push(grade);
-        });
-    });
+  if (groups.length === 0) {
+    container.innerHTML = '<p>No hay grupos asignados.</p>';
+    return;
+  }
 
-    return window.CBTA44Utils.calculateAverage(allGrades);
+  // Exponer función para onclick
+  window.loadGroupStudentsGlobal = loadGroupStudents;
+
+  container.innerHTML = groups.map(group => `
+        <div class="card clickable-card" onclick='window.loadGroupStudentsGlobal(${JSON.stringify(group)})'>
+            <div class="card-body">
+                <h3 style="margin-bottom: var(--spacing-md); font-size: var(--font-size-lg);">
+                    ${group.grado}° ${group.grupo} - ${group.materia}
+                </h3>
+                <p style="color: var(--color-gray-600); margin-bottom: var(--spacing-md);">
+                    Ver Alumnos
+                </p>
+                <button class="btn btn-ghost btn-sm" style="width: 100%;">Seleccionar</button>
+            </div>
+        </div>
+    `).join('');
 }
 
 /**
- * Renderiza una tabla de alumnos
+ * Renderiza la tabla de alumnos
  */
-function renderStudentsTable(students, containerId) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
+export function renderStudentsTable(students, containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
 
-    if (students.length === 0) {
-        container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📋</div><h3>No hay alumnos para mostrar</h3></div>';
-        return;
-    }
+  if (students.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📋</div><h3>No hay alumnos en este grupo</h3></div>';
+    return;
+  }
 
-    const html = `
-    <table>
-      <thead>
-        <tr>
-          <th>Matrícula</th>
-          <th>Nombre</th>
-          <th>Grado</th>
-          <th>Grupo</th>
-          <th>Especialidad</th>
-          <th>Promedio</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${students.map(student => `
-          <tr>
-            <td><strong>${student.matricula}</strong></td>
-            <td>${student.nombre} ${student.apellidos}</td>
-            <td>${student.grado}°</td>
-            <td>${student.grupo}</td>
-            <td>${student.especialidad}</td>
-            <td><span class="badge badge-${student.promedio >= 9 ? 'success' : student.promedio >= 8 ? 'primary' : 'warning'}">${student.promedio}</span></td>
-            <td>
-              <button class="btn btn-ghost btn-sm" onclick="viewStudent(${student.id})">Ver</button>
-            </td>
-          </tr>
-        `).join('')}
-      </tbody>
-    </table>
-  `;
-
-    container.innerHTML = html;
-}
-
-/**
- * Renderiza tabla de calificaciones
- */
-function renderGradesTable(matricula, containerId) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-
-    const grades = getGrades(matricula);
-
-    if (Object.keys(grades).length === 0) {
-        container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📝</div><h3>No hay calificaciones disponibles</h3></div>';
-        return;
-    }
-
-    const html = `
-    <table>
-      <thead>
-        <tr>
-          <th>Materia</th>
-          <th>Parcial 1</th>
-          <th>Parcial 2</th>
-          <th>Parcial 3</th>
-          <th>Promedio</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${Object.entries(grades).map(([subject, parciales]) => {
-        const avg = ((parciales.parcial1 + parciales.parcial2 + parciales.parcial3) / 3).toFixed(2);
-        return `
+  const html = `
+    <div style="overflow-x: auto;">
+        <table class="portal-table">
+        <thead>
             <tr>
-              <td><strong>${subject}</strong></td>
-              <td>${parciales.parcial1}</td>
-              <td>${parciales.parcial2}</td>
-              <td>${parciales.parcial3}</td>
-              <td><span class="badge badge-${avg >= 9 ? 'success' : avg >= 8 ? 'primary' : 'warning'}">${avg}</span></td>
+            <th>Matrícula</th>
+            <th>Nombre</th>
+            <th>Grado/Grupo</th>
+            <th>Promedio</th>
+            <th>Acciones</th>
             </tr>
-          `;
-    }).join('')}
-      </tbody>
-    </table>
-  `;
+        </thead>
+        <tbody>
+            ${students.map(student => `
+            <tr>
+                <td><strong>${student.matricula}</strong></td>
+                <td>
+                    <div style="display: flex; flex-direction: column;">
+                        <span>${student.nombre_completo}</span>
+                        <small style="color: var(--color-gray-500);">${student.email || ''}</small>
+                    </div>
+                </td>
+                <td>${student.grado}° ${student.grupo}</td>
+                <td>
+                    <span class="badge badge-${student.promedio >= 9 ? 'success' : student.promedio >= 8 ? 'primary' : 'warning'}">
+                        ${student.promedio}
+                    </span>
+                </td>
+                <td>
+                <button class="btn btn-ghost btn-sm" onclick="alert('Ver perfil de ${student.id}')">Ver</button>
+                </td>
+            </tr>
+            `).join('')}
+        </tbody>
+        </table>
+    </div>
+    `;
 
-    container.innerHTML = html;
+  container.innerHTML = html;
 }
 
 /**
- * Vista de alumno (para demostración)
+ * Renderiza la tabla de calificaciones (Alumno)
+ * @param {string} matricula - Matrícula del alumno
+ * @param {string} containerId - ID del contenedor
  */
-function viewStudent(id) {
-    const student = DEMO_STUDENTS.find(s => s.id === id);
-    if (student) {
-        alert(`Viendo perfil de: ${student.nombre} ${student.apellidos}\nMatrícula: ${student.matricula}`);
-    }
-}
+export function renderGradesTable(matricula, containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
 
-// ===== EXPORTAR PARA USO GLOBAL =====
-window.PortalUtils = {
-    getStudents,
-    getGrades,
-    calculateAverage,
-    renderStudentsTable,
-    renderGradesTable,
-    DEMO_STUDENTS,
-    DEMO_SUBJECTS,
-    DEMO_GRADES
-};
+  // Datos simulados por ahora
+  const grades = [
+    { materia: 'Matemáticas V', parcial1: 9, parcial2: 8, parcial3: 9, final: 8.6 },
+    { materia: 'Física II', parcial1: 8, parcial2: 8, parcial3: 8, final: 8.0 },
+    { materia: 'Programación Web', parcial1: 10, parcial2: 10, parcial3: 9, final: 9.6 },
+    { materia: 'Inglés V', parcial1: 9, parcial2: 9, parcial3: 10, final: 9.3 },
+    { materia: 'Ciencia, Tecnología, Sociedad y Valores', parcial1: 9, parcial2: 8, parcial3: 9, final: 8.6 }
+  ];
+
+  if (grades.length === 0) {
+    container.innerHTML = '<div class="empty-state"><h3>No hay calificaciones registradas</h3></div>';
+    return;
+  }
+
+  const html = `
+    <div style="overflow-x: auto;">
+      <table class="portal-table">
+        <thead>
+          <tr>
+            <th>Materia</th>
+            <th>Parcial 1</th>
+            <th>Parcial 2</th>
+            <th>Parcial 3</th>
+            <th>Promedio</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${grades.map(g => `
+            <tr>
+                <td><strong>${g.materia}</strong></td>
+                <td>${g.parcial1}</td>
+                <td>${g.parcial2}</td>
+                <td>${g.parcial3}</td>
+                <td><span class="badge badge-primary">${g.final}</span></td>
+            </tr>
+            `).join('')}
+        </tbody>
+      </table>
+    </div>
+    `;
+
+  container.innerHTML = html;
+}

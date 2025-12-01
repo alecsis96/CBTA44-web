@@ -2,13 +2,15 @@
  * Lógica para gestión de galería en el panel de administrador
  */
 
+import { supabaseClient } from './supabase-config.js';
+
 // Cargar galería al iniciar
-window.loadGallery = async function () {
+export async function loadGallery() {
     console.log('🔄 Cargando galería...');
     const tableBody = document.getElementById('galleryTableBody');
 
     try {
-        const { data: items, error } = await window.supabaseClient
+        const { data: items, error } = await supabaseClient
             .from('galeria')
             .select('*')
             .order('fecha_publicacion', { ascending: false });
@@ -32,8 +34,8 @@ window.loadGallery = async function () {
                 <td><span class="badge badge-info">${item.categoria}</span></td>
                 <td>${date}</td>
                 <td>
-                    <button class="btn btn-ghost btn-sm" onclick="editGalleryItem(${item.id})">✏️</button>
-                    <button class="btn btn-ghost btn-sm" onclick="deleteGalleryItem(${item.id})" style="color: var(--color-danger);">🗑️</button>
+                    <button class="btn btn-ghost btn-sm" onclick="window.editGalleryItem(${item.id})">✏️</button>
+                    <button class="btn btn-ghost btn-sm" onclick="window.deleteGalleryItem(${item.id})" style="color: var(--color-danger);">🗑️</button>
                 </td>
             `;
             tableBody.appendChild(row);
@@ -43,7 +45,7 @@ window.loadGallery = async function () {
         console.error('❌ Error cargando galería:', error);
         tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: red;">Error al cargar galería.</td></tr>';
     }
-};
+}
 
 // Guardar item (Crear o Editar)
 document.addEventListener('DOMContentLoaded', () => {
@@ -75,14 +77,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         const fileName = `${Date.now()}.${fileExt}`;
                         const filePath = `${fileName}`;
 
-                        const { error: uploadError } = await window.supabaseClient
+                        const { error: uploadError } = await supabaseClient
                             .storage
                             .from('galeria')
                             .upload(filePath, file);
 
                         if (uploadError) throw uploadError;
 
-                        const { data: { publicUrl } } = window.supabaseClient
+                        const { data: { publicUrl } } = supabaseClient
                             .storage
                             .from('galeria')
                             .getPublicUrl(filePath);
@@ -98,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         fecha_publicacion: new Date().toISOString()
                     };
 
-                    const { error: updateError } = await window.supabaseClient
+                    const { error: updateError } = await supabaseClient
                         .from('galeria')
                         .update(itemData)
                         .eq('id', id);
@@ -116,14 +118,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         const fileName = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}.${fileExt}`;
                         const filePath = `${fileName}`;
 
-                        const { error: uploadError } = await window.supabaseClient
+                        const { error: uploadError } = await supabaseClient
                             .storage
                             .from('galeria')
                             .upload(filePath, file);
 
                         if (uploadError) throw uploadError;
 
-                        const { data: { publicUrl } } = window.supabaseClient
+                        const { data: { publicUrl } } = supabaseClient
                             .storage
                             .from('galeria')
                             .getPublicUrl(filePath);
@@ -139,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const itemsData = await Promise.all(uploadPromises);
 
-                    const { error: insertError } = await window.supabaseClient
+                    const { error: insertError } = await supabaseClient
                         .from('galeria')
                         .insert(itemsData);
 
@@ -147,8 +149,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 alert('✅ Imagen(es) guardada(s) correctamente');
-                window.closeModal();
-                window.loadGallery();
+                if (window.closeModal) window.closeModal();
+                loadGallery();
 
             } catch (error) {
                 console.error('❌ Error guardando imagen:', error);
@@ -162,9 +164,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Editar item
-window.editGalleryItem = async function (id) {
+async function editGalleryItem(id) {
     try {
-        const { data: item, error } = await window.supabaseClient
+        const { data: item, error } = await supabaseClient
             .from('galeria')
             .select('*')
             .eq('id', id)
@@ -191,20 +193,20 @@ window.editGalleryItem = async function (id) {
         img.style.borderRadius = '8px';
         imagePreview.appendChild(img);
 
-        window.openModal(id);
+        if (window.openModal) window.openModal(id);
 
     } catch (error) {
         console.error('❌ Error cargando imagen para editar:', error);
         alert('Error al cargar la imagen.');
     }
-};
+}
 
 // Eliminar item
-window.deleteGalleryItem = async function (id) {
+async function deleteGalleryItem(id) {
     if (!confirm('¿Estás seguro de que deseas eliminar esta imagen?')) return;
 
     try {
-        const { error } = await window.supabaseClient
+        const { error } = await supabaseClient
             .from('galeria')
             .delete()
             .eq('id', id);
@@ -212,10 +214,15 @@ window.deleteGalleryItem = async function (id) {
         if (error) throw error;
 
         alert('🗑️ Imagen eliminada');
-        window.loadGallery();
+        loadGallery();
 
     } catch (error) {
         console.error('❌ Error eliminando imagen:', error);
         alert('Error al eliminar la imagen.');
     }
-};
+}
+
+// Expose functions to window
+window.loadGallery = loadGallery;
+window.editGalleryItem = editGalleryItem;
+window.deleteGalleryItem = deleteGalleryItem;

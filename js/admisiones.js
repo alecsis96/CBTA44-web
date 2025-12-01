@@ -1,16 +1,14 @@
 /**
- * CBTA #44 - Lógica de Admisiones
+ * CBTA #44 - Lógica de Admisiones (ES Module)
  */
 
+import { supabaseClient } from './supabase-config.js';
+import { showNotification } from './utils.js';
+
 document.addEventListener('DOMContentLoaded', () => {
-    const preRegistroBtns = document.querySelectorAll('.btn-primary'); // Select all primary buttons, we'll filter or add specific classes
     const modal = document.getElementById('registroModal');
     const closeBtn = document.querySelector('.modal-close');
     const form = document.getElementById('registroForm');
-
-    // Identificar botones de pre-registro específicos
-    // Asumimos que agregaremos una clase o ID específico en el HTML, pero por ahora buscamos por texto o contexto
-    // Mejor estrategia: Agregar IDs o clases en el HTML en el siguiente paso.
 
     // Funciones del Modal
     window.openRegistroModal = () => {
@@ -67,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 // Enviar a Supabase
-                const { data, error } = await window.supabaseClient
+                const { data, error } = await supabaseClient
                     .from('admisiones')
                     .insert([formData])
                     .select();
@@ -75,10 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (error) throw error;
 
                 // Éxito
-                window.CBTA44Utils.showNotification('¡Pre-registro exitoso! Guarda tu folio.', 'success');
+                showNotification('¡Pre-registro exitoso! Guarda tu folio.', 'success');
 
-                // Mostrar folio (usando el ID generado o un número secuencial si tuviéramos)
-                // Por ahora mostramos mensaje y cerramos
+                // Mostrar folio
                 setTimeout(() => {
                     alert(`Pre-registro completado.\nTu ID de seguimiento es: ${data[0].id.slice(0, 8).toUpperCase()}`);
                     window.closeRegistroModal();
@@ -86,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             } catch (error) {
                 console.error('Error:', error);
-                window.CBTA44Utils.showNotification(error.message || 'Error al enviar el registro', 'error');
+                showNotification(error.message || 'Error al enviar el registro', 'error');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;

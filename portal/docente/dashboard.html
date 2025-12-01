@@ -144,49 +144,11 @@
 
                 <!-- MIS GRUPOS -->
                 <h2 class="mb-lg">Mis Grupos</h2>
-                <div class="dashboard-grid mb-2xl">
+                <div class="dashboard-grid mb-2xl" id="groupsContainer">
+                    <!-- Las tarjetas se cargarán dinámicamente aquí -->
                     <div class="card">
                         <div class="card-body">
-                            <h3 style="margin-bottom: var(--spacing-md); font-size: var(--font-size-lg);">5° A -
-                                Programación</h3>
-                            <p style="color: var(--color-gray-600); margin-bottom: var(--spacing-md);">28 Alumnos</p>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 85%;"></div>
-                            </div>
-                            <p style="margin-top: var(--spacing-sm); font-size: var(--font-size-sm);">Progreso del
-                                semestre: 85%</p>
-                            <button class="btn btn-ghost btn-sm" style="width: 100%; margin-top: var(--spacing-md);">Ver
-                                Detalles</button>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 style="margin-bottom: var(--spacing-md); font-size: var(--font-size-lg);">5° B -
-                                Programación</h3>
-                            <p style="color: var(--color-gray-600); margin-bottom: var(--spacing-md);">30 Alumnos</p>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 82%;"></div>
-                            </div>
-                            <p style="margin-top: var(--spacing-sm); font-size: var(--font-size-sm);">Progreso del
-                                semestre: 82%</p>
-                            <button class="btn btn-ghost btn-sm" style="width: 100%; margin-top: var(--spacing-md);">Ver
-                                Detalles</button>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 style="margin-bottom: var(--spacing-md); font-size: var(--font-size-lg);">4° A -
-                                Programación</h3>
-                            <p style="color: var(--color-gray-600); margin-bottom: var(--spacing-md);">27 Alumnos</p>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 78%;"></div>
-                            </div>
-                            <p style="margin-top: var(--spacing-sm); font-size: var(--font-size-sm);">Progreso del
-                                semestre: 78%</p>
-                            <button class="btn btn-ghost btn-sm" style="width: 100%; margin-top: var(--spacing-md);">Ver
-                                Detalles</button>
+                            <p>Cargando grupos...</p>
                         </div>
                     </div>
                 </div>
@@ -194,7 +156,7 @@
                 <!-- ALUMNOS POR GRUPO -->
                 <div class="portal-table">
                     <div class="table-header">
-                        <h3>Alumnos 5° A - Programación</h3>
+                        <h3 id="tableTitle">Selecciona un grupo</h3>
                         <div>
                             <button class="btn btn-ghost btn-sm">Exportar</button>
                         </div>
@@ -211,14 +173,16 @@
 
     <!-- Supabase SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../../js/supabase-config.js"></script>
 
     <!-- Scripts -->
-    <script src="../../js/main.js"></script>
-    <script src="../../js/auth.js"></script>
-    <script src="../../js/portal.js"></script>
+    <script type="module" src="../../js/main.js"></script>
+    <script type="module" src="../../js/auth.js"></script>
+    <script type="module" src="../../js/portal.js"></script>
 
-    <script>
+    <script type="module">
+        import { authManager } from '../../js/auth.js';
+        import { loadTeacherGroups } from '../../js/portal.js';
+
         async function initDashboard() {
             console.log('🔄 Iniciando Dashboard de Docente...');
 
@@ -231,14 +195,8 @@
                 console.log('✅ Usuario autenticado:', user);
                 document.getElementById('userName').textContent = user.name;
 
-                // 3. Renderizar alumnos del curso (Simulado)
-                if (window.PortalUtils && window.PortalUtils.renderStudentsTable) {
-                    const students = window.PortalUtils.getStudents({ grado: '5', grupo: 'A' });
-                    window.PortalUtils.renderStudentsTable(students, 'studentsTable');
-                } else {
-                    console.warn('PortalUtils no encontrado');
-                    document.getElementById('studentsTable').innerHTML = '<p style="padding: 20px;">Lista de alumnos no disponible.</p>';
-                }
+                // 3. Cargar datos reales
+                await loadTeacherGroups(user.id);
             }
         }
 

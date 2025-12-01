@@ -11,75 +11,6 @@
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/public.css">
     <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
-    <style>
-        .page-header {
-            background: var(--gradient-primary);
-            padding: calc(70px + var(--spacing-4xl)) 0 var(--spacing-4xl);
-            text-align: center;
-            color: var(--color-white);
-        }
-
-        .page-title {
-            font-size: var(--font-size-5xl);
-            color: var(--color-white);
-            margin-bottom: var(--spacing-md);
-        }
-
-        .page-subtitle {
-            font-size: var(--font-size-xl);
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .specialty-detail {
-            overflow: hidden;
-        }
-
-        .specialty-detail-image {
-            min-height: 400px;
-        }
-
-        .specialty-detail-content {
-            padding: var(--spacing-2xl) !important;
-        }
-
-        .specialty-detail-icon {
-            font-size: 4rem;
-            margin-bottom: var(--spacing-lg);
-        }
-
-        .specialty-list {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .specialty-list li {
-            padding: var(--spacing-sm) 0;
-            padding-left: var(--spacing-xl);
-            position: relative;
-        }
-
-        .specialty-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--color-primary);
-            font-weight: bold;
-        }
-
-        @media (max-width: 768px) {
-            .specialty-detail .grid {
-                grid-template-columns: 1fr !important;
-            }
-
-            .specialty-detail-image {
-                min-height: 250px;
-            }
-
-            .specialty-detail-content {
-                padding: var(--spacing-lg) !important;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -94,7 +25,8 @@
             <div class="nav-menu" id="navMenu">
                 <ul class="nav-list">
                     <li class="nav-item"><a href="../index.html" class="nav-link">Inicio</a></li>
-                    <li class="nav-item"><a href="oferta-educativa.html" class="nav-link active">Oferta Educativa</a>
+                    <li class="nav-item"><a href="oferta-educativa.html" class="nav-link active">Oferta
+                            Educativa</a>
                     </li>
                     <li class="nav-item"><a href="noticias.html" class="nav-link">Noticias</a></li>
                     <li class="nav-item"><a href="galeria.html" class="nav-link">Galería</a></li>
@@ -172,7 +104,8 @@
                         </ul>
 
                         <h4 class="mt-lg mb-sm">Campo Laboral:</h4>
-                        <p>Ranchos y granjas, empresas agroindustriales, cooperativas agropecuarias, dependencias de
+                        <p>Ranchos y granjas, empresas agroindustriales, cooperativas agropecuarias,
+                            dependencias de
                             desarrollo rural, emprendimiento agrícola.
                         </p>
                     </div>
@@ -191,7 +124,8 @@
                     <div class="specialty-detail-content card-body">
                         <div class="specialty-detail-icon">🤝</div>
                         <h2>Técnico en Desarrollo Comunitario</h2>
-                        <p class="specialty-detail-desc">Prepara agentes de cambio social capaces de identificar
+                        <p class="specialty-detail-desc">Prepara agentes de cambio social capaces de
+                            identificar
                             necesidades comunitarias, diseñar y gestionar proyectos de desarrollo social
                             sustentable.
                         </p>
@@ -206,7 +140,8 @@
                         </ul>
 
                         <h4 class="mt-lg mb-sm">Campo Laboral:</h4>
-                        <p>ONGs, dependencias gubernamentales de desarrollo social, organizaciones comunitarias,
+                        <p>ONGs, dependencias gubernamentales de desarrollo social, organizaciones
+                            comunitarias,
                             cooperativas, fundaciones, gestión de programas sociales.</p>
                     </div>
                 </div>
@@ -272,8 +207,11 @@
         </div>
     </footer>
 
-    <script src="../js/main.js"></script>
-    <script src="../js/public.js"></script>
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script type="module" src="../js/main.js"></script>
+    <script type="module" src="../js/public.js"></script>
 </body>
 
 </html>

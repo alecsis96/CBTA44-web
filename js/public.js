@@ -1,6 +1,15 @@
 /**
- * CBTA #44 - Funcionalidad Sección Pública
+ * CBTA #44 - Funcionalidad Sección Pública (ES Module)
  */
+
+import {
+    validateEmail,
+    validatePhone,
+    showNotification,
+    getFromStorage,
+    saveToStorage,
+    animateCounter
+} from './utils.js';
 
 // ===== NAVEGACIÓN =====
 const header = document.getElementById('header');
@@ -8,13 +17,15 @@ const navToggle = document.getElementById('navToggle');
 const navMenu = document.getElementById('navMenu');
 
 // Scroll effect en header
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
-    }
-});
+if (header) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+}
 
 // Menu mobile toggle
 if (navToggle && navMenu) {
@@ -38,7 +49,7 @@ if (navToggle && navMenu) {
 }
 
 // ===== HERO CAROUSEL =====
-class HeroCarousel {
+export class HeroCarousel {
     constructor() {
         this.slides = document.querySelectorAll('.hero-slide');
         this.indicators = document.querySelectorAll('.hero-indicator');
@@ -139,7 +150,7 @@ if (statsSection) {
         const statNumbers = document.querySelectorAll('.stat-number');
         statNumbers.forEach(stat => {
             const target = parseInt(stat.getAttribute('data-target'));
-            window.CBTA44Utils.animateCounter(stat, target, 2000);
+            animateCounter(stat, target, 2000);
         });
 
         statsAnimated = true;
@@ -200,36 +211,36 @@ if (contactForm) {
         };
 
         // Validaciones
-        if (!window.CBTA44Utils.validateEmail(formData.email)) {
-            window.CBTA44Utils.showNotification('Email inválido', 'error');
+        if (!validateEmail(formData.email)) {
+            showNotification('Email inválido', 'error');
             return;
         }
 
-        if (formData.telefono && !window.CBTA44Utils.validatePhone(formData.telefono)) {
-            window.CBTA44Utils.showNotification('Teléfono inválido', 'error');
+        if (formData.telefono && !validatePhone(formData.telefono)) {
+            showNotification('Teléfono inválido', 'error');
             return;
         }
 
         // Simular envío (en producción, enviar a API)
         try {
             // Guardar en localStorage como demo
-            const mensajes = window.CBTA44Utils.getFromStorage('contactMessages', []);
+            const mensajes = getFromStorage('contactMessages', []);
             mensajes.push(formData);
-            window.CBTA44Utils.saveToStorage('contactMessages', mensajes);
+            saveToStorage('contactMessages', mensajes);
 
             // Mostrar mensaje de éxito
-            window.CBTA44Utils.showNotification('Mensaje enviado correctamente. Te contactaremos pronto.', 'success');
+            showNotification('Mensaje enviado correctamente. Te contactaremos pronto.', 'success');
 
             // Limpiar formulario
             contactForm.reset();
         } catch (error) {
-            window.CBTA44Utils.showNotification('Error al enviar el mensaje. Intenta nuevamente.', 'error');
+            showNotification('Error al enviar el mensaje. Intenta nuevamente.', 'error');
         }
     });
 }
 
 // ===== CALENDARIO DE EVENTOS =====
-class EventCalendar {
+export class EventCalendar {
     constructor(containerId) {
         this.container = document.getElementById(containerId);
         if (!this.container) return;
@@ -241,7 +252,7 @@ class EventCalendar {
 
     loadEvents() {
         // Eventos de ejemplo
-        return window.CBTA44Utils.getFromStorage('publicEvents', [
+        return getFromStorage('publicEvents', [
             {
                 id: '1',
                 title: 'Inicio de Inscripciones',
@@ -324,7 +335,7 @@ if (document.getElementById('eventCalendar')) {
 }
 
 // ===== GALERÍA LIGHTBOX =====
-class Lightbox {
+export class Lightbox {
     constructor() {
         this.images = document.querySelectorAll('.gallery-image');
         this.currentIndex = 0;
